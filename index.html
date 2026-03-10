@@ -1,301 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guide utilisateur – Module Facturation | Calaotrade</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-:root {
-  --finke-dark: #3d3d3d;
-  --finke-mid: #5a5a5a;
-  --finke-gray: #8a8a8a;
-  --finke-gold: #DDCA7C;
-  --finke-bg: #f7f6f4;
-  --finke-white: #ffffff;
-  --finke-border: #e4e1da;
-  --finke-text: #2d2d2d;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Montserrat', sans-serif;
-  background: var(--finke-bg);
-  color: var(--finke-text);
-  line-height: 1.65;
-  font-size: 15px;
-}
-
-/* Header */
-header {
-  background: var(--finke-dark);
-  padding: 0 clamp(20px, 5vw, 48px);
-  height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-
-.header-brand {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.brand-logos {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.brand-logo {
-  width: 38px;
-  height: 38px;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.brand-logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.brand-divider {
-  width: 1px;
-  height: 28px;
-  background: rgba(255,255,255,0.15);
-}
-
-.brand-text {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.brand-name {
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: white;
-  letter-spacing: 2.5px;
-}
-
-.brand-sub {
-  font-size: 0.65rem;
-  color: var(--finke-gold);
-  font-weight: 600;
-  letter-spacing: 1.8px;
-  text-transform: uppercase;
-}
-
-/* Hero */
-.hero {
-  background: var(--finke-dark);
-  padding: clamp(32px, 6vw, 52px) clamp(20px, 5vw, 48px) clamp(40px, 7vw, 60px);
-}
-
-.hero h1 {
-  font-size: clamp(1.6rem, 4vw, 2.2rem);
-  font-weight: 800;
-  color: white;
-  margin-bottom: 16px;
-}
-
-.hero h1 em {
-  font-style: normal;
-  color: var(--finke-gold);
-}
-
-.hero p {
-  font-size: 0.9rem;
-  color: rgba(255,255,255,0.55);
-  max-width: 560px;
-  line-height: 1.7;
-}
-
-/* Main */
-main {
-  scroll-margin-top: 100px;
-  max-width: 960px;
-  margin: 0 auto;
-  padding: clamp(32px, 6vw, 48px) clamp(20px, 4vw, 24px) 80px;
-}
-
-/* Step Card */
-.step-card {
-  background: white;
-  border-radius: 16px;
-  border: 1px solid var(--finke-border);
-  margin-bottom: 32px;
-  overflow: hidden;
-}
-
-.step-header {
-  padding: clamp(24px, 4vw, 28px) clamp(24px, 4vw, 36px);
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  border-bottom: 1px solid var(--finke-border);
-  background: var(--finke-dark);
-}
-
-.step-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  background: rgba(221,202,124,0.15);
-}
-
-.step-icon svg {
-  width: 26px;
-  height: 26px;
-  stroke-width: 2;
-  fill: none;
-  stroke: var(--finke-gold);
-}
-
-.step-title-block {
-  flex: 1;
-}
-
-.step-eyebrow {
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 4px;
-  color: var(--finke-gold);
-}
-
-.step-title-block h3 {
-  font-size: 1.15rem;
-  font-weight: 700;
-  line-height: 1.3;
-  color: white;
-}
-
-.step-body {
-  padding: clamp(28px, 5vw, 36px);
-}
-
-/* Lists */
-ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-ul li {
-  position: relative;
-  padding-left: 24px;
-  margin-bottom: 12px;
-  line-height: 1.6;
-  color: var(--finke-mid);
-}
-
-ul li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  color: var(--finke-gold);
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-ul li strong {
-  color: var(--finke-dark);
-  font-weight: 600;
-}
-
-/* Screenshot */
-.screenshot {
-  margin: 24px 0;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid var(--finke-border);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-}
-
-.screenshot img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* Alert */
-.alert {
-  display: flex;
-  gap: 16px;
-  padding: 20px;
-  border-radius: 12px;
-  margin: 24px 0;
-  background: #fef9e7;
-  border: 1px solid var(--finke-gold);
-}
-
-.alert-icon {
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
-}
-
-.alert-icon svg {
-  width: 24px;
-  height: 24px;
-  stroke-width: 2;
-  fill: none;
-  stroke: #b8860b;
-}
-
-.alert h4 {
-  font-size: 0.95rem;
-  font-weight: 700;
-  margin-bottom: 6px;
-  color: var(--finke-dark);
-}
-
-.alert p {
-  font-size: 0.88rem;
-  line-height: 1.65;
-  color: var(--finke-mid);
-}
-
-/* Footer */
-footer {
-  background: var(--finke-dark);
-  padding: 32px clamp(20px, 5vw, 48px);
-  text-align: center;
-  border-top: 1px solid rgba(255,255,255,0.06);
-}
-
-footer p {
-  font-size: 0.75rem;
-  color: rgba(255,255,255,0.4);
-  font-weight: 500;
-}
-
-footer span {
-  color: var(--finke-gold);
-  font-weight: 600;
-}
-
-@media (max-width: 768px) {
-  .step-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-}
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -317,206 +27,740 @@ footer span {
   </div>
 </header>
 
-<section class="hero">
-  <h1>Module Facturation <em>Calaotrade</em></h1>
-  <p>Documentation officielle du processus de génération et de gestion des factures via l'intégration Calaotrade × Bexio.</p>
-</section>
 
-<!-- Navbar intelligente pleine largeur -->
-<nav id="progress-nav" style="position: sticky; top: 0; background: white; border-bottom: 2px solid var(--finke-border); z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s ease;">
-  <div style="max-width: 100%; margin: 0; display: grid; grid-template-columns: repeat(7, 1fr); align-items: stretch;">
-    
-    <a href="#etape01" class="nav-step" data-step="etape01" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 16px 12px; text-decoration: none; color: var(--finke-mid); font-size: 0.8rem; font-weight: 600; transition: all 0.2s; border-right: 1px solid var(--finke-border); position: relative; background: white;">
-      <span style="width: 32px; height: 32px; border-radius: 50%; background: #e8e8e8; color: var(--finke-mid); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 800; transition: all 0.2s;">1</span>
-      <span class="nav-title" style="text-align: center; line-height: 1.3; transition: all 0.2s;">Accès<br><span style="font-size: 0.7rem; font-weight: 400; color: var(--finke-gray);">au foyer</span></span>
-    </a>
-    
-    <a href="#etape015" class="nav-step" data-step="etape015" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 16px 12px; text-decoration: none; color: var(--finke-mid); font-size: 0.8rem; font-weight: 600; transition: all 0.2s; border-right: 1px solid var(--finke-border); position: relative; background: white;">
-      <span style="width: 32px; height: 32px; border-radius: 50%; background: #e8e8e8; color: var(--finke-mid); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 800; transition: all 0.2s;">1.5</span>
-      <span class="nav-title" style="text-align: center; line-height: 1.3; transition: all 0.2s;">Vérification<br><span style="font-size: 0.7rem; font-weight: 400; color: var(--finke-gray);">données</span></span>
-    </a>
-    
-    <a href="#etape02" class="nav-step" data-step="etape02" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 16px 12px; text-decoration: none; color: var(--finke-mid); font-size: 0.8rem; font-weight: 600; transition: all 0.2s; border-right: 1px solid var(--finke-border); position: relative; background: white;">
-      <span style="width: 32px; height: 32px; border-radius: 50%; background: #e8e8e8; color: var(--finke-mid); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 800; transition: all 0.2s;">2</span>
-      <span class="nav-title" style="text-align: center; line-height: 1.3; transition: all 0.2s;">Configuration<br><span style="font-size: 0.7rem; font-weight: 400; color: var(--finke-gray);">à facturer</span></span>
-    </a>
-    
-    <a href="#etape03" class="nav-step" data-step="etape03" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 16px 12px; text-decoration: none; color: var(--finke-mid); font-size: 0.8rem; font-weight: 600; transition: all 0.2s; border-right: 1px solid var(--finke-border); position: relative; background: white;">
-      <span style="width: 32px; height: 32px; border-radius: 50%; background: #e8e8e8; color: var(--finke-mid); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 800; transition: all 0.2s;">3</span>
-      <span class="nav-title" style="text-align: center; line-height: 1.3; transition: all 0.2s;">Synchronisation<br><span style="font-size: 0.7rem; font-weight: 400; color: var(--finke-gray);">Bexio</span></span>
-    </a>
-    
-    <a href="#etape04" class="nav-step" data-step="etape04" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 16px 12px; text-decoration: none; color: var(--finke-mid); font-size: 0.8rem; font-weight: 600; transition: all 0.2s; border-right: 1px solid var(--finke-border); position: relative; background: white;">
-      <span style="width: 32px; height: 32px; border-radius: 50%; background: #e8e8e8; color: var(--finke-mid); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 800; transition: all 0.2s;">4</span>
-      <span class="nav-title" style="text-align: center; line-height: 1.3; transition: all 0.2s;">Consultation<br><span style="font-size: 0.7rem; font-weight: 400; color: var(--finke-gray);">détails</span></span>
-    </a>
-    
-    <a href="#etape05a" class="nav-step" data-step="etape05a" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 16px 12px; text-decoration: none; color: var(--finke-mid); font-size: 0.8rem; font-weight: 600; transition: all 0.2s; border-right: 1px solid var(--finke-border); position: relative; background: white;">
-      <span style="width: 32px; height: 32px; border-radius: 50%; background: #e8e8e8; color: var(--finke-mid); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 800; transition: all 0.2s;">5A</span>
-      <span class="nav-title" style="text-align: center; line-height: 1.3; transition: all 0.2s;">Envoi email<br><span style="font-size: 0.7rem; font-weight: 400; color: var(--finke-gray);">+ PDF</span></span>
-    </a>
-    
-    <a href="#etape05b" class="nav-step" data-step="etape05b" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 16px 12px; text-decoration: none; color: var(--finke-mid); font-size: 0.8rem; font-weight: 600; transition: all 0.2s; position: relative; background: white;">
-      <span style="width: 32px; height: 32px; border-radius: 50%; background: #e8e8e8; color: var(--finke-mid); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 800; transition: all 0.2s;">5B</span>
-      <span class="nav-title" style="text-align: center; line-height: 1.3; transition: all 0.2s;">Suivi<br><span style="font-size: 0.7rem; font-weight: 400; color: var(--finke-gray);">paiement</span></span>
-    </a>
-    
-  </div>
-</nav>
 
-<style>
-/* Style pour l'étape active - effet doré */
-.nav-step.active {
-  background: linear-gradient(135deg, #DDCA7C 0%, #c9b865 100%) !important;
-  color: var(--finke-dark) !important;
-  box-shadow: 0 -3px 0 0 var(--finke-dark) inset;
-}
 
-.nav-step.active span:first-of-type {
-  background: var(--finke-dark) !important;
-  color: var(--finke-gold) !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  transform: scale(1.1);
-}
 
-.nav-step.active .nav-title {
-  color: var(--finke-dark) !important;
-  font-weight: 700 !important;
-}
-
-.nav-step.active .nav-title span {
-  color: rgba(0,0,0,0.6) !important;
-}
-
-/* Hover effect */
-.nav-step:hover {
-  background: rgba(221, 202, 124, 0.15) !important;
-  transform: translateY(-2px);
-}
-
-.nav-step:hover span:first-of-type {
-  transform: scale(1.05);
-}
-
-/* Responsive - mobile */
-@media (max-width: 768px) {
-  #progress-nav > div {
-    grid-template-columns: repeat(7, minmax(80px, 1fr));
-    overflow-x: auto;
-    overflow-y: hidden;
-  }
+<!-- Wrapper pour layout sidebar -->
+<div class="layout-wrapper">
   
-  .nav-step {
-    padding: 12px 8px !important;
-    font-size: 0.7rem !important;
-  }
-  
-  .nav-step span:first-of-type {
-    width: 28px !important;
-    height: 28px !important;
-    font-size: 0.7rem !important;
-  }
-  
-  .nav-title {
-    font-size: 0.7rem !important;
-  }
-  
-  .nav-title span {
-    font-size: 0.6rem !important;
-  }
-}
+  <!-- SIDEBAR PRINCIPALE -->
+  <aside class="sidebar">
+    <nav class="sidebar-nav">
 
-/* Tablets */
-@media (max-width: 1024px) and (min-width: 769px) {
-  .nav-step {
-    padding: 14px 10px !important;
-    font-size: 0.75rem !important;
-  }
-}
-
-/* Animation smooth */
-.nav-step, .nav-step span, .nav-step .nav-title {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-</style>
-
-<script>
-// Script intelligent pour le highlight automatique
-document.addEventListener('DOMContentLoaded', function() {
-  const sections = document.querySelectorAll('.step-card');
-  const navLinks = document.querySelectorAll('.nav-step');
-  const nav = document.getElementById('progress-nav');
-  
-  function highlightNav() {
-    let current = '';
-    const scrollPos = window.scrollY + 150; // Offset pour la navbar
-    
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.clientHeight;
+        <!-- Section 00 -->
+      <div class="sidebar-section">
+        <button type="button" class="sidebar-headline" data-section="00">
+          <span class="sidebar-number">00</span>
+          <span class="sidebar-title">Objectif du guide</span>
+          <span class="toggle-icon">›</span>
+        </button>
+      </div>
       
-      if (scrollPos >= sectionTop && scrollPos < (sectionTop + sectionHeight)) {
-        current = section.getAttribute('id');
-      }
-    });
-    
-    // Retirer la classe active de tous les liens
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      
-      // Ajouter la classe active au lien correspondant
-      if (link.getAttribute('data-step') === current) {
-        link.classList.add('active');
-      }
-    });
-  }
-  
-  // Exécuter au scroll avec throttle pour performance
-  let ticking = false;
-  window.addEventListener('scroll', function() {
-    if (!ticking) {
-      window.requestAnimationFrame(function() {
-        highlightNav();
-        ticking = false;
-      });
-      ticking = true;
-    }
-  });
-  
-  // Exécuter au chargement
-  highlightNav();
-  
-  // Smooth scroll avec offset pour la navbar
-  navLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      const targetId = this.getAttribute('href').substring(1);
-      const targetSection = document.getElementById(targetId);
-      
-      if (targetSection) {
-        const navHeight = nav.offsetHeight;
-        const offsetTop = targetSection.offsetTop - navHeight - 10;
-        
-        window.scrollTo({
-          top: offsetTop,
-          behavior: 'smooth'
-        });
-      }
-    });
-  });
-});
-</script>
+      <!-- Section 01 -->
+      <div class="sidebar-section">
+        <button type="button" class="sidebar-headline active" data-section="01">
+          <span class="sidebar-number">01</span>
+          <span class="sidebar-title">Comprendre le CRM</span>
+          <span class="toggle-icon">›</span>
+        </button>
+        <div class="sidebar-subsections visible" id="section-01-subs">
+          <a href="#" data-subsection="01-01" class="sidebar-link">Qu'est-ce qu'un CRM ?</a>
+          <a href="#" data-subsection="01-02" class="sidebar-link">L'interface Calaotrade</a>
+          <a href="#" data-subsection="01-03" class="sidebar-link">Premiers pas & accès</a>
+        </div>
+      </div>
+
+      <!-- Section 02 -->
+      <div class="sidebar-section">
+        <button type="button" class="sidebar-headline" data-section="02">
+          <span class="sidebar-number">02</span>
+          <span class="sidebar-title">Gérer les Leads</span>
+          <span class="toggle-icon">›</span>
+        </button>
+        <div class="sidebar-subsections" id="section-02-subs">
+          <a href="#" data-subsection="02-01" class="sidebar-link">Créer un lead</a>
+          <a href="#" data-subsection="02-02" class="sidebar-link">Qualifier et scorer</a>
+          <a href="#" data-subsection="02-03" class="sidebar-link">Suivi des étapes lead</a>
+          <a href="#" data-subsection="02-04" class="sidebar-link">Préparer la conversion</a>
+        </div>
+      </div>
+
+      <!-- Section 03 -->
+      <div class="sidebar-section">
+        <button type="button" class="sidebar-headline" data-section="03">
+          <span class="sidebar-number">03</span>
+          <span class="sidebar-title">Gérer les Foyers</span>
+          <span class="toggle-icon">›</span>
+        </button>
+        <div class="sidebar-subsections" id="section-03-subs">
+          <a href="#" data-subsection="03-05" class="sidebar-link">Conversion lead → foyer</a>
+          <a href="#" data-subsection="03-01" class="sidebar-link">Fiche foyer complète</a>
+          <a href="#" data-subsection="03-02" class="sidebar-link">Historique & interactions</a>
+          <a href="#" data-subsection="03-03" class="sidebar-link">Contacts multiples</a>
+          <a href="#" data-subsection="03-04" class="sidebar-link">Segmentation & groupes</a>
+        </div>
+      </div>
+
+      <!-- Section 04 -->
+      <div class="sidebar-section">
+        <button type="button" class="sidebar-headline" data-section="04">
+          <span class="sidebar-number">04</span>
+          <span class="sidebar-title">Organiser l'Activité</span>
+          <span class="toggle-icon">›</span>
+        </button>
+        <div class="sidebar-subsections" id="section-04-subs">
+          <a href="#" data-subsection="04-01" class="sidebar-link">Tâches & suivi</a>
+          <a href="#" data-subsection="04-02" class="sidebar-link">Agenda client</a>
+          <a href="#" data-subsection="04-03" class="sidebar-link">Rendez-vous & appels</a>
+          <a href="#" data-subsection="04-04" class="sidebar-link">Relances automatiques</a>
+        </div>
+      </div>
+
+      <!-- Section 05 -->
+      <div class="sidebar-section">
+        <button type="button" class="sidebar-headline" data-section="05">
+          <span class="sidebar-number">05</span>
+          <span class="sidebar-title">Facturation & Prestations</span>
+          <span class="toggle-icon">›</span>
+        </button>
+        <div class="sidebar-subsections" id="section-05-subs">
+          <a href="#" data-subsection="05-01" class="sidebar-link">Étape 01 — Accès au foyer</a>
+          <a href="#" data-subsection="05-02" class="sidebar-link">Étape 01.5 — Vérification</a>
+          <a href="#" data-subsection="05-03" class="sidebar-link">Étape 02 — À facturer</a>
+          <a href="#" data-subsection="05-04" class="sidebar-link">Étape 03 — Synchronisation</a>
+          <a href="#" data-subsection="05-05" class="sidebar-link">Étape 04 — Consultation</a>
+          <a href="#" data-subsection="05-06" class="sidebar-link">Étape 05A — Email &amp; PDF</a>
+          <a href="#" data-subsection="05-07" class="sidebar-link">Étape 05B — Suivi paiement</a>
+        </div>
+      </div>
+
+      <!-- Section 06 -->
+      <div class="sidebar-section">
+        <button type="button" class="sidebar-headline" data-section="06">
+          <span class="sidebar-number">06</span>
+          <span class="sidebar-title">Emailing</span>
+          <span class="toggle-icon">›</span>
+        </button>
+        <div class="sidebar-subsections" id="section-06-subs">
+          <a href="#" data-subsection="06-01" class="sidebar-link">🖥️ Exporter depuis Calaotrade</a>
+          <a href="#" data-subsection="06-02" class="sidebar-link">📤 Outil extraction</a>
+          <a href="#" data-subsection="06-03" class="sidebar-link">📋 Envoi BCC</a>
+          <a href="#" data-subsection="06-04" class="sidebar-link">👥 Import Outlook</a>
+          <a href="#" data-subsection="06-05" class="sidebar-link">📧 Campagne fiscale</a>
+        </div>
+      </div>
+
+      <!-- Section 07 -->
+      <div class="sidebar-section">
+        <button type="button" class="sidebar-headline" data-section="07">
+          <span class="sidebar-number">07</span>
+          <span class="sidebar-title">Calaobooking</span>
+          <span class="toggle-icon">›</span>
+        </button>
+        <div class="sidebar-subsections" id="section-07-subs">
+          <a href="#" data-subsection="07-01" class="sidebar-link">Calendrier & disponibilités</a>
+          <a href="#" data-subsection="07-02" class="sidebar-link">Réservation client</a>
+          <a href="#" data-subsection="07-03" class="sidebar-link">Synchronisation RDV</a>
+        </div>
+      </div>
+
+      <!-- Section 08 -->
+      <div class="sidebar-section">
+        <button type="button" class="sidebar-headline" data-section="08">
+          <span class="sidebar-number">08</span>
+          <span class="sidebar-title">Scénarios Complets</span>
+          <span class="toggle-icon">›</span>
+        </button>
+        <div class="sidebar-subsections" id="section-08-subs">
+          <a href="#" data-subsection="08-01" class="sidebar-link">Parcours nouveau client</a>
+          <a href="#" data-subsection="08-02" class="sidebar-link">Gestion dossier complet</a>
+          <a href="#" data-subsection="08-03" class="sidebar-link">Workflow facturation</a>
+        </div>
+      </div>
+
+    </nav>
+  </aside>
+
+  <!-- CONTENU PRINCIPAL -->
+  <main class="main-content">
+    <!-- CONTENU DES SECTIONS AVEC SUBSECTIONS -->
+
+        <!-- Section 00: Objectif du guide (with Hero) -->
+    <section class="content-section" id="content-00">
+      <header class="section-header">
+        <h1 class="hero-title">FINKE x <em>Calaotrade</em></h1>
+        <p class="section-intro">Guide d'utilisation complet du CRM Calaotrade</p>
+      </header>
+
+      <!-- Subsection 00-00 -->
+      <article class="subsection active" id="content-00-00">
+        <h2>Objectif du guide</h2>
+        <p>Cette documentation centralise et structure l'utilisation du <strong>CRM Calaotrade</strong> au sein de Finke.</p>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg></div>
+            <h4>Expliquer clairement</h4>
+            <p>Le fonctionnement de chaque section du CRM</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg></div>
+            <h4>Standardiser</h4>
+            <p>Les procédures internes pour toute l'équipe</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+            <h4>Former les collaborateurs</h4>
+            <p>Faciliter la prise en main à tous les niveaux</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
+            <h4>Référence interne</h4>
+            <p>Document vivant pour l'équipe Finke</p>
+          </div>
+        </div>
+        <p><em>Cette documentation évoluera progressivement pour couvrir l'ensemble des fonctionnalités du CRM.</em></p>
+      </article>
+    </section>
 
 
+    <!-- Section 01: Comprendre le CRM -->
+    <section class="content-section active" id="content-01">
+      <header class="section-header">
+        <h1>01 — Comprendre le CRM</h1>
+        <p class="section-intro">Découvrez les principes fondamentaux du CRM Calaotrade et comment l'utiliser au quotidien.</p>
+      </header>
+      <div class="crm-modules-schema">
+        <div class="crm-modules-label">Modules Calaotrade</div>
+        <div class="crm-modules-grid">
+          <div class="crm-module-card crm-module-active">
+            <div class="crm-module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></div>
+            <span class="crm-module-name">Accueil</span>
+            <span class="crm-module-desc">Activités du jour, tâches &amp; rappels</span>
+          </div>
+          <div class="crm-module-card">
+            <div class="crm-module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div>
+            <span class="crm-module-name">Leads</span>
+            <span class="crm-module-desc">Leads &amp; suivi commercial</span>
+          </div>
+          <div class="crm-module-card">
+            <div class="crm-module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+            <span class="crm-module-name">Foyers</span>
+            <span class="crm-module-desc">Clients &amp; dossiers familiaux</span>
+          </div>
+          <div class="crm-module-card">
+            <div class="crm-module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 8h6m-6 4h4"/></svg></div>
+            <span class="crm-module-name">Activité</span>
+            <span class="crm-module-desc">Tâches, événements, rappels</span>
+          </div>
+          <div class="crm-module-card">
+            <div class="crm-module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg></div>
+            <span class="crm-module-name">Messages</span>
+            <span class="crm-module-desc">Communication &amp; courriers</span>
+          </div>
+          <div class="crm-module-card">
+            <div class="crm-module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div>
+            <span class="crm-module-name">Agenda</span>
+            <span class="crm-module-desc">Rendez-vous &amp; planning</span>
+          </div>
+          <div class="crm-module-card">
+            <div class="crm-module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg></div>
+            <span class="crm-module-name">Contacts</span>
+            <span class="crm-module-desc">Annuaire &amp; interlocuteurs</span>
+          </div>
+          <div class="crm-module-card">
+            <div class="crm-module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg></div>
+            <span class="crm-module-name">Statistiques</span>
+            <span class="crm-module-desc">Performances &amp; rapports</span>
+          </div>
+        </div>
+      </div>
 
+      <!-- Subsection 01-01 -->
+      <article class="subsection active" id="content-01-01">
+        <h2>Qu'est-ce qu'un CRM ?</h2>
+        <p>Un CRM (Customer Relationship Management) est une plateforme centralisée pour gérer vos relations clients. Elle vous permet de :</p>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg></div>
+            <h4>Centralisation</h4>
+            <p>Toutes les infos clients au même endroit</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+            <h4>Historique complet</h4>
+            <p>Suivi de toutes les interactions clients</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></div>
+            <h4>Automatisation</h4>
+            <p>Les tâches répétitives automatisées</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg></div>
+            <h4>Productivité</h4>
+            <p>Augmentez l'efficacité de votre équipe</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div>
+            <h4>Décisions éclairées</h4>
+            <p>Basées sur des données fiables</p>
+          </div>
+        </div>
+      </article>
 
+      <!-- Subsection 01-02 -->
+      <article class="subsection" id="content-01-02">
+        <h2>L'interface Calaotrade</h2>
+        <p>La barre de navigation sur la gauche donne accès à tous les modules. Voici à quoi ressemble l'<strong>Accueil</strong> une fois connecté :</p>
+        <figure class="crm-screenshot-wrap">
+          <img src="Image/Accueil-calaotrade.png" alt="Interface Calaotrade – Accueil" />
+          <figcaption>Écran d'accueil Calaotrade — récap des activités du jour, tâches en cours et rappels</figcaption>
+        </figure>
+        <div class="crm-interface-grid">
+          <div class="crm-icard">
+            <div class="crm-icard-tag">Navigation gauche</div>
+            <p>La sidebar liste tous les modules : <strong>Accueil</strong>, Leads, Foyers, Activité, Messages, Agenda, Contacts, Statistiques.</p>
+          </div>
+          <div class="crm-icard">
+            <div class="crm-icard-tag">Zone centrale — KPI</div>
+            <p>L'en-tête affiche les compteurs du jour : <strong>Tâches</strong>, Événements, Rappels et Objectifs.</p>
+          </div>
+          <div class="crm-icard">
+            <div class="crm-icard-tag">À venir</div>
+            <p>Les prochains rendez-vous sont mis en avant en <strong>vert-turquoise</strong>, avec le nom du client associé.</p>
+          </div>
+          <div class="crm-icard">
+            <div class="crm-icard-tag">To-Do</div>
+            <p>Les tâches en retard apparaissent avec un badge rouge, les tâches à faire avec leur compteur bleu.</p>
+          </div>
+        </div>
+        <div class="crm-onglets-box">
+          <h3>Comprendre les onglets principaux</h3>
+          <div class="crm-onglets-grid">
+            <div class="crm-onglet-item"><strong>Accueil</strong><span>Vue globale de votre journée : tâches, événements, rappels.</span></div>
+            <div class="crm-onglet-item"><strong>Leads</strong><span>Un lead = un contact commercial en cours de qualification.</span></div>
+            <div class="crm-onglet-item"><strong>Foyers</strong><span>Un foyer = un client converti avec dossier actif dans Calaotrade.</span></div>
+            <div class="crm-onglet-item"><strong>Activité</strong><span>Suivi opérationnel : tâches, événements, relances.</span></div>
+            <div class="crm-onglet-item"><strong>Messages</strong><span>Envois et suivi des communications.</span></div>
+            <div class="crm-onglet-item"><strong>Agenda</strong><span>Planification des rendez-vous et disponibilités.</span></div>
+            <div class="crm-onglet-item"><strong>Contacts</strong><span>Annuaire de tous les interlocuteurs liés aux dossiers.</span></div>
+            <div class="crm-onglet-item"><strong>Statistiques</strong><span>Suivi de performance et indicateurs de pilotage.</span></div>
+          </div>
+        </div>
+        <figure class="crm-screenshot-wrap" style="margin-top:16px;">
+          <img src="Image/onglet contact.png" alt="Onglet Contacts Calaotrade" />
+          <figcaption>Onglet Contacts : vue annuaire des personnes liées à vos leads et foyers</figcaption>
+        </figure>
+        <figure class="crm-screenshot-wrap" style="margin-top:16px;">
+          <img src="Image/onglet statistique.png" alt="Onglet Statistiques Calaotrade" />
+          <figcaption>Onglet Statistiques : indicateurs de suivi commercial et d'activité</figcaption>
+        </figure>
+      </article>
 
+      <!-- Subsection 01-03 -->
+      <article class="subsection" id="content-01-03">
+        <h2>Premiers pas &amp; accès</h2>
+        <p>Accédez à Calaotrade directement depuis votre navigateur, sans installation requise.</p>
+        <a href="https://app.calaotrade.fr/" target="_blank" class="crm-access-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          Ouvrir Calaotrade
+        </a>
+        <ol class="step-list" style="margin-top:24px">
+          <li>Cliquez sur le bouton ci-dessus pour accéder à <strong>app.calaotrade.fr</strong></li>
+          <li>Entrez vos identifiants Finke Swiss (email + mot de passe)</li>
+          <li>L'<strong>Accueil</strong> s'affiche avec les activités du jour</li>
+          <li>Naviguez via la barre gauche pour accéder aux différents modules</li>
+        </ol>
+      </article>
+    </section>
 
+    <!-- Section 02: Gérer les Leads -->
+    <section class="content-section" id="content-02">
+      <header class="section-header">
+        <h1>02 — Gérer les Leads</h1>
+        <p class="section-intro"><strong>Lead</strong> = contact commercial en qualification. Structurez le suivi et préparez sa conversion en foyer.</p>
+      </header>
+      <div class="crm-pipeline-schema">
+        <div class="crm-pipe-step">
+          <div class="crm-pipe-num">1</div>
+          <div class="crm-pipe-content">
+            <strong>Nouveau lead</strong>
+            <span>Contact identifié</span>
+          </div>
+        </div>
+        <div class="crm-pipe-arrow">›</div>
+        <div class="crm-pipe-step">
+          <div class="crm-pipe-num">2</div>
+          <div class="crm-pipe-content">
+            <strong>Qualification</strong>
+            <span>R1 — échange initial</span>
+          </div>
+        </div>
+        <div class="crm-pipe-arrow">›</div>
+        <div class="crm-pipe-step">
+          <div class="crm-pipe-num">3</div>
+          <div class="crm-pipe-content">
+            <strong>Proposition</strong>
+            <span>Offre envoyée</span>
+          </div>
+        </div>
+        <div class="crm-pipe-arrow">›</div>
+        <div class="crm-pipe-step">
+          <div class="crm-pipe-num">4</div>
+          <div class="crm-pipe-content">
+            <strong>Négociation</strong>
+            <span>Conditions discutées</span>
+          </div>
+        </div>
+        <div class="crm-pipe-arrow">›</div>
+        <div class="crm-pipe-step crm-pipe-step--win">
+          <div class="crm-pipe-num crm-pipe-num--win">✓</div>
+          <div class="crm-pipe-content">
+            <strong>Client</strong>
+            <span>Converti en foyer</span>
+          </div>
+        </div>
+      </div>
 
+      <!-- Subsections -->
+      <article class="subsection active" id="content-02-01">
+        <h2>Créer un lead</h2>
+        <p>Pour créer un lead dans Calaotrade, suivez exactement ces étapes avec les captures ci-dessous :</p>
+        <div class="crm-required-alert">
+          <strong>Attention — champs obligatoires :</strong> les champs marqués avec un <span class="crm-asterisk">*</span> rouge doivent être remplis.
+          Ces champs peuvent varier selon l'<strong>étape du lead</strong>. Si l'enregistrement du lead est impossible, c'est qu'une information obligatoire manque.
+        </div>
+        <div class="crm-step-tabs">
+          <a href="#lead-step-1" class="crm-step-tab">Accès Leads</a>
+          <a href="#lead-step-2" class="crm-step-tab">Type *</a>
+          <a href="#lead-step-3" class="crm-step-tab">Étape</a>
+          <a href="#lead-step-4" class="crm-step-tab">Compte-rendu</a>
+          <a href="#lead-step-5" class="crm-step-tab">Identité</a>
+          <a href="#lead-step-6" class="crm-step-tab">Coordonnées</a>
+          <a href="#lead-step-7" class="crm-step-tab">Validation</a>
+        </div>
+        <div class="crm-lead-walkthrough">
+          <figure class="crm-step-shot" id="lead-step-1">
+            <img src="Image/Lead.png" alt="Module Leads dans Calaotrade" />
+            <figcaption><strong>Étape 1 :</strong> Ouvrez le module <strong>Leads</strong> depuis la barre latérale gauche.</figcaption>
+          </figure>
+          <figure class="crm-step-shot" id="lead-step-2">
+            <img src="Image/lead%201.png" alt="Bouton nouveau lead" />
+            <figcaption><strong>Étape 2 — Type <span class="crm-asterisk">*</span> :</strong> sélectionnez <strong>Lead</strong> lors de la création (pas Foyer à cette étape).</figcaption>
+          </figure>
+          <figure class="crm-step-shot" id="lead-step-3">
+            <img src="Image/lead%202.png" alt="Formulaire lead identité" />
+            <figcaption><strong>Étape 3 — Étape commerciale :</strong> choisissez l'étape du lead (ex. <strong>R1 fixé</strong>) selon l'avancement réel.</figcaption>
+          </figure>
+          <figure class="crm-step-shot" id="lead-step-4">
+            <img src="Image/lead%203.png" alt="Formulaire lead coordonnées" />
+            <figcaption><strong>Étape 4 — Compte-rendu conseiller :</strong> notez le contexte du lead et les informations utiles de l'échange.</figcaption>
+          </figure>
+          <figure class="crm-step-shot" id="lead-step-5">
+            <img src="Image/lead%204.png" alt="Source et attribution du lead" />
+            <figcaption><strong>Étape 5 — Identité :</strong> renseignez civilité, nom, prénom, sexe et champs d'identification.</figcaption>
+          </figure>
+          <figure class="crm-step-shot" id="lead-step-6">
+            <img src="Image/lead%205.png" alt="Validation du formulaire lead" />
+            <figcaption><strong>Étape 6 — Coordonnées :</strong> complétez téléphone, email et données de contact nécessaires au suivi.</figcaption>
+          </figure>
+          <figure class="crm-step-shot" id="lead-step-7">
+            <img src="Image/lead%206.png" alt="Lead enregistré dans le suivi des étapes" />
+            <figcaption><strong>Étape 7 — Validation finale :</strong> si l'enregistrement est bloqué, un champ obligatoire <span class="crm-asterisk">*</span> manque encore.</figcaption>
+          </figure>
+        </div>
+        <div class="crm-lead-fields">
+          <div class="crm-field-item">
+            <span class="crm-field-label">Type <span class="crm-asterisk">*</span></span>
+            <span class="crm-field-note">Lead à la création, Foyer uniquement après conversion</span>
+          </div>
+          <div class="crm-field-item">
+            <span class="crm-field-label">Étape</span>
+            <span class="crm-field-note">Exemple : R1 fixé, qualification, proposition…</span>
+          </div>
+          <div class="crm-field-item">
+            <span class="crm-field-label">Compte rendu conseiller</span>
+            <span class="crm-field-note">Résumé de l'échange et prochaines actions</span>
+          </div>
+          <div class="crm-field-item">
+            <span class="crm-field-label">Nom &amp; prénom</span>
+            <span class="crm-field-note">Obligatoire <span class="crm-asterisk">*</span> — contact principal</span>
+          </div>
+          <div class="crm-field-item">
+            <span class="crm-field-label">Téléphone &amp; email</span>
+            <span class="crm-field-note">Souvent requis <span class="crm-asterisk">*</span> selon l'étape du lead</span>
+          </div>
+          <div class="crm-field-item">
+            <span class="crm-field-label">Source</span>
+            <span class="crm-field-note">Peut devenir obligatoire <span class="crm-asterisk">*</span> selon l'étape</span>
+          </div>
+          <div class="crm-field-item">
+            <span class="crm-field-label">Conseiller assigné</span>
+            <span class="crm-field-note">Responsable du suivi</span>
+          </div>
+          <div class="crm-field-item">
+            <span class="crm-field-label">Statut du lead</span>
+            <span class="crm-field-note">Étape dans le parcours de vente</span>
+          </div>
+          <div class="crm-field-item">
+            <span class="crm-field-label">Notes</span>
+            <span class="crm-field-note">Contexte de la première prise de contact</span>
+          </div>
+        </div>
+      </article>
 
-<main>
+      <article class="subsection" id="content-02-02">
+        <h2>Qualifier et scorer</h2>
+        <p>Ici, le scoring se base sur la qualité des informations saisies dans la fiche lead. Utilisez les captures dans cet ordre :</p>
+        <figure class="crm-screenshot-wrap" style="margin-top:16px;">
+          <img src="Image/qualification lead.png" alt="Qualification d'un lead dans Calaotrade" />
+          <figcaption>Étape 1 — vue générale de qualification : renseigner l'étape et le contexte du lead</figcaption>
+        </figure>
+        <ul style="margin: 20px 0 20px 20px;">
+          <li><strong>Étape du lead</strong> : mettez à jour l'avancement réel après chaque échange</li>
+          <li><strong>Compte-rendu</strong> : notez besoin, urgence et prochaine action</li>
+        </ul>
+        <figure class="crm-screenshot-wrap" style="margin-top:16px;">
+          <img src="Image/qualification lead (2).png" alt="Champ type de demande dans la qualification lead" />
+          <figcaption>Étape 2 — Type de demande : exemple visible « retraite 3ème pilier »</figcaption>
+        </figure>
+        <ul style="margin: 20px 0 20px 20px;">
+          <li><strong>Type de demande</strong> : détermine le besoin principal et l'offre à préparer</li>
+          <li><strong>Bon choix</strong> : sélectionnez la demande la plus précise possible</li>
+        </ul>
+        <figure class="crm-screenshot-wrap" style="margin-top:16px;">
+          <img src="Image/qualification lead (3).png" alt="Champ canal d'acquisition dans la qualification lead" />
+          <figcaption>Étape 3 — Canal d'acquisition : exemple visible « perso »</figcaption>
+        </figure>
+        <ul style="margin: 20px 0 20px 20px;">
+          <li><strong>Canal d'acquisition</strong> : source réelle du lead (perso, recommandation, etc.)</li>
+          <li><strong>Utilité</strong> : permet d'identifier les canaux qui convertissent le mieux</li>
+        </ul>
+        <div class="crm-required-alert" style="margin-top:14px;">
+          <strong>Scoring conseillé :</strong> lead <strong>chaud</strong> si type de demande + canal + compte-rendu sont complets,
+          <strong>tiède</strong> si un champ clé manque, <strong>froid</strong> si plusieurs infos sont absentes.
+        </div>
+      </article>
 
-  <!-- Étape 1 : Accès -->
+      <article class="subsection" id="content-02-03">
+        <h2>Suivi des étapes lead</h2>
+        <p>Cette vue affiche la progression de chaque lead de la qualification jusqu'à la conversion :</p>
+        <div class="pipeline-container">
+          <div class="pipeline-stage">
+            <div class="pipeline-badge">1</div>
+            <div>
+              <strong>Identifié</strong>
+              <p>Nouveau contact entrant</p>
+            </div>
+          </div>
+          <div class="pipeline-stage">
+            <div class="pipeline-badge">2</div>
+            <div>
+              <strong>Qualification</strong>
+              <p>Échange initial, analyse BANT</p>
+            </div>
+          </div>
+          <div class="pipeline-stage">
+            <div class="pipeline-badge">3</div>
+            <div>
+              <strong>Proposition</strong>
+              <p>Offre envoyée au lead</p>
+            </div>
+          </div>
+          <div class="pipeline-stage">
+            <div class="pipeline-badge">4</div>
+            <div>
+              <strong>Négociation</strong>
+              <p>Discussion financement / conditions</p>
+            </div>
+          </div>
+          <div class="pipeline-stage" style="border-left: 3px solid #DDCA7C;">
+            <div class="pipeline-badge" style="background:#DDCA7C; color:#3d3d3d;">5</div>
+            <div>
+              <strong>Acceptation</strong>
+              <p>Prêt à être converti en foyer</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="subsection" id="content-02-04">
+        <h2>Préparer la conversion</h2>
+        <p>Avant la conversion, vérifiez que le lead est complet et prêt à passer en foyer :</p>
+        <ol class="step-list">
+          <li>Le champ <strong>Type</strong> doit être en <strong>Lead</strong> pendant la phase commerciale</li>
+          <li>L'étape doit refléter l'avancement réel (ex. <strong>R1 fixé</strong>)</li>
+          <li>Le compte-rendu conseiller doit être renseigné</li>
+          <li>Toutes les informations obligatoires <span class="crm-asterisk">*</span> doivent être complètes</li>
+          <li>La conversion effective se fait dans l'onglet <strong>03-05 Conversion lead → foyer</strong></li>
+        </ol>
+      </article>
+    </section>
+
+    <!-- Section 03: Gérer les Foyers -->
+    <section class="content-section" id="content-03">
+      <header class="section-header">
+        <h1>03 — Gérer les Foyers</h1>
+        <p class="section-intro"><strong>Foyer</strong> = lead converti en client actif avec dossier opérationnel dans Calaotrade.</p>
+      </header>
+
+      <article class="subsection" id="content-03-01">
+        <h2>Fiche foyer complète</h2>
+        <p>La fiche foyer regroupe toutes les informations utiles au suivi :</p>
+        <ul style="margin: 20px 0 20px 20px;">
+          <li><strong>Infos générales :</strong> Nom, adresse, contacts</li>
+          <li><strong>Historique :</strong> Tous les échanges et transactions</li>
+          <li><strong>Dossiers actifs :</strong> Prestations en cours</li>
+          <li><strong>Préférences :</strong> Moyens de communication, périodicité</li>
+          <li><strong>Notes :</strong> Informations particulières utiles à l'équipe</li>
+        </ul>
+      </article>
+
+      <article class="subsection" id="content-03-02">
+        <h2>Historique & interactions</h2>
+        <p>Chaque interaction est enregistrée automatiquement :</p>
+        <ul style="margin: 20px 0 20px 20px;">
+          <li>Appels téléphoniques</li>
+          <li>Emails envoyés/reçus</li>
+          <li>Réunions et rendez-vous</li>
+          <li>Documents partagés</li>
+          <li>Modifications de dossier</li>
+        </ul>
+      </article>
+
+      <article class="subsection" id="content-03-03">
+        <h2>Contacts multiples</h2>
+        <p>Un foyer peut avoir plusieurs contacts. Organisez-les pour une meilleure communication :</p>
+        <ul style="margin: 20px 0 20px 20px;">
+          <li>Responsable principal (personne de contact principale)</li>
+          <li>Responsable administratif (facturation)</li>
+          <li>Contacts techniques (support)</li>
+          <li>Assignations de tâches par contact</li>
+        </ul>
+      </article>
+
+      <article class="subsection" id="content-03-04">
+        <h2>Segmentation & groupes</h2>
+        <p>Organisez vos foyers en groupes pour une meilleure gestion :</p>
+        <ul style="margin: 20px 0 20px 20px;">
+          <li>Par secteur d'activité</li>
+          <li>Par plan/chiffre d'affaires</li>
+          <li>Par statut (actif, lead qualifié, inactif)</li>
+          <li>Par responsable commercial</li>
+        </ul>
+      </article>
+
+      <article class="subsection active" id="content-03-05">
+        <h2>Conversion lead → foyer</h2>
+        <p>Depuis la fiche de création/édition, la conversion se fait via le champ <strong>Type</strong> :</p>
+        <ol class="step-list">
+          <li>Ouvrez la fiche du lead concerné</li>
+          <li>Dans <strong>À PROPOS</strong>, cliquez sur le champ <strong>Type <span class="crm-asterisk">*</span></strong></li>
+          <li>Changez la valeur de <strong>Lead</strong> vers <strong>Foyer</strong></li>
+          <li>Validez avec <strong>OK</strong>, puis enregistrez la fiche</li>
+          <li>Le dossier apparaît ensuite dans le module <strong>Foyers</strong></li>
+        </ol>
+        <figure class="crm-screenshot-wrap" style="margin-top:16px;">
+          <img src="Image/Conversion lead ou foyer.png" alt="Choix du type Lead ou Foyer" />
+          <figcaption>Étape de conversion : passer le type de Lead vers Foyer</figcaption>
+        </figure>
+        <figure class="crm-screenshot-wrap" style="margin-top:16px;">
+          <img src="Image/Ecran-foyer.png" alt="Module Foyers après conversion d'un lead" />
+          <figcaption>Module Foyers : le lead converti apparaît dans la liste des foyers</figcaption>
+        </figure>
+        <div class="crm-required-alert" style="margin-top:14px;">
+          <strong>Important :</strong> après changement de type, les champs obligatoires <span class="crm-asterisk">*</span> peuvent changer selon l'étape du lead.
+          Si l'enregistrement échoue, complétez les nouveaux champs requis puis enregistrez à nouveau.
+        </div>
+      </article>
+    </section>
+
+    <!-- Section 04: Organiser l'Activité -->
+    <section class="content-section" id="content-04">
+      <header class="section-header">
+        <h1>04 — Organiser l'Activité</h1>
+        <p class="section-intro">Planifiez vos tâches, rendez-vous et assurez un suivi systématique de vos clients.</p>
+      </header>
+
+      <article class="subsection active" id="content-04-01">
+        <h2>Tâches & suivi</h2>
+        <p>Depuis le module <strong>Activité</strong>, créez et suivez vos actions opérationnelles :</p>
+        <figure class="crm-screenshot-wrap" style="margin-top:16px;">
+          <img src="Image/ecran-activite.png" alt="Écran activité Calaotrade" />
+          <figcaption>Vue Activité : suivi centralisé des tâches et actions</figcaption>
+        </figure>
+        <ul style="margin: 20px 0 20px 20px;">
+          <li>Cliquez sur <strong>Nouvelle activité</strong> pour créer une action</li>
+          <li>Choisissez le bon type (tâche, appel, rendez-vous, relance)</li>
+          <li>Définissez priorité, date d'échéance et responsable</li>
+          <li>Ajoutez un contexte clair pour faciliter le suivi d'équipe</li>
+          <li>Passez l'activité en terminée une fois l'action réalisée</li>
+        </ul>
+        <figure class="crm-screenshot-wrap" style="margin-top:16px;">
+          <img src="Image/clique pour nouvelle activite.png" alt="Bouton nouvelle activité" />
+          <figcaption>Étape 1 — cliquer pour créer une nouvelle activité</figcaption>
+        </figure>
+        <figure class="crm-screenshot-wrap" style="margin-top:16px;">
+          <img src="Image/detail des choix activité.png" alt="Choix du type d'activité" />
+          <figcaption>Étape 2 — sélectionner le type d'activité adapté</figcaption>
+        </figure>
+        <figure class="crm-screenshot-wrap" style="margin-top:16px;">
+          <img src="Image/faire une nouvelle tache.png" alt="Création d'une nouvelle tâche" />
+          <figcaption>Étape 3 — compléter les champs de la tâche puis enregistrer</figcaption>
+        </figure>
+      </article>
+
+      <article class="subsection" id="content-04-02">
+        <h2>Agenda client</h2>
+        <p>Utilisez l'onglet Agenda pour visualiser les rendez-vous et prioriser votre journée :</p>
+        <figure class="crm-screenshot-wrap" style="margin-top:16px;">
+          <img src="Image/onglet agenda.png" alt="Onglet agenda Calaotrade" />
+          <figcaption>Agenda Calaotrade : vue planning des événements et rendez-vous</figcaption>
+        </figure>
+        <ul style="margin: 20px 0 20px 20px;">
+          <li>Visualiser tous les rendez-vous prévus par date</li>
+          <li>Repérer rapidement les créneaux disponibles</li>
+          <li>Contrôler les actions à venir liées aux leads et foyers</li>
+          <li>Préparer la journée en priorisant les échéances proches</li>
+        </ul>
+      </article>
+
+      <article class="subsection" id="content-04-03">
+        <h2>Rendez-vous & appels</h2>
+        <p>Processus recommandé pour planifier un rendez-vous ou un appel depuis Calaotrade :</p>
+        <ol class="step-list">
+          <li>Depuis <strong>Activité</strong>, cliquez sur <strong>Nouvelle activité</strong></li>
+          <li>Choisissez le type correspondant : <strong>Rendez-vous</strong> ou <strong>Appel</strong></li>
+          <li>Renseignez date, heure, lead/foyer concerné et objectif du contact</li>
+          <li>Après l'échange, complétez le compte-rendu pour garder l'historique propre</li>
+        </ol>
+        <figure class="crm-screenshot-wrap" style="margin-top:16px;">
+          <img src="Image/clique pour nouvelle activite.png" alt="Créer une activité pour un rendez-vous ou un appel" />
+          <figcaption>Étape 1 — lancer la création d'une activité</figcaption>
+        </figure>
+        <figure class="crm-screenshot-wrap" style="margin-top:16px;">
+          <img src="Image/detail des choix activité.png" alt="Choisir le type d'activité rendez-vous ou appel" />
+          <figcaption>Étape 2 — sélectionner le type : rendez-vous ou appel</figcaption>
+        </figure>
+        <figure class="crm-screenshot-wrap" style="margin-top:16px;">
+          <img src="Image/onglet agenda.png" alt="Vérifier les rendez-vous dans l'agenda" />
+          <figcaption>Étape 3 — vérifier la planification finale dans l'agenda</figcaption>
+        </figure>
+        <div class="crm-required-alert" style="margin-top:14px;">
+          <strong>Important :</strong> un rendez-vous/appel sans compte-rendu réduit la qualité du suivi commercial et fausse la prochaine relance.
+        </div>
+      </article>
+
+      <article class="subsection" id="content-04-04">
+        <h2>Relances automatiques</h2>
+        <p>Automatisez les rappels pour ne rien louper :</p>
+        <ul style="margin: 20px 0 20px 20px;">
+          <li>Relance après inactivité (X jours sans interaction)</li>
+          <li>Relance avant date anniversaire client</li>
+          <li>Relance si prestation arrive à expiration</li>
+          <li>Relances personnalisées par règles métier</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- Section 05: Facturation & Prestations -->
+    <section class="content-section" id="content-05">
+      <header class="section-header">
+        <h1>05 — Facturation & Prestations</h1>
+        <p class="section-intro">Gérez les prestations et générez automatiquement vos factures via l'intégration Bexio.</p>
+      </header>
+      <article class="subsection active" id="content-05-01">
   <article class="step-card" id="etape01">
     <div class="step-header">
       <div class="step-icon">
@@ -541,8 +785,8 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     </div>
   </article>
-
-  <!-- Étape 1.5 : Vérification -->
+      </article>
+      <article class="subsection" id="content-05-02">
   <article class="step-card" id="etape015">
     <div class="step-header">
       <div class="step-icon">
@@ -577,8 +821,8 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     </div>
   </article>
-
-  <!-- Étape 2 : Configuration -->
+      </article>
+      <article class="subsection" id="content-05-03">
   <article class="step-card" id="etape02">
     <div class="step-header">
       <div class="step-icon">
@@ -612,9 +856,9 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
       </div>
 
-<h4 style="margin-bottom: 16px; color: var(--finke-gray); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Dans le Pipeline de vente</h4>
+<h4 style="margin-bottom: 16px; color: var(--finke-gray); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Dans le suivi d'étapes</h4>
       <ul>
-        <li><strong>Localiser le menu déroulant Étape</strong> — Dans la prestation, repérez le bloc Pipeline de vente</li>
+        <li><strong>Localiser le menu déroulant Étape</strong> — Dans la prestation, repérez le bloc Suivi d'étapes</li>
         <li><strong>Sélectionner "À facturer"</strong> — Cliquez sur le menu déroulant et choisissez l'option "À facturer"</li>
         <li><strong>Sauvegarder</strong> — Le système déclenche automatiquement le processus de facturation</li>
       </ul>
@@ -636,8 +880,8 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     </div>
   </article>
-
-  <!-- Étape 3 : Synchronisation -->
+      </article>
+      <article class="subsection" id="content-05-04">
   <article class="step-card" id="etape03">
     <div class="step-header">
       <div class="step-icon">
@@ -669,8 +913,8 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     </div>
   </article>
-
-  <!-- Étape 4 : Consultation -->
+      </article>
+      <article class="subsection" id="content-05-05">
   <article class="step-card" id="etape04">
     <div class="step-header">
       <div class="step-icon">
@@ -699,8 +943,8 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     </div>
   </article>
-
-  <!-- Étape 5A : Email -->
+      </article>
+      <article class="subsection" id="content-05-06">
   <article class="step-card" id="etape05a">
     <div class="step-header">
       <div class="step-icon">
@@ -742,8 +986,8 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
 </div>
   </article>
-
-  <!-- Étape 5B : Suivi -->
+      </article>
+      <article class="subsection" id="content-05-07">
   <article class="step-card" id="etape05b">
     <div class="step-header">
       <div class="step-icon">
@@ -829,12 +1073,924 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     </div>
   </article>
+      </article>
+    </section>
 
-</main>
+    <!-- Section 06: Emailing -->
+    <section class="content-section" id="content-06">
+      <header class="section-header">
+        <h1>06 — Emailing</h1>
+        <p class="section-intro">De l'export Calaotrade jusqu'à l'envoi dans Outlook — extrayez les emails de vos clients et envoyez vos campagnes par lots BCC ou via un groupe de contacts permanent.</p>
+      </header>
+
+      <!-- ═══ 06-01 : Export CSV ═══ -->
+      <article class="subsection active" id="content-06-01">
+        <div id="eExport"> 
+          <div class="fks-wrap">
+            <div class="fks-tsec-title">🖥️ Comment exporter depuis Calaotrade</div>
+            <div class="fks-steps">
+
+              <div class="fks-step">
+                <div class="fks-step-l"><div class="fks-step-n">1</div></div>
+                <div class="fks-step-r">
+                  <div class="fks-step-title">Ouvrez la liste Foyers ou Clients dans Calaotrade</div>
+                  <div class="fks-step-desc">Connectez-vous à Calaotrade. Dans le menu à gauche, cliquez sur <strong>Foyers</strong> (ou <strong>Leads</strong> selon votre besoin). La liste de vos clients s'affiche avec toutes les colonnes.</div>
+                </div>
+              </div>
+
+              <div class="fks-step">
+                <div class="fks-step-l"><div class="fks-step-n">2</div></div>
+                <div class="fks-step-r">
+                  <div class="fks-step-title">Repérez le bouton d'export — la flèche ↓ bleue en haut à droite</div>
+                  <div class="fks-step-desc">En haut à droite de la liste, vous voyez plusieurs boutons ronds. Le <strong>dernier à droite</strong> avec une <strong>flèche vers le bas</strong> est le bouton d'export CSV. Il est bleu foncé.</div>
+                  <figure class="fks-screenshot">
+                    <img src="Image/calaotrade-export.png" alt="Bouton export CSV dans Calaotrade — encadré en rouge en haut à droite" />
+                    <figcaption>Le bouton d'export (encadré en rouge) — dernière icône en haut à droite de la liste Clients / Foyers</figcaption>
+                  </figure>
+                </div>
+              </div>
+
+              <div class="fks-step">
+                <div class="fks-step-l"><div class="fks-step-n">3</div></div>
+                <div class="fks-step-r">
+                  <div class="fks-step-title">Cliquez dessus pour lancer le téléchargement</div>
+                  <div class="fks-step-desc">Cliquez sur le bouton. Une icône de chargement tourne brièvement, puis une fenêtre de confirmation <strong>«&nbsp;Export terminé&nbsp;»</strong> apparaît en bas à droite de l'écran.</div>
+                  <figure class="fks-screenshot">
+                    <img src="Image/export-confirm.png" alt="Fenêtre Export terminé — Le fichier a été téléchargé avec succès" />
+                    <figcaption>La confirmation «&nbsp;Export terminé&nbsp;» qui apparaît après le clic</figcaption>
+                  </figure>
+                </div>
+              </div>
+
+              <div class="fks-step">
+                <div class="fks-step-l"><div class="fks-step-n">4</div></div>
+                <div class="fks-step-r">
+                  <div class="fks-step-title">Le fichier se télécharge dans votre dossier Téléchargements</div>
+                  <div class="fks-step-desc">Le panneau <strong>Téléchargements</strong> s'ouvre en haut de votre navigateur avec le fichier <code>Clients_JJ-MM-AAAA.csv</code>. Vous le retrouvez également dans votre dossier <strong>Téléchargements Windows</strong>.</div>
+                  <div class="fks-screenshot-row">
+                    <figure class="fks-screenshot">
+                      <img src="Image/export-download.png" alt="Panneau téléchargements du navigateur" />
+                      <figcaption>Le panneau téléchargements du navigateur</figcaption>
+                    </figure>
+                    <figure class="fks-screenshot">
+                      <img src="Image/export-file.png" alt="Icône du fichier CSV dans l'explorateur Windows" />
+                      <figcaption>Le fichier dans l'explorateur Windows</figcaption>
+                    </figure>
+                  </div>
+                  <div class="fks-hl" style="margin-top:14px;">✅ <strong>Étape suivante :</strong> Allez dans <strong>"📤 Outil extraction"</strong> et glissez-déposez ce fichier pour extraire les emails.</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ═══ 06-02 : Outil extraction ═══ -->
+      <article class="subsection" id="content-06-02">
+        <div id="eExtract">
+          <div class="fks-wrap">
+            <div class="fks-info-box">📌 <strong>Format attendu :</strong> Export CSV depuis Calaotrade (liste Foyers ou Clients). Le fichier doit contenir une colonne <code>email</code> pour que l'extraction fonctionne.</div>
+
+            <!-- Drop zone -->
+            <div class="fks-drop" id="fksDrop" onclick="document.getElementById('fksFile').click()">
+              <span class="fks-drop-icon">📂</span>
+              <div class="fks-drop-title">Déposez votre fichier CSV Calaotrade</div>
+              <p class="fks-drop-hint">Glissez-déposez ici, ou <strong onclick="event.stopPropagation();document.getElementById('fksFile').click()">parcourez votre ordinateur</strong></p>
+              <p class="fks-drop-hint" style="margin-top:5px;font-size:11px;">Fichier .csv — export depuis la liste Foyers ou Clients</p>
+              <div class="fks-file-info" id="fksFileInfo"></div>
+            </div>
+            <input type="file" id="fksFile" accept=".csv" style="display:none" />
+
+            <!-- Filters -->
+            <div class="fks-filters">
+              <span class="fks-fl">Filtrer :</span>
+              <div class="fks-chips">
+                <div class="fks-chip fks-on" onclick="fksFilter(this,'all')">Tous</div>
+                <div class="fks-chip" onclick="fksFilter(this,'homme')">Hommes</div>
+                <div class="fks-chip" onclick="fksFilter(this,'femme')">Femmes</div>
+                <div class="fks-chip" onclick="fksFilter(this,'celibataire')">Célibataires</div>
+                <div class="fks-chip" onclick="fksFilter(this,'marie')">Mariés</div>
+                <div class="fks-chip" onclick="fksFilter(this,'locataire')">Locataires</div>
+              </div>
+            </div>
+
+            <button class="fks-extract-btn" id="fksExtractBtn" disabled onclick="fksExtract()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Extraire les adresses email
+            </button>
+
+            <!-- Results -->
+            <div id="fksResults" style="display:none;margin-top:36px;">
+              <div class="fks-stats">
+                <div class="fks-stat"><div class="fks-stat-v" id="fksST">0</div><div class="fks-stat-l">Clients filtrés</div></div>
+                <div class="fks-stat"><div class="fks-stat-v" id="fksSV">0</div><div class="fks-stat-l">Emails extraits</div></div>
+                <div class="fks-stat"><div class="fks-stat-v" id="fksSI">0</div><div class="fks-stat-l">Sans email</div></div>
+              </div>
+
+              <div class="fks-stitle">Méthode d'envoi <span class="fks-badge" id="fksBadge">0 emails</span></div>
+              <div class="fks-rtabs">
+                <button class="fks-rtab fks-on" onclick="fksTab('bcc')">📋 Méthode A — Lots BCC<span class="fks-rtab-sub">Copier-coller dans le champ Cci</span></button>
+                <button class="fks-rtab" onclick="fksTab('import')">📥 Méthode B — Import Contacts<span class="fks-rtab-sub">Groupe permanent Outlook</span></button>
+              </div>
+
+              <div class="fks-rpanel fks-on" id="fksPanBcc">
+                <div class="fks-info-box"><strong>Pourquoi des lots ?</strong> Les liens mailto: sont limités à ~50 adresses. Copiez chaque lot et collez-le dans le champ <strong>Cci</strong> d'Outlook — sans limite.</div>
+                <div class="fks-lot-ctrl">
+                  <label>Taille des lots :</label>
+                  <select class="fks-sel" id="fksLotSz" onchange="fksLots()">
+                    <option value="50">50 par lot</option>
+                    <option value="100">100 par lot</option>
+                    <option value="200">200 par lot</option>
+                    <option value="999999">Tout en un lot</option>
+                  </select>
+                  <span class="fks-lot-ctr" id="fksLotCtr"></span>
+                </div>
+                <div class="fks-lots" id="fksLotsCont"></div>
+              </div>
+
+              <div class="fks-rpanel" id="fksPanImport">
+                <div class="fks-warn-box">💡 Importez une fois, réutilisez indéfiniment. <strong style="cursor:pointer;color:var(--fks-navy);text-decoration:underline;" onclick="navigateTo('06','06-04')">Voir le guide pas-à-pas →</strong></div>
+                <button class="fks-btn fks-btn-gold" onclick="fksDlCSV()">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Télécharger le CSV Outlook Contacts
+                </button>
+              </div>
+
+              <div class="fks-email-box">
+                <div class="fks-email-hd">Adresses extraites — <span id="fksEmailCnt">0</span> emails</div>
+                <ul class="fks-email-list" id="fksEmailList"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ═══ 06-03 : Envoi BCC ═══ -->
+      <article class="subsection" id="content-06-03">
+        <div id="eBcc">
+          <div class="fks-wrap">
+            <div class="fks-tsec-title">📋 Envoyer par lots BCC — Méthode rapide</div>
+            <div class="fks-steps">
+
+              <div class="fks-step">
+                <div class="fks-step-l"><div class="fks-step-n">1</div></div>
+                <div class="fks-step-r">
+                  <div class="fks-step-title">Extrayez et copiez un lot</div>
+                  <div class="fks-step-desc">Dans l'onglet <strong>"📤 Outil extraction"</strong>, chargez votre fichier CSV, appliquez vos filtres, cliquez sur <strong>"Extraire les adresses email"</strong>, puis cliquez sur <strong>"Copier pour Cci"</strong> sur le Lot 1. Le bouton passe en vert ✓ une fois copié.</div>
+                  <div class="fks-illus">
+                    <svg viewBox="0 0 480 90" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;display:block;">
+                      <!-- Lot card -->
+                      <rect x="8" y="12" width="460" height="66" rx="8" fill="#fff" stroke="rgba(201,168,76,.3)" stroke-width="1.5"/>
+                      <rect x="8" y="12" width="460" height="28" rx="8" fill="#fafaf8" stroke="none"/>
+                      <rect x="8" y="33" width="460" height="7" fill="#fafaf8" stroke="none"/>
+                      <text x="22" y="30" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#0f1e35">Lot 1 / 3</text>
+                      <text x="94" y="30" font-family="Montserrat,sans-serif" font-size="10" fill="#8a95a3">— 50 destinataires</text>
+                      <!-- Voir button -->
+                      <rect x="320" y="17" width="52" height="20" rx="5" fill="#fff" stroke="rgba(201,168,76,.3)" stroke-width="1.5"/>
+                      <text x="346" y="30" font-family="Montserrat,sans-serif" font-size="10" fill="#0f1e35" text-anchor="middle">Voir</text>
+                      <!-- Copier button — active green -->
+                      <rect x="380" y="17" width="78" height="20" rx="5" fill="#2e7d52"/>
+                      <text x="392" y="30" font-family="Montserrat,sans-serif" font-size="10" font-weight="600" fill="#fff">✓ Copié !</text>
+                      <!-- emails preview -->
+                      <text x="22" y="58" font-family="monospace" font-size="9" fill="#8a95a3">jean.dupont@email.com; marie.martin@gmail.com; p.bernard@outlook.fr; a.leroy@...</text>
+                      <text x="22" y="71" font-family="monospace" font-size="9" fill="#8a95a3">sophie.blanc@email.com; thomas.petit@yahoo.fr; c.moreau@gmail.com; n.simon@...</text>
+                    </svg>
+                    <div class="fks-illus-cap">Cliquez sur «&nbsp;Copier pour Cci&nbsp;» — le bouton vire au vert une fois le lot copié</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="fks-step">
+                <div class="fks-step-l"><div class="fks-step-n">2</div></div>
+                <div class="fks-step-r">
+                  <div class="fks-step-title">Ouvrez un nouveau message Outlook (<code>Ctrl + N</code>)</div>
+                  <div class="fks-step-desc">Dans Outlook, créez un nouveau message. Si le champ <strong>Cci</strong> n'est pas visible, cliquez sur <strong>Options</strong> dans le ruban puis activez <strong>"Cci"</strong>.</div>
+                  <div class="fks-illus">
+                    <svg viewBox="0 0 480 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;display:block;">
+                      <!-- Window chrome -->
+                      <rect x="8" y="8" width="464" height="104" rx="8" fill="#fff" stroke="#e2e8f0" stroke-width="1.5"/>
+                      <!-- Title bar -->
+                      <rect x="8" y="8" width="464" height="22" rx="8" fill="#0078d4" stroke="none"/>
+                      <rect x="8" y="22" width="464" height="8" fill="#0078d4" stroke="none"/>
+                      <text x="22" y="22" font-family="Montserrat,sans-serif" font-size="10" fill="#fff" font-weight="600">Nouveau message — Outlook</text>
+                      <circle cx="452" cy="19" r="5" fill="rgba(255,255,255,.3)"/>
+                      <circle cx="438" cy="19" r="5" fill="rgba(255,255,255,.3)"/>
+                      <!-- À field -->
+                      <text x="22" y="46" font-family="Montserrat,sans-serif" font-size="9.5" fill="#8a95a3">À :</text>
+                      <line x1="42" y1="49" x2="460" y2="49" stroke="#e2e8f0" stroke-width="1"/>
+                      <!-- Cci field — highlighted -->
+                      <rect x="8" y="53" width="464" height="20" rx="0" fill="rgba(201,168,76,.07)" stroke="none"/>
+                      <text x="22" y="66" font-family="Montserrat,sans-serif" font-size="9.5" font-weight="700" fill="#c9a84c">Cci :</text>
+                      <rect x="48" y="56" width="380" height="14" rx="3" fill="rgba(201,168,76,.12)" stroke="rgba(201,168,76,.4)" stroke-width="1"/>
+                      <text x="56" y="66" font-family="monospace" font-size="8.5" fill="#0f1e35">jean.dupont@email.com; marie.martin@gmail.com; p.bernard@outloo…</text>
+                      <line x1="42" y1="73" x2="460" y2="73" stroke="#e2e8f0" stroke-width="1"/>
+                      <!-- Objet field -->
+                      <text x="22" y="86" font-family="Montserrat,sans-serif" font-size="9.5" fill="#8a95a3">Objet :</text>
+                      <line x1="56" y1="89" x2="460" y2="89" stroke="#e2e8f0" stroke-width="1"/>
+                      <!-- Warning badge -->
+                      <rect x="430" y="56" width="36" height="14" rx="3" fill="#0f1e35"/>
+                      <text x="448" y="66" font-family="Montserrat,sans-serif" font-size="8" font-weight="700" fill="#c9a84c" text-anchor="middle">Cci ✓</text>
+                    </svg>
+                    <div class="fks-illus-cap">Collez dans le champ <strong>Cci</strong> (jamais dans «&nbsp;À&nbsp;») — vos clients ne verront pas les autres adresses</div>
+                  </div>
+                  <div class="fks-hl" style="margin-top:10px;">⚠️ Toujours utiliser <strong>Cci</strong> (Copie Cachée) — jamais le champ «&nbsp;À&nbsp;». Vos clients ne doivent pas voir les adresses des autres destinataires.</div>
+                </div>
+              </div>
+
+              <div class="fks-step">
+                <div class="fks-step-l"><div class="fks-step-n">3</div></div>
+                <div class="fks-step-r">
+                  <div class="fks-step-title">Collez dans le champ Cci (<code>Ctrl + V</code>)</div>
+                  <div class="fks-step-desc">Cliquez dans le champ <strong>Cci</strong> puis appuyez sur <code>Ctrl + V</code>. Outlook reconnaît chaque adresse séparée par un point-virgule et crée automatiquement une étiquette par destinataire.</div>
+                  <div class="fks-illus">
+                    <svg viewBox="0 0 480 52" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;display:block;">
+                      <rect x="8" y="8" width="464" height="36" rx="6" fill="#fff" stroke="rgba(201,168,76,.4)" stroke-width="1.5"/>
+                      <text x="20" y="23" font-family="Montserrat,sans-serif" font-size="9" font-weight="700" fill="#c9a84c">Cci :</text>
+                      <!-- Email tags -->
+                      <rect x="42" y="14" width="76" height="16" rx="8" fill="#e8f1fb" stroke="#1a5fa8" stroke-width="1"/>
+                      <text x="80" y="25" font-family="Montserrat,sans-serif" font-size="8" fill="#1a5fa8" text-anchor="middle">j.dupont@email.com</text>
+                      <rect x="124" y="14" width="80" height="16" rx="8" fill="#e8f1fb" stroke="#1a5fa8" stroke-width="1"/>
+                      <text x="164" y="25" font-family="Montserrat,sans-serif" font-size="8" fill="#1a5fa8" text-anchor="middle">m.martin@gmail.com</text>
+                      <rect x="210" y="14" width="84" height="16" rx="8" fill="#e8f1fb" stroke="#1a5fa8" stroke-width="1"/>
+                      <text x="252" y="25" font-family="Montserrat,sans-serif" font-size="8" fill="#1a5fa8" text-anchor="middle">p.bernard@outlook.fr</text>
+                      <rect x="300" y="14" width="72" height="16" rx="8" fill="#e8f1fb" stroke="#1a5fa8" stroke-width="1"/>
+                      <text x="336" y="25" font-family="Montserrat,sans-serif" font-size="8" fill="#1a5fa8" text-anchor="middle">a.leroy@yahoo.fr</text>
+                      <text x="382" y="25" font-family="Montserrat,sans-serif" font-size="9" fill="#8a95a3">+ 46 autres…</text>
+                    </svg>
+                    <div class="fks-illus-cap">Outlook crée automatiquement une étiquette par adresse — vous voyez combien de destinataires sont ajoutés</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="fks-step">
+                <div class="fks-step-l"><div class="fks-step-n">4</div></div>
+                <div class="fks-step-r">
+                  <div class="fks-step-title">Répétez pour chaque lot suivant</div>
+                  <div class="fks-step-desc">Pour chaque lot suivant, ouvrez un <strong>nouveau message</strong> et répétez l'opération. Espacez les envois de quelques minutes pour éviter les filtres anti-spam.</div>
+                  <div class="fks-ok-box" style="margin-top:10px;">✅ <strong>Conseil :</strong> 50 emails par message, envoi toutes les 5 minutes = arrivée garantie en boîte de réception.</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ═══ 06-04 : Import Outlook ═══ -->
+      <article class="subsection" id="content-06-04">
+        <div id="eImport">
+          <div class="fks-wrap">
+            <div class="fks-tsec-title">👥 Groupe de contacts Outlook — Méthode recommandée</div>
+            <div class="fks-warn-box">⏱️ <strong>5 minutes la première fois.</strong> Après ça, envoyer à tous vos clients prend 10 secondes à chaque campagne.</div>
+
+            <div class="fks-steps">
+
+              <div class="fks-step">
+                <div class="fks-step-l"><div class="fks-step-n">1</div></div>
+                <div class="fks-step-r">
+                  <div class="fks-step-title">Téléchargez le fichier CSV formaté Outlook</div>
+                  <div class="fks-step-desc">Dans l'onglet <strong>"📤 Outil extraction"</strong>, extrayez vos emails → onglet <strong>Méthode B</strong> → cliquez sur <strong>"Télécharger le CSV Outlook Contacts"</strong>.</div>
+                  <div class="fks-hl">📁 Le fichier s'appelle <code>finke_outlook_contacts_AAAA-MM-JJ.csv</code> — il est dans vos Téléchargements.</div>
+                </div>
+              </div>
+
+              <div class="fks-step">
+                <div class="fks-step-l"><div class="fks-step-n">2</div></div>
+                <div class="fks-step-r">
+                  <div class="fks-step-title">Ouvrez l'assistant d'importation Outlook</div>
+                  <div class="fks-step-desc">Dans Outlook : <strong>Fichier → Ouvrir et exporter → Importer/Exporter</strong>. Une fenêtre d'assistant s'ouvre.</div>
+                  <div class="fks-illus">
+                    <svg viewBox="0 0 480 44" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;display:block;">
+                      <!-- breadcrumb path -->
+                      <rect x="8" y="10" width="72" height="24" rx="5" fill="#0078d4"/>
+                      <text x="44" y="25" font-family="Montserrat,sans-serif" font-size="10" font-weight="600" fill="#fff" text-anchor="middle">Fichier</text>
+                      <!-- arrow -->
+                      <text x="88" y="26" font-family="sans-serif" font-size="14" fill="#c9a84c">›</text>
+                      <rect x="100" y="10" width="120" height="24" rx="5" fill="#f0ebe3" stroke="rgba(201,168,76,.3)" stroke-width="1"/>
+                      <text x="160" y="25" font-family="Montserrat,sans-serif" font-size="9.5" fill="#0f1e35" text-anchor="middle">Ouvrir et exporter</text>
+                      <!-- arrow -->
+                      <text x="228" y="26" font-family="sans-serif" font-size="14" fill="#c9a84c">›</text>
+                      <rect x="240" y="10" width="120" height="24" rx="5" fill="#0f1e35"/>
+                      <text x="300" y="25" font-family="Montserrat,sans-serif" font-size="9.5" font-weight="600" fill="#c9a84c" text-anchor="middle">Importer/Exporter</text>
+                    </svg>
+                    <div class="fks-illus-cap">Chemin d'accès dans Outlook</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="fks-step">
+                <div class="fks-step-l"><div class="fks-step-n">3</div></div>
+                <div class="fks-step-r">
+                  <div class="fks-step-title">Choisissez «&nbsp;Importer depuis un autre programme&nbsp;»</div>
+                  <div class="fks-step-desc">Sélectionnez <strong>«&nbsp;Importer depuis un autre programme ou fichier&nbsp;»</strong> puis cliquez sur <strong>Suivant</strong>.</div>
+                </div>
+              </div>
+
+              <div class="fks-step">
+                <div class="fks-step-l"><div class="fks-step-n">4</div></div>
+                <div class="fks-step-r">
+                  <div class="fks-step-title">Sélectionnez «&nbsp;Valeurs séparées par des virgules&nbsp;»</div>
+                  <div class="fks-step-desc">Sur l'écran suivant, choisissez <strong>«&nbsp;Valeurs séparées par des virgules&nbsp;»</strong> → cliquez sur <strong>Suivant</strong>.</div>
+                </div>
+              </div>
+
+              <div class="fks-step">
+                <div class="fks-step-l"><div class="fks-step-n">5</div></div>
+                <div class="fks-step-r">
+                  <div class="fks-step-title">Sélectionnez le fichier téléchargé</div>
+                  <div class="fks-step-desc">Cliquez sur <strong>«&nbsp;Parcourir...&nbsp;»</strong> → allez dans <strong>Téléchargements</strong> → sélectionnez <code>finke_outlook_contacts_….csv</code> → <strong>Suivant</strong>.</div>
+                </div>
+              </div>
+
+              <div class="fks-step">
+                <div class="fks-step-l"><div class="fks-step-n">6</div></div>
+                <div class="fks-step-r">
+                  <div class="fks-step-title">Importez dans le dossier «&nbsp;Contacts&nbsp;»</div>
+                  <div class="fks-step-desc">Choisissez <strong>Contacts</strong> dans la liste des dossiers de destination, puis cliquez sur <strong>Terminer</strong>. L'importation se lance.</div>
+                </div>
+              </div>
+
+              <div class="fks-step">
+                <div class="fks-step-l"><div class="fks-step-n">7</div></div>
+                <div class="fks-step-r">
+                  <div class="fks-step-title">Créez un groupe de contacts</div>
+                  <div class="fks-step-desc">Allez dans la section <strong>Contacts</strong> d'Outlook (icône en bas à gauche) → cliquez sur <strong>«&nbsp;Nouveau groupe de contacts&nbsp;»</strong> → nommez-le <code>Clients Finke Swiss</code> → <strong>«&nbsp;Ajouter des membres → Depuis contacts Outlook&nbsp;»</strong> → faites <code>Ctrl+A</code> pour tout sélectionner → <strong>OK</strong> → <code>Ctrl+S</code>.</div>
+                  <div class="fks-illus">
+                    <svg viewBox="0 0 480 80" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;display:block;">
+                      <!-- Group card -->
+                      <rect x="8" y="8" width="464" height="64" rx="8" fill="#fff" stroke="rgba(201,168,76,.3)" stroke-width="1.5"/>
+                      <!-- group icon area -->
+                      <rect x="8" y="8" width="54" height="64" rx="8" fill="#0f1e35" stroke="none"/>
+                      <rect x="8" y="8" width="46" height="64" rx="0" fill="#0f1e35" stroke="none"/>
+                      <!-- people icons -->
+                      <circle cx="35" cy="28" r="8" fill="rgba(201,168,76,.2)" stroke="#c9a84c" stroke-width="1.5"/>
+                      <text x="35" y="32" font-family="sans-serif" font-size="10" fill="#c9a84c" text-anchor="middle">👥</text>
+                      <text x="35" y="52" font-family="Montserrat,sans-serif" font-size="7.5" fill="#c9a84c" text-anchor="middle">Groupe</text>
+                      <!-- name -->
+                      <text x="72" y="30" font-family="Montserrat,sans-serif" font-size="12" font-weight="700" fill="#0f1e35">Clients Finke Swiss</text>
+                      <!-- member count badge -->
+                      <rect x="72" y="38" width="90" height="16" rx="8" fill="#edf7f2" stroke="rgba(46,125,82,.2)" stroke-width="1"/>
+                      <text x="117" y="49" font-family="Montserrat,sans-serif" font-size="9" fill="#2e7d52" text-anchor="middle">✓ 247 membres</text>
+                      <!-- use tip -->
+                      <rect x="230" y="38" width="230" height="16" rx="4" fill="rgba(201,168,76,.08)" stroke="rgba(201,168,76,.2)" stroke-width="1"/>
+                      <text x="245" y="49" font-family="Montserrat,sans-serif" font-size="8.5" fill="#7a5c00">Tapez "Clients Finke Swiss" dans le champ Cci</text>
+                    </svg>
+                    <div class="fks-illus-cap">Le groupe créé dans Outlook Contacts — il suffit de le taper dans Cci à chaque envoi</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="fks-step">
+                <div class="fks-step-l"><div class="fks-step-n">8</div></div>
+                <div class="fks-step-r">
+                  <div class="fks-step-title">Utilisation au quotidien — 10 secondes</div>
+                  <div class="fks-step-desc">Pour chaque nouvelle campagne, ouvrez un nouveau message et tapez <code>Clients Finke Swiss</code> dans le champ <strong>Cci</strong>. Outlook ajoutera tous les contacts du groupe automatiquement.</div>
+                  <div class="fks-illus">
+                    <svg viewBox="0 0 480 58" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;display:block;">
+                      <rect x="8" y="8" width="464" height="42" rx="6" fill="#fff" stroke="rgba(201,168,76,.4)" stroke-width="1.5"/>
+                      <text x="20" y="24" font-family="Montserrat,sans-serif" font-size="9" font-weight="700" fill="#c9a84c">Cci :</text>
+                      <!-- autocomplete suggestion -->
+                      <rect x="42" y="14" width="160" height="22" rx="6" fill="#0f1e35" stroke="none"/>
+                      <text x="50" y="23" font-family="Montserrat,sans-serif" font-size="8" fill="#c9a84c">👥</text>
+                      <text x="62" y="23" font-family="Montserrat,sans-serif" font-size="9" font-weight="600" fill="#fff">Clients Finke Swiss</text>
+                      <text x="62" y="33" font-family="Montserrat,sans-serif" font-size="8" fill="#8a95a3">Groupe — 247 membres</text>
+                      <!-- arrow pointing down -->
+                      <text x="210" y="28" font-family="sans-serif" font-size="11" fill="#2e7d52">↵ Entrée</text>
+                      <!-- result -->
+                      <rect x="285" y="14" width="134" height="16" rx="8" fill="#edf7f2" stroke="rgba(46,125,82,.3)" stroke-width="1"/>
+                      <text x="352" y="25" font-family="Montserrat,sans-serif" font-size="8.5" fill="#2e7d52" text-anchor="middle">✓ 247 destinataires ajoutés</text>
+                    </svg>
+                    <div class="fks-illus-cap">Outlook propose le groupe en autocomplétion — appuyez sur Entrée et les 247 contacts sont ajoutés instantanément</div>
+                  </div>
+                  <div class="fks-ok-box" style="margin-top:12px;">🎉 <strong>C'est fait !</strong> Pour mettre à jour la liste, re-téléchargez un CSV depuis l'outil et ré-importez-le dans Outlook Contacts.</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <div class="fks-toast-elt" id="fksToast"></div>
+
+      <!-- ═══ 06-05 : Campagne fiscale ═══ -->
+      <article class="subsection" id="content-06-05">
+        <div class="fks-wrap">
+
+          <!-- Bannière contexte -->
+          <div class="fks-camp-hero">
+            <div class="fks-pill">📅 Période fiscale en cours</div>
+            <h3>Campagne Emailing — Déclaration d'impôt</h3>
+            <p>Trois newsletters Finke prêtes à l'emploi pour rappeler à vos clients l'importance d'optimiser leur situation fiscale (impôt à la source, statut quasi-résident). Envoyez-en une seule ou déployez la séquence complète — une par semaine — pour maximiser l'impact.</p>
+          </div>
+
+          <!-- Stratégie recommandée -->
+          <div class="fks-camp-strategy">
+            <div class="fks-camp-strategy-title">🎯 Séquence recommandée — 1 email / semaine</div>
+            <div class="fks-camp-timeline">
+              <div class="fks-camp-week">
+                <div class="fks-camp-week-badge">S1</div>
+                <div class="fks-camp-week-body">
+                  <div class="fks-camp-week-label">J0 — Semaine 1</div>
+                  <div class="fks-camp-week-name">💸 Angle perte financière</div>
+                  <div class="fks-camp-week-desc">Fort impact initial — génère les premiers clics et appels</div>
+                </div>
+              </div>
+              <div class="fks-camp-arrow">→</div>
+              <div class="fks-camp-week">
+                <div class="fks-camp-week-badge">S2</div>
+                <div class="fks-camp-week-body">
+                  <div class="fks-camp-week-label">J+7 — Semaine 2</div>
+                  <div class="fks-camp-week-name">⏰ Angle urgence / délai</div>
+                  <div class="fks-camp-week-desc">Relance les indécis avec la pression du calendrier</div>
+                </div>
+              </div>
+              <div class="fks-camp-arrow">→</div>
+              <div class="fks-camp-week">
+                <div class="fks-camp-week-badge">S3</div>
+                <div class="fks-camp-week-body">
+                  <div class="fks-camp-week-label">J+14 — Semaine 3</div>
+                  <div class="fks-camp-week-name">🏆 Angle preuve / crédibilité</div>
+                  <div class="fks-camp-week-desc">Convertit grâce aux témoignages et résultats réels</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Les 3 modèles -->
+          <div class="fks-camp-section-title">Les 3 modèles de newsletters</div>
+          <div class="fks-camp-cards">
+
+            <div class="fks-camp-card">
+              <div class="fks-camp-card-header fks-camp-card-1">
+                <span class="fks-camp-num">1</span>
+                <div>
+                  <div class="fks-camp-card-tag">Semaine 1 — J0</div>
+                  <div class="fks-camp-card-title">💸 Angle perte financière</div>
+                </div>
+              </div>
+              <div class="fks-camp-card-body">
+                <p>Interpelle le client sur ce qu'il perd concrètement chaque année en ne vérifiant pas sa situation à l'impôt à la source. Chiffres impactants, lecture rapide.</p>
+                <div class="fks-camp-subjects">
+                  <div class="fks-camp-subjects-label">Objets suggérés</div>
+                  <div class="fks-camp-subject">Vous laissez peut-être 5’000 CHF à Genève chaque année</div>
+                  <div class="fks-camp-subject">Combien perdez-vous vraiment avec l'impôt à la source&nbsp;?</div>
+                  <div class="fks-camp-subject">2’000 à 5’000 CHF en jeu… avez-vous vérifié&nbsp;?</div>
+                  <div class="fks-camp-subject">Frontaliers : l'erreur fiscale qui coûte cher</div>
+                  <div class="fks-camp-subject">Votre impôt est-il trop élevé sans que vous le sachiez&nbsp;?</div>
+                </div>
+                <button class="fks-camp-btn" onclick="campToggle(this, 'camp-mail-1')">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>
+                  Voir le modèle 1
+                </button>
+                <div class="fks-camp-mail" id="camp-mail-1">
+                  <div class="fks-camp-mail-meta">
+                    <span><strong>Objet :</strong> Vous laissez peut-être 5’000 CHF à Genève chaque année</span>
+                    <button class="fks-camp-copy" onclick="campCopy('camp-mail-1-body', this)">Copier le texte</button>
+                  </div>
+                  <div class="fks-camp-mail-body" id="camp-mail-1-body">Bonjour [Prénom],
+
+Savez-vous que de nombreux frontaliers travaillant en Suisse paient chaque année plusieurs milliers de francs d’impôts en trop — sans le savoir ?
+
+L’impôt à la source est prélevé directement sur votre salaire par votre employeur suisse. Le problème : ce taux est souvent calculé sur une base générique, qui ne tient pas compte de votre situation réelle.
+
+Résultat : vous payez trop. Entre 2’000 et 5’000 CHF de trop, chaque année.
+
+Quelles sont les principales sources d’économies ?
+
+→ Le statut de quasi-résident : si vous gagnez plus de 90 % de vos revenus en Suisse, vous pouvez déduire vos charges réelles (intérêts de crédit, frais professionnels, pension alimentaire…).
+→ La rectification de l’impôt à la source : une démarche simple qui permet d’obtenir un remboursement si votre taux était trop élevé.
+
+Ces démarches sont encadrées par des délais stricts. Chaque année qui passe sans agir, c’est de l’argent perdu définitivement.
+
+Nous pouvons analyser votre situation et vous dire en quelques minutes si vous êtes concerné(e).
+
+Prenez rendez-vous gratuitement : [LIEN PRISE DE RDV]
+
+Cordialement,
+[Votre prénom]
+Conseiller Finke Swiss
+[Téléphone] | [Email]
+
+---
+Finke Swiss — Conseil financier indépendant
+Vous recevez cet email car vous faites partie de nos clients. Se désabonner : [lien]</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="fks-camp-card">
+              <div class="fks-camp-card-header fks-camp-card-2">
+                <span class="fks-camp-num">2</span>
+                <div>
+                  <div class="fks-camp-card-tag">Semaine 2 — J+7</div>
+                  <div class="fks-camp-card-title">⏰ Angle urgence / délai</div>
+                </div>
+              </div>
+              <div class="fks-camp-card-body">
+                <p>Rappelle les délais légaux et crée un sentiment d'urgence. Idéal pour relancer les contacts qui n'ont pas encore répondu à la première newsletter.</p>
+                <div class="fks-camp-subjects">
+                  <div class="fks-camp-subjects-label">Objets suggérés</div>
+                  <div class="fks-camp-subject">Dernier délai pour optimiser votre impôt à la source</div>
+                  <div class="fks-camp-subject">Après cette date, il sera trop tard…</div>
+                  <div class="fks-camp-subject">Plus que quelques jours pour récupérer votre argent</div>
+                  <div class="fks-camp-subject">Demande quasi-résident : délai en approche</div>
+                </div>
+                <button class="fks-camp-btn" onclick="campToggle(this, 'camp-mail-2')">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>
+                  Voir le modèle 2
+                </button>
+                <div class="fks-camp-mail" id="camp-mail-2">
+                  <div class="fks-camp-mail-meta">
+                    <span><strong>Objet :</strong> Dernier délai pour optimiser votre impôt à la source</span>
+                    <button class="fks-camp-copy" onclick="campCopy('camp-mail-2-body', this)">Copier le texte</button>
+                  </div>
+                  <div class="fks-camp-mail-body" id="camp-mail-2-body">Bonjour [Prénom],
+
+Il y a quelques jours, je vous informais d’une possibilité de récupérer entre 2’000 et 5’000 CHF sur votre impôt à la source.
+
+Aujourd’hui, je dois vous signaler quelque chose d’urgent.
+
+Les demandes de rectification de l’impôt à la source et les demandes de statut quasi-résident sont soumises à des délais légaux stricts, fixés par l’administration fiscale cantonale.
+
+Passé ces délais :
+✕ Aucune rectification possible pour l’année concernée
+✕ Aucun remboursement envisageable
+✕ L’argent versé en trop est définitivement perdu
+
+La bonne nouvelle : nous pouvons encore agir si vous nous contactez rapidement.
+
+La mauvaise : chaque jour compte.
+
+Voici ce qu’il faut faire maintenant :
+
+1. Retrouvez votre dernière fiche de salaire suisse
+2. Contactez-nous via ce lien : [LIEN PRISE DE RDV]
+3. Nous analysons votre situation sous 24h
+
+Ne laissez pas passer cette fenêtre. Une fois la date légale dépassée, il n’y a plus rien à faire.
+
+[Votre prénom]
+Conseiller Finke Swiss
+[Téléphone] | [Email]
+
+---
+Finke Swiss — Conseil financier indépendant
+Vous recevez cet email car vous faites partie de nos clients. Se désabonner : [lien]</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="fks-camp-card">
+              <div class="fks-camp-card-header fks-camp-card-3">
+                <span class="fks-camp-num">3</span>
+                <div>
+                  <div class="fks-camp-card-tag">Semaine 3 — J+14</div>
+                  <div class="fks-camp-card-title">🏆 Angle preuve / crédibilité</div>
+                </div>
+              </div>
+              <div class="fks-camp-card-body">
+                <p>S'appuie sur des témoignages et résultats concrets pour convaincre les plus sceptiques. Parfait en clôture de séquence pour convertir les derniers indécis.</p>
+                <div class="fks-camp-subjects">
+                  <div class="fks-camp-subjects-label">Objets suggérés</div>
+                  <div class="fks-camp-subject">&laquo;&nbsp;J'ai récupéré 3’842 CHF&nbsp;&raquo; – Témoignage frontalier</div>
+                  <div class="fks-camp-subject">Exemple réel : 4’126 CHF récupérés grâce au quasi-résident</div>
+                  <div class="fks-camp-subject">Pourquoi certains frontaliers paient moins d'impôt que vous</div>
+                </div>
+                <button class="fks-camp-btn" onclick="campToggle(this, 'camp-mail-3')">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>
+                  Voir le modèle 3
+                </button>
+                <div class="fks-camp-mail" id="camp-mail-3">
+                  <div class="fks-camp-mail-meta">
+                    <span><strong>Objet :</strong> &laquo; J’ai récupéré 3’842 CHF » – Témoignage frontalier</span>
+                    <button class="fks-camp-copy" onclick="campCopy('camp-mail-3-body', this)">Copier le texte</button>
+                  </div>
+                  <div class="fks-camp-mail-body" id="camp-mail-3-body">Bonjour [Prénom],
+
+Je voulais partager avec vous deux cas réels de clients Finke Swiss qui ont récemment bénéficié d’une optimisation de leur impôt à la source.
+
+— Témoignage 1 —
+« J’étais persuadé que mon impôt était correct. Mon conseiller Finke m’a montré que je pouvais déposer une demande quasi-résident. Résultat : 3’842 CHF remboursés pour 2024. J’aurais dû le faire bien plus tôt. »
+— Marc, frontalier dans le canton de Genève
+
+— Témoignage 2 —
+« Avec mon mari, on pensait que la procédure était trop compliquée. En fait, Finke a tout géré pour nous. On a récupéré 4’126 CHF. On regrette de ne pas avoir fait la démarche avant. »
+— Sophie & Thomas, frontaliers dans le canton de Vaud
+
+Ces résultats ne sont pas exceptionnels. Ils reflètent ce que de nombreux frontaliers peuvent obtenir lorsque leur situation est correctement analysée.
+
+Le seul prérequis : agir avant la clôture de l’exercice fiscal en cours.
+
+Prenez 5 minutes pour vérifier votre situation : [LIEN PRISE DE RDV]
+
+Nos conseillers répondent sous 24h. L’analyse initiale est gratuite et sans engagement.
+
+[Votre prénom]
+Conseiller Finke Swiss
+[Téléphone] | [Email]
+
+---
+Finke Swiss — Conseil financier indépendant
+Vous recevez cet email car vous faites partie de nos clients. Se désabonner : [lien]</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Conseil personnalisation -->
+          <div class="fks-warn-box" style="margin-top:28px;">
+            <strong>💡 Conseil personnalisation :</strong> Adaptez légèrement le message selon votre portefeuille clients (célibataires, couples, hauts revenus…) pour augmenter la pertinence et le taux de conversion. Les angles « perte financière » et « chiffres concrets » fonctionnent particulièrement bien sur les profils frontaliers.
+          </div>
+
+        </div>
+      </article>
+    </section>
+
+    <!-- Section 07: Calaobooking -->
+    <section class="content-section" id="content-07">
+      <header class="section-header">
+        <h1>07 — Calaobooking</h1>
+        <p class="section-intro">Partagez votre calendrier et laissez vos clients réserver des rendez-vous automatiquement.</p>
+      </header>
+
+      <article class="subsection active" id="content-07-01">
+        <h2>Calendrier & disponibilités</h2>
+        <p>Configurez votre statut de disponibilité :</p>
+        <ul style="margin: 20px 0 20px 20px;">
+          <li>Définissez heures d'ouverture et fermeture</li>
+          <li>Définissez les jours non-travaillés</li>
+          <li>Durée standard des rendez-vous</li>
+          <li>Délai minimum/maximum de réservation</li>
+          <li>Synchronisation avec calendrier personnel</li>
+        </ul>
+      </article>
+
+      <article class="subsection" id="content-07-02">
+        <h2>Réservation client</h2>
+        <p>Les clients réservent des créneaux via un lien partagé :</p>
+        <ul style="margin: 20px 0 20px 20px;">
+          <li>Partagez lien de réservation par email/site</li>
+          <li>Clients voient disponibilités en temps réel</li>
+          <li>Ils confirment date/heure préférée</li>
+          <li>Confirmation automatique par email</li>
+          <li>Rappels 24h avant rendez-vous</li>
+        </ul>
+      </article>
+
+      <article class="subsection" id="content-07-03">
+        <h2>Synchronisation RDV</h2>
+        <p>Vos rendez-vous restent en sync partout :</p>
+        <ul style="margin: 20px 0 20px 20px;">
+          <li>Synchronisation bidirectionnelle Google Calendar</li>
+          <li>Synchronisation bidirectionnelle Outlook</li>
+          <li>Aucun double booking possible</li>
+          <li>Les changements dans CRM mettent à jour calendrier</li>
+          <li>Invitation contient infos client Calaotrade</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- Section 08: Scénarios Complets -->
+    <section class="content-section" id="content-08">
+      <header class="section-header">
+        <h1>08 — Scénarios Complets</h1>
+        <p class="section-intro">Exemples concrets et étape-par-étape pour maîtriser vos workflows clés.</p>
+      </header>
+
+      <article class="subsection active" id="content-08-01">
+        <h2>Parcours nouveau client</h2>
+        <p><strong>Scénario :</strong> Un lead vous contacte pour la première fois</p>
+        <ol style="margin: 20px 0 20px 20px;">
+          <li><strong>Créer le lead</strong> → Entrez ses infos et source</li>
+          <li><strong>Qualifier</strong> → Appel initial, comprendre besoins</li>
+          <li><strong>Envoyer devis</strong> → Proposez solution</li>
+          <li><strong>Relancer</strong> → Tâche automatique après 1 semaine</li>
+          <li><strong>Convertir</strong> → Client accepte, conversion en compte client</li>
+          <li><strong>Facturer</strong> → Créer première prestation/facture</li>
+        </ol>
+      </article>
+
+      <article class="subsection" id="content-08-02">
+        <h2>Gestion dossier complet</h2>
+        <p><strong>Scénario :</strong> Gérer un client avec plusieurs prestations</p>
+        <ol style="margin: 20px 0 20px 20px;">
+          <li><strong>Ouvrir ficher client</strong> → Voir vue d'ensemble</li>
+          <li><strong>Visualiser activité</strong> → Historique complet</li>
+          <li><strong>Voir prestations actives</strong> → État de chaque dossier</li>
+          <li><strong>Programmer RDV</strong> → Si suivi nécessaire</li>
+          <li><strong>Passer tâche</strong> → À collègue si handover</li>
+          <li><strong>Générer facture</strong> → Pour prestation complétée</li>
+        </ol>
+      </article>
+
+      <article class="subsection" id="content-08-03">
+        <h2>Workflow facturation</h2>
+        <p><strong>Scénario :</strong> Processus complet d'une facture Calaotrade</p>
+        <ol style="margin: 20px 0 20px 20px;">
+          <li><strong>Prestation en cours</strong> → À date de fin</li>
+          <li><strong>Générer facture</strong> → Depuis la prestation</li>
+          <li><strong>Réviser & confirmez</strong> → Vérifier montants/adresse</li>
+          <li><strong>Envoyer au client</strong> → Email de Calaotrade</li>
+          <li><strong>Mise à jour Bexio</strong> → Sync automatique de facture</li>
+          <li><strong>Suivi paiement</strong> → Rappel auto si retard</li>
+          <li><strong>Archivage</strong> → Une fois payée</li>
+        </ol>
+      </article>
+    </section>
+
+  </main>
+</div>
 
 <footer>
-  <p>© 2026 <span>Finke Swiss</span> — Documentation interne · Module Facturation Calaotrade</p>
+  <p>© 2026 <span>Finke Swiss</span> — Documentation interne · CRM Calaotrade</p>
 </footer>
+<script src="script.js"></script>
+<script>
+/* ════════════════════════════════════════
+   EMAILING TOOL — Tab nav + Extractor JS
+════════════════════════════════════════ */
+/* navigateTo: jump to a section + subsection programmatically */
+function navigateTo(sectionId, subsectionId) {
+  // activate section
+  document.querySelectorAll('.content-section').forEach(function(s){ s.classList.remove('active'); });
+  var sec = document.getElementById('content-' + sectionId);
+  if(sec) sec.classList.add('active');
+  // activate subsection
+  if(sec) {
+    sec.querySelectorAll('.subsection').forEach(function(a){ a.classList.remove('active'); });
+    var sub = document.getElementById('content-' + subsectionId);
+    if(sub) sub.classList.add('active');
+  }
+  // sync sidebar
+  document.querySelectorAll('.sidebar-headline').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.sidebar-subsections').forEach(function(d){ d.style.display='none'; });
+  var btn = document.querySelector('.sidebar-headline[data-section="' + sectionId + '"]');
+  if(btn) { btn.classList.add('active'); }
+  var subs = document.getElementById('section-' + sectionId + '-subs');
+  if(subs) subs.style.display = 'block';
+  document.querySelectorAll('.sidebar-link').forEach(function(l){ l.classList.remove('active'); });
+  var link = document.querySelector('.sidebar-link[data-subsection="' + subsectionId + '"]');
+  if(link) link.classList.add('active');
+}
+
+(function(){
+  var allRows=[], curFilter='all', emails=[], rows=[];
+
+  var drop = document.getElementById('fksDrop');
+  var fin  = document.getElementById('fksFile');
+  if(!drop || !fin) return;
+
+  drop.addEventListener('dragover', function(e){ e.preventDefault(); drop.classList.add('over'); });
+  drop.addEventListener('dragleave', function(){ drop.classList.remove('over'); });
+  drop.addEventListener('drop', function(e){
+    e.preventDefault(); drop.classList.remove('over');
+    var f = e.dataTransfer.files[0]; if(f) loadF(f);
+  });
+  fin.addEventListener('change', function(e){ if(e.target.files[0]) loadF(e.target.files[0]); });
+
+  function loadF(f){
+    if(!f.name.endsWith('.csv')){ fksToast('⚠️ Fichier .csv requis'); return; }
+    var r = new FileReader();
+    r.onload = function(e){
+      parseCSV(e.target.result);
+      var i = document.getElementById('fksFileInfo');
+      i.style.display = 'block';
+      i.textContent = '✓ ' + f.name + ' — ' + (f.size/1024).toFixed(1) + ' Ko — ' + allRows.length + ' lignes';
+      document.getElementById('fksExtractBtn').disabled = false;
+      fksToast('✓ Fichier chargé');
+    };
+    r.readAsText(f, 'UTF-8');
+  }
+
+  function parseCSV(txt){
+    txt = txt.replace(/^\uFEFF/, '');
+    var lines = txt.split('\n').filter(function(l){ return l.trim(); });
+    if(lines.length < 2) return;
+    var hdrs = csvLine(lines[0]).map(function(h){ return h.trim().toLowerCase(); });
+    allRows = [];
+    for(var i = 1; i < lines.length; i++){
+      var v = csvLine(lines[i]), row = {};
+      hdrs.forEach(function(h, j){ row[h] = (v[j] || '').trim(); });
+      allRows.push(row);
+    }
+  }
+
+  function csvLine(l){
+    var r=[], c='', q=false;
+    for(var i=0; i<l.length; i++){
+      if(l[i]=='"'){ q=!q; }
+      else if(l[i]==',' && !q){ r.push(c); c=''; }
+      else{ c+=l[i]; }
+    }
+    r.push(c); return r;
+  }
+
+  window.fksFilter = function(el, f){
+    document.querySelectorAll('.fks-chip').forEach(function(c){ c.classList.remove('fks-on'); });
+    el.classList.add('fks-on'); curFilter = f;
+  };
+
+  window.fksExtract = function(){
+    var filtered = allRows;
+    if(curFilter==='homme')    filtered = allRows.filter(function(r){ return r.sexe==='man'    || r.civilite==='monsieur'; });
+    if(curFilter==='femme')    filtered = allRows.filter(function(r){ return r.sexe==='woman'  || r.civilite==='madame'; });
+    if(curFilter==='celibataire') filtered = allRows.filter(function(r){ return (r.marialstatus||'').toLowerCase()==='celibataire'; });
+    if(curFilter==='marie')    filtered = allRows.filter(function(r){ return (r.marialstatus||'').toLowerCase().startsWith('mari'); });
+    if(curFilter==='locataire')filtered = allRows.filter(function(r){ return (r.situationimmo||'').toLowerCase()==='locataire'; });
+
+    var wE = filtered.filter(function(r){ return r.email && r.email.includes('@'); });
+    var seen = new Set(); rows = [];
+    wE.forEach(function(r){ var em = r.email.toLowerCase(); if(!seen.has(em)){ seen.add(em); rows.push(r); } });
+    emails = rows.map(function(r){ return r.email.toLowerCase(); });
+
+    document.getElementById('fksST').textContent = filtered.length;
+    document.getElementById('fksSV').textContent = emails.length;
+    document.getElementById('fksSI').textContent = filtered.length - wE.length;
+    document.getElementById('fksEmailCnt').textContent = emails.length;
+    document.getElementById('fksBadge').textContent = emails.length + ' email' + (emails.length>1?'s':'');
+
+    var ul = document.getElementById('fksEmailList'); ul.innerHTML = '';
+    emails.forEach(function(em){ var li = document.createElement('li'); li.textContent = em; ul.appendChild(li); });
+
+    fksLots();
+    var res = document.getElementById('fksResults');
+    res.style.display = 'block';
+    res.scrollIntoView({ behavior:'smooth', block:'start' });
+    fksToast('✓ ' + emails.length + ' adresses extraites');
+  };
+
+  window.fksTab = function(t){
+    document.querySelectorAll('.fks-rtab').forEach(function(x,i){
+      x.classList.toggle('fks-on', (i===0&&t==='bcc')||(i===1&&t==='import'));
+    });
+    document.getElementById('fksPanBcc').classList.toggle('fks-on', t==='bcc');
+    document.getElementById('fksPanImport').classList.toggle('fks-on', t==='import');
+  };
+
+  window.fksLots = function(){
+    if(!emails.length) return;
+    var sz = parseInt(document.getElementById('fksLotSz').value);
+    var lots = [];
+    for(var i=0; i<emails.length; i+=sz) lots.push(emails.slice(i, i+sz));
+    document.getElementById('fksLotCtr').textContent = '→ ' + lots.length + ' lot' + (lots.length>1?'s':'');
+    var c = document.getElementById('fksLotsCont'); c.innerHTML = '';
+    lots.forEach(function(lot, idx){
+      var str = lot.join('; ');
+      var d = document.createElement('div'); d.className = 'fks-lot'; d.dataset.em = str;
+      d.innerHTML = '<div class="fks-lot-hd"><div><span class="fks-lot-lbl">Lot '+(idx+1)+'/'+lots.length+'</span><span class="fks-lot-cnt"> — '+lot.length+' destinataire'+(lot.length>1?'s':'')+'</span></div><div class="fks-lot-acts"><button class="fks-btn fks-btn-outline fks-btn-sm" onclick="fksTogLot(this,\'fkslem'+idx+'\')" type="button">Voir</button><button class="fks-btn fks-btn-navy fks-btn-sm" onclick="fksCpLot(this,'+idx+')" type="button">Copier pour Cci</button></div></div><div class="fks-lot-em" id="fkslem'+idx+'">' + str + '</div>';
+      c.appendChild(d);
+    });
+  };
+
+  window.fksTogLot = function(btn, id){
+    var el = document.getElementById(id); el.classList.toggle('open');
+    btn.textContent = el.classList.contains('open') ? 'Réduire' : 'Voir';
+  };
+
+  window.fksCpLot = function(btn, idx){
+    var items = document.querySelectorAll('.fks-lot');
+    var str = items[idx].dataset.em;
+    navigator.clipboard.writeText(str).then(function(){
+      var o = btn.innerHTML;
+      btn.textContent = '✓ Copié !'; btn.style.background = '#2e7d52'; btn.style.color = '#fff';
+      setTimeout(function(){ btn.innerHTML = o; btn.style.background=''; btn.style.color=''; }, 2200);
+      fksToast('✓ Lot '+(idx+1)+' copié — collez dans le champ Cci d\'Outlook');
+    });
+  };
+
+  window.fksDlCSV = function(){
+    if(!rows.length) return;
+    var hdrs = ['First Name','Last Name','E-mail Address','Mobile Phone','Home City','Notes'];
+    var data = rows.map(function(r){
+      return [
+        '"'+(r.firstname||'').replace(/"/g,'""')+'"',
+        '"'+(r.lastname||'').replace(/"/g,'""')+'"',
+        '"'+(r.email||'').toLowerCase()+'"',
+        '"'+(r.mobilephone||'')+'"',
+        '"'+(r.city||'')+'"',
+        '"Client Finke Swiss"'
+      ].join(',');
+    });
+    var blob = new Blob(['\uFEFF'+[hdrs.join(',')].concat(data).join('\n')], {type:'text/csv;charset=utf-8;'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'finke_outlook_contacts_'+new Date().toISOString().slice(0,10)+'.csv';
+    a.click();
+    fksToast('✓ Fichier Outlook Contacts téléchargé');
+  };
+
+  function fksToast(msg){
+    var t = document.getElementById('fksToast');
+    if(!t) return;
+    t.textContent = msg; t.style.display = 'block';
+    clearTimeout(t._tt);
+    t._tt = setTimeout(function(){ t.style.display='none'; }, 3500);
+  }
+})();
+</script>
 
 </body>
 </html>
