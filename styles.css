@@ -2067,6 +2067,13 @@ footer span {
   text-align: center;
   letter-spacing: .3px;
 }
+
+/* Compact choice menu - reduce width for activity type selection */
+.crm-screenshot-wrap.compact-choice-menu {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
 .crm-interface-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
