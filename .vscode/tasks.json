@@ -1,0 +1,65 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Publish mobile menu fix",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				"index.html",
+				"script.js",
+				"styles.css",
+				";",
+				"git",
+				"commit",
+				"-m",
+				"Fix mobile sidebar navigation",
+				";",
+				"git",
+				"push",
+				"origin",
+				"main"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Push current branch",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--short",
+				";",
+				"git",
+				"push",
+				"origin",
+				"main"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Push agenda reconnect section",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				"index.html",
+				";",
+				"git",
+				"commit",
+				"-m",
+				"Add Outlook reconnect guide in Agenda",
+				";",
+				"git",
+				"push",
+				"origin",
+				"main"
+			],
+			"isBackground": false,
+			"group": "build"
+		}
+	]
+}
