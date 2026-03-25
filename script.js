@@ -2,6 +2,21 @@ const GUIDE_START_SUBSECTION = '01-01';
 const GUIDE_STORAGE_KEY = 'fks-last-subsection';
 let guideSearchIndex = [];
 
+function closeMobileSidebar() {
+  if (window.innerWidth >= 900) return;
+
+  const sidebar = document.querySelector('.sidebar');
+  const hamburgerToggle = document.querySelector('.hamburger-toggle');
+
+  if (sidebar) sidebar.classList.remove('open');
+  document.body.classList.remove('sidebar-open');
+
+  if (hamburgerToggle) {
+    hamburgerToggle.classList.remove('active');
+    hamburgerToggle.setAttribute('aria-expanded', 'false');
+  }
+}
+
 function initializeHamburgerMenu() {
   const hamburgerToggle = document.querySelector('.hamburger-toggle');
   const sidebar = document.querySelector('.sidebar');
@@ -205,6 +220,18 @@ function initializeSidebarNavigation() {
       e.preventDefault();
 
       const sectionCode = this.getAttribute('data-section');
+      const selectedSubContainer = document.getElementById('section-' + sectionCode + '-subs');
+      const isExpanded = this.classList.contains('active')
+        && selectedSubContainer
+        && selectedSubContainer.classList.contains('visible');
+
+      // Toggle collapse on second click of an already open section.
+      if (isExpanded) {
+        this.classList.remove('active');
+        selectedSubContainer.classList.remove('visible');
+        return;
+      }
+
       activateSection(sectionCode, true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
@@ -219,11 +246,7 @@ function initializeSubsectionNavigation() {
       e.preventDefault();
       const subsectionCode = this.getAttribute('data-subsection');
       activateSubsection(subsectionCode, true, true);
-
-      if (window.innerWidth < 900) {
-        const sidebar = document.querySelector('.sidebar');
-        if (sidebar) sidebar.classList.remove('open');
-      }
+      closeMobileSidebar();
     });
   });
 }
@@ -538,6 +561,72 @@ function initializeSmartImageLoading() {
   });
 }
 
+function initializeReleaseModal() {
+  const modal = document.getElementById('release-modal');
+  const openBtn = document.getElementById('release-open-modal');
+  const closeBtn = document.getElementById('release-close-modal');
+  if (!modal || !openBtn || !closeBtn) return;
+
+  const open = () => {
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+  };
+
+  const close = () => {
+    modal.hidden = true;
+    document.body.style.overflow = '';
+  };
+
+  openBtn.addEventListener('click', open);
+  closeBtn.addEventListener('click', close);
+
+  modal.addEventListener('click', function(event) {
+    if (event.target === modal) close();
+  });
+
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && !modal.hidden) close();
+  });
+}
+
+function initializeReleaseBadges() {
+  const releaseCards = Array.from(document.querySelectorAll('.release-card[data-release-date]'));
+  if (!releaseCards.length) return;
+
+  const now = new Date();
+  let newCount = 0;
+
+  releaseCards.forEach(card => {
+    const rawDate = card.getAttribute('data-release-date');
+    if (!rawDate) return;
+
+    const releaseDate = new Date(rawDate + 'T00:00:00');
+    if (Number.isNaN(releaseDate.getTime())) return;
+
+    const diffMs = now.getTime() - releaseDate.getTime();
+    const diffDays = diffMs / (1000 * 60 * 60 * 24);
+    const isNew = diffDays >= 0 && diffDays <= 7;
+
+    if (isNew) newCount += 1;
+
+    card.classList.toggle('release-card-new-highlight', isNew);
+    card.querySelectorAll('.release-card-badge').forEach(badge => {
+      badge.hidden = !isNew;
+    });
+  });
+
+  ['release-badge-sidebar', 'release-badge-hero'].forEach(id => {
+    const badge = document.getElementById(id);
+    if (badge) badge.hidden = newCount === 0;
+  });
+
+  const countBadge = document.getElementById('updates-count-badge');
+  if (countBadge) {
+    countBadge.hidden = newCount === 0;
+    countBadge.textContent = String(newCount);
+  }
+}
+
 document.addEventListener('click', function(e) {
   const sidebar = document.querySelector('.sidebar');
   const toggleBtn = document.querySelector('.hamburger-toggle');
@@ -572,6 +661,8 @@ document.addEventListener('DOMContentLoaded', function() {
   initializeCopyButtons();
   initializeImageLightbox();
   initializeSmartImageLoading();
+  initializeReleaseModal();
+  initializeReleaseBadges();
 
   activateSubsection(GUIDE_START_SUBSECTION, false, false);
   updateResumeButton();
