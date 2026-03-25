@@ -607,7 +607,6 @@ header:not(.section-header) {
 .quick-visual-card {
   background: #fff;
   border-radius: 14px;
-  overflow: hidden;
   border: 1px solid var(--finke-border);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
 }
@@ -615,8 +614,11 @@ header:not(.section-header) {
 .quick-visual-card img {
   width: 100%;
   display: block;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
+  height: auto;
+  max-height: 280px;
+  object-fit: contain;
+  background: #f4f2ee;
+  padding: 10px;
 }
 
 .quick-visual-card figcaption {
@@ -1633,6 +1635,8 @@ footer span {
   display: block;
   width: 100%;
   height: auto;
+  object-fit: contain;
+  background: #fbfaf8;
 }
 .fks-screenshot figcaption {
   background: #f7f3ee;
@@ -1655,7 +1659,7 @@ footer span {
   margin: 0;
 }
 .fks-screenshot-row .fks-screenshot:last-child {
-  max-width: 120px;
+  max-width: 220px;
 }
 @media (max-width: 600px) {
   .fks-screenshot-row { grid-template-columns: 1fr; }
@@ -1960,6 +1964,9 @@ footer span {
 .crm-screenshot-wrap img {
   width: 100%;
   display: block;
+  height: auto;
+  object-fit: contain;
+  background: #f8f8f8;
 }
 .crm-screenshot-wrap figcaption {
   background: var(--finke-dark);
