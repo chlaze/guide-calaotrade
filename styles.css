@@ -600,8 +600,8 @@ header:not(.section-header) {
 
 .quick-visual-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  grid-template-columns: 1fr;
+  gap: 18px;
 }
 
 .quick-visual-card {
@@ -615,10 +615,11 @@ header:not(.section-header) {
   width: 100%;
   display: block;
   height: auto;
-  max-height: 280px;
+  max-height: 520px;
   object-fit: contain;
   background: #f4f2ee;
-  padding: 10px;
+  padding: 14px;
+  cursor: zoom-in;
 }
 
 .quick-visual-card figcaption {
@@ -713,6 +714,20 @@ header:not(.section-header) {
 
   .quick-visual-grid {
     grid-template-columns: 1fr;
+  }
+
+  .quick-visual-card img {
+    max-height: 360px;
+    padding: 10px;
+  }
+
+  .image-lightbox {
+    padding: 14px;
+  }
+
+  .image-lightbox-close {
+    top: 8px;
+    right: 8px;
   }
 }
 
@@ -1637,6 +1652,7 @@ footer span {
   height: auto;
   object-fit: contain;
   background: #fbfaf8;
+  cursor: zoom-in;
 }
 .fks-screenshot figcaption {
   background: #f7f3ee;
@@ -1967,6 +1983,7 @@ footer span {
   height: auto;
   object-fit: contain;
   background: #f8f8f8;
+  cursor: zoom-in;
 }
 .crm-screenshot-wrap figcaption {
   background: var(--finke-dark);
@@ -2199,12 +2216,70 @@ footer span {
   max-height: 620px;
   object-fit: contain;
   background: #f8f8f8;
+  cursor: zoom-in;
 }
 .crm-step-shot figcaption {
   padding: 12px 14px;
   font-size: 13px;
   color: var(--finke-mid);
   line-height: 1.6;
+}
+
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 12000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(18, 18, 18, 0.88);
+  backdrop-filter: blur(4px);
+}
+
+.image-lightbox[hidden] {
+  display: none;
+}
+
+.image-lightbox-dialog {
+  position: relative;
+  max-width: min(96vw, 1400px);
+  max-height: 92vh;
+  width: auto;
+}
+
+.image-lightbox-img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(92vh - 70px);
+  width: auto;
+  height: auto;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.image-lightbox-caption {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.image-lightbox-close {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--finke-dark);
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
 }
 
 @media (max-width: 900px) {

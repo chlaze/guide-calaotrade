@@ -437,6 +437,57 @@ function initializeCopyButtons() {
   });
 }
 
+function initializeImageLightbox() {
+  const targets = document.querySelectorAll('.quick-visual-card img, .crm-screenshot-wrap img, .crm-step-shot img, .fks-screenshot img');
+  if (!targets.length) return;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'image-lightbox';
+  overlay.hidden = true;
+  overlay.innerHTML = [
+    '<div class="image-lightbox-dialog" role="dialog" aria-modal="true" aria-label="Agrandissement image">',
+    '<button type="button" class="image-lightbox-close" aria-label="Fermer">✕</button>',
+    '<img class="image-lightbox-img" alt="">',
+    '<div class="image-lightbox-caption"></div>',
+    '</div>'
+  ].join('');
+  document.body.appendChild(overlay);
+
+  const dialog = overlay.querySelector('.image-lightbox-dialog');
+  const closeBtn = overlay.querySelector('.image-lightbox-close');
+  const lightboxImg = overlay.querySelector('.image-lightbox-img');
+  const caption = overlay.querySelector('.image-lightbox-caption');
+
+  const close = () => {
+    overlay.hidden = true;
+    lightboxImg.src = '';
+  };
+
+  targets.forEach(img => {
+    img.addEventListener('click', function() {
+      const figure = img.closest('figure');
+      const figcaption = figure ? figure.querySelector('figcaption') : null;
+      lightboxImg.src = img.currentSrc || img.src;
+      lightboxImg.alt = img.alt || '';
+      caption.textContent = figcaption ? figcaption.textContent.trim() : (img.alt || '');
+      overlay.hidden = false;
+    });
+  });
+
+  closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', function(event) {
+    if (!dialog.contains(event.target) || event.target === overlay) {
+      close();
+    }
+  });
+
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && !overlay.hidden) {
+      close();
+    }
+  });
+}
+
 document.addEventListener('click', function(e) {
   const sidebar = document.querySelector('.sidebar');
   const toggleBtn = document.querySelector('.hamburger-toggle');
@@ -469,6 +520,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initializeReadingActions();
   initializeSearch();
   initializeCopyButtons();
+  initializeImageLightbox();
 
   activateSubsection(GUIDE_START_SUBSECTION, false, false);
   updateResumeButton();
