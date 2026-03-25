@@ -286,6 +286,20 @@ function scoreSearchEntry(entry, tokens) {
   return score;
 }
 
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function highlightMatch(text, tokens) {
+  let highlighted = text;
+  tokens.forEach(token => {
+    if (!token) return;
+    const pattern = new RegExp('(' + escapeRegExp(token) + ')', 'ig');
+    highlighted = highlighted.replace(pattern, '<mark>$1</mark>');
+  });
+  return highlighted;
+}
+
 function renderSearchResults(query) {
   const resultsBox = document.getElementById('guide-search-results');
   if (!resultsBox) return;
@@ -313,19 +327,16 @@ function renderSearchResults(query) {
   resultsBox.hidden = false;
   resultsBox.innerHTML = results.map(item => {
     const excerpt = item.entry.text.slice(0, 130) + (item.entry.text.length > 130 ? '...' : '');
+    const title = item.entry.sectionCode + ' — ' + item.entry.sectionTitle + ' / ' + item.entry.title;
     return [
       '<button type="button" class="guide-search-result" data-subsection="',
       item.entry.subsectionCode,
       '">',
       '<span class="guide-search-result-title">',
-      item.entry.sectionCode,
-      ' — ',
-      item.entry.sectionTitle,
-      ' / ',
-      item.entry.title,
+      highlightMatch(title, tokens),
       '</span>',
       '<span class="guide-search-result-text">',
-      excerpt,
+      highlightMatch(excerpt, tokens),
       '</span>',
       '</button>'
     ].join('');
@@ -355,11 +366,32 @@ function initializeSearch() {
   });
 
   input.addEventListener('keydown', function(event) {
+    const buttons = Array.from(resultsBox.querySelectorAll('.guide-search-result[data-subsection]'));
+    const currentIndex = buttons.findIndex(button => button.classList.contains('guide-search-result-active'));
+
+    if (event.key === 'ArrowDown' && buttons.length) {
+      event.preventDefault();
+      const nextIndex = currentIndex < buttons.length - 1 ? currentIndex + 1 : 0;
+      buttons.forEach(button => button.classList.remove('guide-search-result-active'));
+      buttons[nextIndex].classList.add('guide-search-result-active');
+      buttons[nextIndex].focus();
+      return;
+    }
+
+    if (event.key === 'ArrowUp' && buttons.length) {
+      event.preventDefault();
+      const previousIndex = currentIndex > 0 ? currentIndex - 1 : buttons.length - 1;
+      buttons.forEach(button => button.classList.remove('guide-search-result-active'));
+      buttons[previousIndex].classList.add('guide-search-result-active');
+      buttons[previousIndex].focus();
+      return;
+    }
+
     if (event.key === 'Enter') {
+      const active = resultsBox.querySelector('.guide-search-result-active[data-subsection]');
       const firstResult = resultsBox.querySelector('.guide-search-result[data-subsection]');
-      if (firstResult) {
-        firstResult.click();
-      }
+      if (active) active.click();
+      else if (firstResult) firstResult.click();
     }
   });
 
@@ -458,19 +490,28 @@ function initializeImageLightbox() {
   const lightboxImg = overlay.querySelector('.image-lightbox-img');
   const caption = overlay.querySelector('.image-lightbox-caption');
 
+  let previousActiveElement = null;
+
   const close = () => {
     overlay.hidden = true;
     lightboxImg.src = '';
+    document.body.style.overflow = '';
+    if (previousActiveElement && typeof previousActiveElement.focus === 'function') {
+      previousActiveElement.focus();
+    }
   };
 
   targets.forEach(img => {
     img.addEventListener('click', function() {
+      previousActiveElement = img;
       const figure = img.closest('figure');
       const figcaption = figure ? figure.querySelector('figcaption') : null;
       lightboxImg.src = img.currentSrc || img.src;
       lightboxImg.alt = img.alt || '';
       caption.textContent = figcaption ? figcaption.textContent.trim() : (img.alt || '');
       overlay.hidden = false;
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus();
     });
   });
 
@@ -485,6 +526,15 @@ function initializeImageLightbox() {
     if (event.key === 'Escape' && !overlay.hidden) {
       close();
     }
+  });
+}
+
+function initializeSmartImageLoading() {
+  document.querySelectorAll('img').forEach(img => {
+    if (img.closest('.brand-logo')) return;
+    if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
+    if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
+    if (!img.hasAttribute('draggable')) img.setAttribute('draggable', 'false');
   });
 }
 
@@ -521,6 +571,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initializeSearch();
   initializeCopyButtons();
   initializeImageLightbox();
+  initializeSmartImageLoading();
 
   activateSubsection(GUIDE_START_SUBSECTION, false, false);
   updateResumeButton();
