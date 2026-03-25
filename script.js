@@ -121,9 +121,6 @@ function initializeSidebarNavigation() {
 
       const sectionCode = this.getAttribute('data-section');
       activateSection(sectionCode);
-      // save first subsection of that section
-      const firstLink = document.querySelector('#section-' + sectionCode + '-subs .sidebar-link');
-      if (firstLink) localStorage.setItem('fks-subsection', firstLink.getAttribute('data-subsection'));
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
@@ -138,7 +135,6 @@ function initializeSubsectionNavigation() {
       e.preventDefault();
       const subsectionCode = this.getAttribute('data-subsection');
       activateSubsection(subsectionCode, true);
-      localStorage.setItem('fks-subsection', subsectionCode);
 
       if (window.innerWidth < 900) {
         const sidebar = document.querySelector('.sidebar');
@@ -169,12 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initializeSidebarNavigation();
   initializeSubsectionNavigation();
 
-  // Restaure la dernière position ou démarre sur 01-01
-  const saved = localStorage.getItem('fks-subsection');
-  if (saved && document.querySelector('.sidebar-link[data-subsection="' + saved + '"]')) {
-    activateSubsection(saved, false);
-  } else {
-    activateSection('01');
-    activateSubsection('01-01', false);
-  }
+  // Toujours démarrer sur la section 01
+  activateSection('01');
+  activateSubsection('01-01', false);
 });
