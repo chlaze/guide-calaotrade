@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guide utilisateur – Module Facturation | Calaotrade</title>
+<title>Guide utilisateur CRM Calaotrade | Finke Swiss</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -24,6 +24,10 @@
       <div class="brand-name">FINKE</div>
       <div class="brand-sub">Documentation CRM Calaotrade</div>
     </div>
+  </div>
+  <div class="header-breadcrumb" aria-live="polite">
+    <span class="header-breadcrumb-label">Vous lisez</span>
+    <strong id="active-breadcrumb">01 — Comprendre le CRM</strong>
   </div>
   <button type="button" class="hamburger-toggle" aria-label="Ouvrir le menu des sections" aria-expanded="false" aria-controls="sidebar-nav">
     <span></span>
@@ -180,6 +184,21 @@
 
   <!-- CONTENU PRINCIPAL -->
   <main class="main-content">
+    <section class="guide-utility-bar" aria-label="Outils du guide">
+      <div class="guide-search-block">
+        <label class="guide-search-label" for="guide-search-input">Recherche rapide</label>
+        <div class="guide-search-input-wrap">
+          <input id="guide-search-input" type="search" placeholder="Exemple : facturer, Outlook, lead, Bexio..." autocomplete="off">
+          <button type="button" id="guide-search-clear" class="guide-search-clear" aria-label="Effacer la recherche">✕</button>
+        </div>
+        <div id="guide-search-results" class="guide-search-results" hidden></div>
+      </div>
+      <div class="guide-actions">
+        <button type="button" id="resume-reading-btn" class="guide-action-btn" hidden>Reprendre ma lecture</button>
+        <button type="button" id="reset-reading-btn" class="guide-action-btn">Revenir au début</button>
+        <button type="button" id="print-section-btn" class="guide-action-btn guide-action-btn-primary">Imprimer cette section</button>
+      </div>
+    </section>
     <!-- CONTENU DES SECTIONS AVEC SUBSECTIONS -->
 
         <!-- Section 00: Objectif du guide (with Hero) -->
@@ -213,6 +232,30 @@
             <div class="feature-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
             <h4>Référence interne</h4>
             <p>Document vivant pour l'équipe Finke</p>
+          </div>
+        </div>
+        <div class="quick-visual-guide">
+          <div class="quick-visual-guide-head">
+            <h3>Repères visuels rapides</h3>
+            <p>Un aperçu des écrans clés pour retrouver plus vite les bons modules dans Calaotrade.</p>
+          </div>
+          <div class="quick-visual-grid">
+            <figure class="quick-visual-card">
+              <img src="Image/Accueil-calaotrade.png" alt="Écran d'accueil Calaotrade">
+              <figcaption>Accueil Calaotrade</figcaption>
+            </figure>
+            <figure class="quick-visual-card">
+              <img src="Image/CRMonglets.png" alt="Vue des principaux onglets du CRM">
+              <figcaption>Modules du CRM</figcaption>
+            </figure>
+            <figure class="quick-visual-card">
+              <img src="Image/pipelinedevente.png" alt="Pipeline commercial Calaotrade">
+              <figcaption>Pipeline des leads</figcaption>
+            </figure>
+            <figure class="quick-visual-card">
+              <img src="Image/facturation.png" alt="Vue de la facturation Calaotrade">
+              <figcaption>Vue facturation</figcaption>
+            </figure>
           </div>
         </div>
         <p><em>Cette documentation évoluera progressivement pour couvrir l'ensemble des fonctionnalités du CRM.</em></p>
@@ -1857,6 +1900,9 @@ Vous recevez cet email car vous faites partie de nos clients. Se désabonner : [
 ════════════════════════════════════════ */
 /* navigateTo: jump to a section + subsection programmatically */
 function navigateTo(sectionId, subsectionId) {
+  if (window.handleGuideNavigationState) {
+    window.handleGuideNavigationState(sectionId, subsectionId, { withScroll: true, persist: true });
+  }
   // activate section
   document.querySelectorAll('.content-section').forEach(function(s){ s.classList.remove('active'); });
   var sec = document.getElementById('content-' + sectionId);
@@ -1877,6 +1923,9 @@ function navigateTo(sectionId, subsectionId) {
   document.querySelectorAll('.sidebar-link').forEach(function(l){ l.classList.remove('active'); });
   var link = document.querySelector('.sidebar-link[data-subsection="' + subsectionId + '"]');
   if(link) link.classList.add('active');
+  document.dispatchEvent(new CustomEvent('finke:navigation-change', {
+    detail: { subsectionCode: subsectionId }
+  }));
 }
 
 (function(){

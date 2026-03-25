@@ -1,4 +1,6 @@
-// Navigation et gestion des sections
+const GUIDE_START_SUBSECTION = '01-01';
+const GUIDE_STORAGE_KEY = 'fks-last-subsection';
+let guideSearchIndex = [];
 
 function initializeHamburgerMenu() {
   const hamburgerToggle = document.querySelector('.hamburger-toggle');
@@ -51,7 +53,55 @@ function clearLegacyDisplayStyles() {
   });
 }
 
-function activateFirstSubsectionInSection(sectionCode) {
+function getSectionTitle(sectionCode) {
+  const headline = document.querySelector('.sidebar-headline[data-section="' + sectionCode + '"] .sidebar-title');
+  return headline ? headline.textContent.trim() : '';
+}
+
+function getSubsectionTitle(subsectionCode) {
+  const link = document.querySelector('.sidebar-link[data-subsection="' + subsectionCode + '"]');
+  if (link) return link.textContent.trim();
+
+  const subsection = document.getElementById('content-' + subsectionCode);
+  const heading = subsection ? subsection.querySelector('h2') : null;
+  return heading ? heading.textContent.trim() : '';
+}
+
+function saveLastSubsection(subsectionCode) {
+  localStorage.setItem(GUIDE_STORAGE_KEY, subsectionCode);
+  updateResumeButton();
+}
+
+function getSavedSubsection() {
+  return localStorage.getItem(GUIDE_STORAGE_KEY);
+}
+
+function clearSavedSubsection() {
+  localStorage.removeItem(GUIDE_STORAGE_KEY);
+  updateResumeButton();
+}
+
+function updateBreadcrumb(subsectionCode) {
+  const breadcrumb = document.getElementById('active-breadcrumb');
+  if (!breadcrumb || !subsectionCode) return;
+
+  const sectionCode = subsectionCode.substring(0, 2);
+  const sectionTitle = getSectionTitle(sectionCode);
+  const subsectionTitle = getSubsectionTitle(subsectionCode);
+  breadcrumb.textContent = subsectionTitle
+    ? sectionCode + ' — ' + sectionTitle + ' / ' + subsectionTitle
+    : sectionCode + ' — ' + sectionTitle;
+}
+
+function setActiveSidebarLink(subsectionCode) {
+  const sidebarLinks = document.querySelectorAll('.sidebar-link');
+  sidebarLinks.forEach(link => link.classList.remove('active'));
+
+  const selectedLink = document.querySelector('.sidebar-link[data-subsection="' + subsectionCode + '"]');
+  if (selectedLink) selectedLink.classList.add('active');
+}
+
+function activateFirstSubsectionInSection(sectionCode, persist = true) {
   const contentSection = document.getElementById('content-' + sectionCode);
   if (!contentSection) return;
 
@@ -59,15 +109,17 @@ function activateFirstSubsectionInSection(sectionCode) {
   subsections.forEach(sub => sub.classList.remove('active'));
 
   const firstSubsection = subsections[0];
-  if (firstSubsection) firstSubsection.classList.add('active');
+  if (!firstSubsection) return;
 
-  const links = document.querySelectorAll('#section-' + sectionCode + '-subs .sidebar-link');
-  links.forEach(link => link.classList.remove('active'));
-  const firstLink = links[0];
-  if (firstLink) firstLink.classList.add('active');
+  firstSubsection.classList.add('active');
+
+  const subsectionCode = firstSubsection.id.replace('content-', '');
+  setActiveSidebarLink(subsectionCode);
+  updateBreadcrumb(subsectionCode);
+  if (persist) saveLastSubsection(subsectionCode);
 }
 
-function activateSection(sectionCode) {
+function activateSection(sectionCode, persist = true) {
   const sidebarHeadlines = document.querySelectorAll('.sidebar-headline');
   const contentSections = document.querySelectorAll('.content-section');
   const sidebarSubsections = document.querySelectorAll('.sidebar-subsections');
@@ -84,12 +136,26 @@ function activateSection(sectionCode) {
   if (selectedSection) selectedSection.classList.add('active');
   if (selectedSubContainer) selectedSubContainer.classList.add('visible');
 
-  activateFirstSubsectionInSection(sectionCode);
+  activateFirstSubsectionInSection(sectionCode, persist);
 }
 
-function activateSubsection(subsectionCode, withScroll = true) {
+function activateSubsection(subsectionCode, withScroll = true, persist = true) {
   const sectionCode = subsectionCode.substring(0, 2);
-  activateSection(sectionCode);
+  const sidebarHeadlines = document.querySelectorAll('.sidebar-headline');
+  const contentSections = document.querySelectorAll('.content-section');
+  const sidebarSubsections = document.querySelectorAll('.sidebar-subsections');
+
+  sidebarHeadlines.forEach(headline => headline.classList.remove('active'));
+  contentSections.forEach(section => section.classList.remove('active'));
+  sidebarSubsections.forEach(container => container.classList.remove('visible'));
+
+  const selectedHeadline = document.querySelector('.sidebar-headline[data-section="' + sectionCode + '"]');
+  const selectedSection = document.getElementById('content-' + sectionCode);
+  const selectedSubContainer = document.getElementById('section-' + sectionCode + '-subs');
+
+  if (selectedHeadline) selectedHeadline.classList.add('active');
+  if (selectedSection) selectedSection.classList.add('active');
+  if (selectedSubContainer) selectedSubContainer.classList.add('visible');
 
   const contentSection = document.getElementById('content-' + sectionCode);
   if (!contentSection) return;
@@ -100,16 +166,35 @@ function activateSubsection(subsectionCode, withScroll = true) {
 
   if (targetSubsection) {
     targetSubsection.classList.add('active');
-    if (withScroll) targetSubsection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (withScroll) {
+      targetSubsection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   } else {
     const firstSubsection = allSubsections[0];
     if (firstSubsection) firstSubsection.classList.add('active');
   }
 
-  const sidebarLinks = document.querySelectorAll('.sidebar-link');
-  sidebarLinks.forEach(link => link.classList.remove('active'));
-  const selectedLink = document.querySelector('.sidebar-link[data-subsection="' + subsectionCode + '"]');
-  if (selectedLink) selectedLink.classList.add('active');
+  setActiveSidebarLink(subsectionCode);
+  updateBreadcrumb(subsectionCode);
+  if (persist) saveLastSubsection(subsectionCode);
+}
+
+function handleGuideNavigationState(sectionId, subsectionId, options = {}) {
+  const subsectionCode = subsectionId || sectionId + '-01';
+  activateSubsection(subsectionCode, options.withScroll !== false, options.persist !== false);
+}
+
+function updateResumeButton() {
+  const resumeBtn = document.getElementById('resume-reading-btn');
+  if (!resumeBtn) return;
+
+  const saved = getSavedSubsection();
+  const shouldShow = Boolean(saved && saved !== GUIDE_START_SUBSECTION);
+  resumeBtn.hidden = !shouldShow;
+
+  if (shouldShow) {
+    resumeBtn.textContent = 'Reprendre : ' + getSubsectionTitle(saved);
+  }
 }
 
 function initializeSidebarNavigation() {
@@ -120,8 +205,7 @@ function initializeSidebarNavigation() {
       e.preventDefault();
 
       const sectionCode = this.getAttribute('data-section');
-      activateSection(sectionCode);
-
+      activateSection(sectionCode, true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
@@ -134,12 +218,221 @@ function initializeSubsectionNavigation() {
     link.addEventListener('click', function(e) {
       e.preventDefault();
       const subsectionCode = this.getAttribute('data-subsection');
-      activateSubsection(subsectionCode, true);
+      activateSubsection(subsectionCode, true, true);
 
       if (window.innerWidth < 900) {
         const sidebar = document.querySelector('.sidebar');
         if (sidebar) sidebar.classList.remove('open');
       }
+    });
+  });
+}
+
+function initializeReadingActions() {
+  const resumeBtn = document.getElementById('resume-reading-btn');
+  const resetBtn = document.getElementById('reset-reading-btn');
+  const printBtn = document.getElementById('print-section-btn');
+
+  if (resumeBtn) {
+    resumeBtn.addEventListener('click', function() {
+      const saved = getSavedSubsection();
+      if (saved) activateSubsection(saved, true, true);
+    });
+  }
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function() {
+      clearSavedSubsection();
+      activateSubsection(GUIDE_START_SUBSECTION, true, false);
+    });
+  }
+
+  if (printBtn) {
+    printBtn.addEventListener('click', function() {
+      window.print();
+    });
+  }
+}
+
+function buildSearchIndex() {
+  guideSearchIndex = Array.from(document.querySelectorAll('.content-section .subsection')).map(subsection => {
+    const subsectionCode = subsection.id.replace('content-', '');
+    const sectionCode = subsectionCode.substring(0, 2);
+    const title = subsection.querySelector('h2') ? subsection.querySelector('h2').textContent.trim() : subsectionCode;
+    const text = subsection.innerText.replace(/\s+/g, ' ').trim();
+
+    return {
+      subsectionCode,
+      sectionCode,
+      title,
+      sectionTitle: getSectionTitle(sectionCode),
+      text,
+      haystack: (title + ' ' + getSectionTitle(sectionCode) + ' ' + text).toLowerCase()
+    };
+  });
+}
+
+function scoreSearchEntry(entry, tokens) {
+  let score = 0;
+
+  tokens.forEach(token => {
+    if (entry.title.toLowerCase().includes(token)) score += 8;
+    if (entry.sectionTitle.toLowerCase().includes(token)) score += 5;
+
+    const matches = entry.haystack.split(token).length - 1;
+    score += matches;
+  });
+
+  return score;
+}
+
+function renderSearchResults(query) {
+  const resultsBox = document.getElementById('guide-search-results');
+  if (!resultsBox) return;
+
+  const cleaned = query.trim().toLowerCase();
+  if (!cleaned) {
+    resultsBox.hidden = true;
+    resultsBox.innerHTML = '';
+    return;
+  }
+
+  const tokens = cleaned.split(/\s+/).filter(Boolean);
+  const results = guideSearchIndex
+    .map(entry => ({ entry, score: scoreSearchEntry(entry, tokens) }))
+    .filter(item => item.score > 0)
+    .sort((left, right) => right.score - left.score)
+    .slice(0, 6);
+
+  if (!results.length) {
+    resultsBox.hidden = false;
+    resultsBox.innerHTML = '<div class="guide-search-result"><span class="guide-search-result-title">Aucun résultat direct</span><span class="guide-search-result-text">Essayez avec un mot-clé plus simple : lead, foyer, Outlook, facture...</span></div>';
+    return;
+  }
+
+  resultsBox.hidden = false;
+  resultsBox.innerHTML = results.map(item => {
+    const excerpt = item.entry.text.slice(0, 130) + (item.entry.text.length > 130 ? '...' : '');
+    return [
+      '<button type="button" class="guide-search-result" data-subsection="',
+      item.entry.subsectionCode,
+      '">',
+      '<span class="guide-search-result-title">',
+      item.entry.sectionCode,
+      ' — ',
+      item.entry.sectionTitle,
+      ' / ',
+      item.entry.title,
+      '</span>',
+      '<span class="guide-search-result-text">',
+      excerpt,
+      '</span>',
+      '</button>'
+    ].join('');
+  }).join('');
+
+  resultsBox.querySelectorAll('.guide-search-result[data-subsection]').forEach(button => {
+    button.addEventListener('click', function() {
+      const subsectionCode = this.getAttribute('data-subsection');
+      activateSubsection(subsectionCode, true, true);
+      resultsBox.hidden = true;
+      resultsBox.innerHTML = '';
+    });
+  });
+}
+
+function initializeSearch() {
+  const input = document.getElementById('guide-search-input');
+  const clearBtn = document.getElementById('guide-search-clear');
+  const resultsBox = document.getElementById('guide-search-results');
+
+  if (!input || !clearBtn || !resultsBox) return;
+
+  buildSearchIndex();
+
+  input.addEventListener('input', function() {
+    renderSearchResults(this.value);
+  });
+
+  input.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+      const firstResult = resultsBox.querySelector('.guide-search-result[data-subsection]');
+      if (firstResult) {
+        firstResult.click();
+      }
+    }
+  });
+
+  clearBtn.addEventListener('click', function() {
+    input.value = '';
+    input.focus();
+    renderSearchResults('');
+  });
+
+  document.addEventListener('click', function(event) {
+    const searchBlock = document.querySelector('.guide-search-block');
+    if (searchBlock && !searchBlock.contains(event.target)) {
+      resultsBox.hidden = true;
+    }
+  });
+}
+
+function listToClipboardText(list, subsection) {
+  const title = subsection.querySelector('h2') ? subsection.querySelector('h2').textContent.trim() : 'Procédure';
+  const items = Array.from(list.querySelectorAll('li')).map((item, index) => {
+    const value = item.textContent.replace(/\s+/g, ' ').trim();
+    if (list.tagName === 'OL') return (index + 1) + '. ' + value;
+    return '- ' + value;
+  });
+
+  return title + '\n\n' + items.join('\n');
+}
+
+function copyText(text, button) {
+  const done = () => {
+    const original = button.textContent;
+    button.textContent = 'Copié';
+    setTimeout(function() {
+      button.textContent = original;
+    }, 1600);
+  };
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done);
+    return;
+  }
+
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand('copy');
+  textarea.remove();
+  done();
+}
+
+function initializeCopyButtons() {
+  document.querySelectorAll('.subsection').forEach(subsection => {
+    const candidateLists = subsection.querySelectorAll('ol, ul');
+
+    candidateLists.forEach(list => {
+      if (list.closest('.sidebar') || list.closest('.guide-search-results')) return;
+      if (list.querySelectorAll('li').length < 2) return;
+      if (list.previousElementSibling && list.previousElementSibling.classList.contains('subsection-list-tools')) return;
+
+      const tools = document.createElement('div');
+      tools.className = 'subsection-list-tools';
+
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'copy-steps-btn';
+      button.textContent = 'Copier les étapes';
+      button.addEventListener('click', function() {
+        copyText(listToClipboardText(list, subsection), button);
+      });
+
+      tools.appendChild(button);
+      list.parentNode.insertBefore(tools, list);
     });
   });
 }
@@ -159,13 +452,24 @@ document.addEventListener('click', function(e) {
   }
 });
 
+window.handleGuideNavigationState = handleGuideNavigationState;
+
+document.addEventListener('finke:navigation-change', function(event) {
+  const detail = event.detail || {};
+  if (detail.subsectionCode) {
+    activateSubsection(detail.subsectionCode, false, true);
+  }
+});
+
 document.addEventListener('DOMContentLoaded', function() {
   initializeHamburgerMenu();
   clearLegacyDisplayStyles();
   initializeSidebarNavigation();
   initializeSubsectionNavigation();
+  initializeReadingActions();
+  initializeSearch();
+  initializeCopyButtons();
 
-  // Toujours démarrer sur la section 01
-  activateSection('01');
-  activateSubsection('01-01', false);
+  activateSubsection(GUIDE_START_SUBSECTION, false, false);
+  updateResumeButton();
 });
