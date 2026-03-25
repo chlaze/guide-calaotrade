@@ -2035,5 +2035,393 @@ function navigateTo(sectionId, subsectionId) {
 })();
 </script>
 
+
+<!-- ═══════════════════════════════════════════════════════
+     ASSISTANT FINKE — Chatbot widget
+═══════════════════════════════════════════════════════ -->
+<style>
+#fk-chat-btn {
+  position: fixed; bottom: 28px; right: 28px; z-index: 9999;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: #DDCA7C; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.45);
+  transition: transform .2s, box-shadow .2s;
+}
+#fk-chat-btn:hover { transform: scale(1.1); box-shadow: 0 6px 24px rgba(0,0,0,0.55); }
+#fk-chat-btn svg { width: 28px; height: 28px; }
+
+#fk-chat-panel {
+  position: fixed; bottom: 100px; right: 28px; z-index: 9998;
+  width: 370px; max-height: 540px;
+  background: #fff; border-radius: 16px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+  display: flex; flex-direction: column;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13.5px;
+  transform: scale(0.85) translateY(20px);
+  opacity: 0; pointer-events: none;
+  transition: transform .25s cubic-bezier(.4,0,.2,1), opacity .25s;
+  overflow: hidden;
+}
+#fk-chat-panel.fk-open {
+  transform: scale(1) translateY(0);
+  opacity: 1; pointer-events: all;
+}
+
+#fk-chat-header {
+  background: #0f1e35;
+  color: #DDCA7C;
+  padding: 14px 18px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0;
+}
+#fk-chat-header .fk-title { font-weight: 700; font-size: 14.5px; display: flex; align-items: center; gap: 8px; }
+#fk-chat-header .fk-title span { font-size: 9px; background: #2ecc71; color: #fff; border-radius: 20px; padding: 2px 8px; font-weight: 600; letter-spacing: .5px; }
+#fk-chat-close { cursor: pointer; font-size: 18px; color: #aaa; line-height: 1; padding: 0 2px; }
+#fk-chat-close:hover { color: #fff; }
+
+#fk-chat-messages {
+  flex: 1; overflow-y: auto; padding: 16px 14px 8px;
+  display: flex; flex-direction: column; gap: 10px;
+  background: #f5f4f0;
+}
+#fk-chat-messages::-webkit-scrollbar { width: 5px; }
+#fk-chat-messages::-webkit-scrollbar-thumb { background: #ddd; border-radius: 10px; }
+
+.fk-msg {
+  max-width: 88%; padding: 10px 13px; border-radius: 14px;
+  line-height: 1.55; font-size: 13px;
+}
+.fk-msg.fk-bot {
+  background: #fff; color: #1a1a1a;
+  border-bottom-left-radius: 4px;
+  align-self: flex-start;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+}
+.fk-msg.fk-user {
+  background: #0f1e35; color: #DDCA7C;
+  border-bottom-right-radius: 4px;
+  align-self: flex-end;
+}
+
+.fk-suggestions {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  padding: 0 14px 10px;
+  background: #f5f4f0;
+  flex-shrink: 0;
+}
+.fk-sug-btn {
+  background: #fff; border: 1.5px solid #DDCA7C; color: #0f1e35;
+  border-radius: 20px; padding: 5px 11px; font-size: 11.5px;
+  cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 500;
+  transition: background .15s;
+}
+.fk-sug-btn:hover { background: #DDCA7C; }
+
+#fk-chat-input-row {
+  display: flex; gap: 6px; padding: 10px 12px 12px;
+  background: #fff; border-top: 1px solid #eee;
+  flex-shrink: 0;
+}
+#fk-chat-input {
+  flex: 1; border: 1.5px solid #ddd; border-radius: 22px;
+  padding: 9px 14px; font-size: 13px;
+  font-family: 'Montserrat', sans-serif; outline: none;
+  transition: border-color .2s;
+}
+#fk-chat-input:focus { border-color: #DDCA7C; }
+#fk-chat-send {
+  background: #DDCA7C; border: none; border-radius: 50%;
+  width: 38px; height: 38px; cursor: pointer; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .15s;
+  flex-shrink: 0;
+}
+#fk-chat-send:hover { background: #c9a84c; }
+
+@media (max-width: 440px) {
+  #fk-chat-panel { width: calc(100vw - 24px); right: 12px; bottom: 90px; }
+  #fk-chat-btn { right: 16px; bottom: 20px; }
+}
+</style>
+
+<!-- Bouton flottant -->
+<button id="fk-chat-btn" title="Assistant Finke" aria-label="Ouvrir l'assistant Finke">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#0f1e35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+</button>
+
+<!-- Panneau chat -->
+<div id="fk-chat-panel" role="dialog" aria-label="Assistant Finke">
+  <div id="fk-chat-header">
+    <div class="fk-title">
+      💬 Assistant Finke
+      <span>EN LIGNE</span>
+    </div>
+    <span id="fk-chat-close" title="Fermer" aria-label="Fermer">✕</span>
+  </div>
+  <div id="fk-chat-messages"></div>
+  <div class="fk-suggestions" id="fk-suggestions"></div>
+  <div id="fk-chat-input-row">
+    <input id="fk-chat-input" type="text" placeholder="Posez votre question…" autocomplete="off" aria-label="Question">
+    <button id="fk-chat-send" aria-label="Envoyer">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#0f1e35" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════
+   ASSISTANT FINKE — Base de connaissances
+═══════════════════════════════════════ */
+(function () {
+  'use strict';
+
+  /* ── Base de connaissances ── */
+  var KB = [
+    /* Section 00 */
+    {
+      keys: ['objectif', 'guide', 'but', 'propos', 'présentation', 'introduction'],
+      answer: "Ce guide a pour objectif de :\n• Centraliser l'utilisation du CRM Calaotrade chez Finke\n• Former les collaborateurs sur chaque module\n• Standardiser les procédures internes\nC'est un document vivant pour toute l'équipe Finke Swiss."
+    },
+    /* Section 01 — CRM général */
+    {
+      keys: ['crm', 'calaotrade', 'url', 'accès', 'connexion', 'identifiant', 'adresse', 'site', 'lien', 'navigateur'],
+      answer: "Pour accéder au CRM :\n🔗 URL : https://app.calaotrade.fr/\n• Vos identifiants sont fournis par Finke Swiss\n• Aucune installation requise, tout est en ligne\n\nLes 8 modules disponibles : Accueil, Leads, Foyers, Activité, Messages, Agenda, Contacts, Statistiques."
+    },
+    {
+      keys: ['module', 'interface', 'navigation', 'menu', 'tableau de bord', 'kpi', 'accueil'],
+      answer: "L'interface Calaotrade comprend 8 modules :\n1. Accueil – KPIs & vue globale\n2. Leads – pipeline commercial\n3. Foyers – gestion clients\n4. Activité – tâches, appels, RDV\n5. Messages – communications\n6. Agenda – calendrier & RDV\n7. Contacts – répertoire\n8. Statistiques – reporting"
+    },
+    /* Section 02 — Leads */
+    {
+      keys: ['lead', 'créer un lead', 'nouveau lead', 'prospect', 'ajouter lead'],
+      answer: "Créer un lead :\n1. Module Leads → bouton « Nouveau »\n2. Remplir : Type = Lead, étape commerciale\n3. Identité : civilité / nom / prénom (*obligatoires)\n4. Coordonnées : téléphone, email\n\nPipeline : Nouveau → Qualification → Proposition → Négociation → Client"
+    },
+    {
+      keys: ['pipeline', 'étape commerciale', 'qualification', 'proposition', 'négociation', 'bant'],
+      answer: "Pipeline commercial Calaotrade :\n1. Identifié – premier contact\n2. Qualification (BANT) – comprendre Budget, Autorité, Besoin, Timing\n3. Proposition – envoi devis\n4. Négociation – ajustements\n5. Acceptation – conversion en foyer\n\nMettez à jour l'étape après chaque échange."
+    },
+    {
+      keys: ['scoring', 'score', 'chaud', 'tiède', 'froid', 'qualité lead'],
+      answer: "Scoring des leads :\n🔴 Froid – plusieurs champs manquants\n🟡 Tiède – un champ manquant\n🟢 Chaud – fiche complète\n\nComplétez toujours les informations pour augmenter le score."
+    },
+    /* Section 03 — Foyers */
+    {
+      keys: ['foyer', 'fiche client', 'fiche foyer', 'client', 'dossier client'],
+      answer: "La fiche foyer contient :\n• Infos générales (nom, adresse, contacts)\n• Historique : appels, emails, réunions, documents\n• Dossiers actifs et prestations\n• Préférences de communication\n• Notes internes de l'équipe\n\nOn y accède via : Module Foyers → chercher le foyer."
+    },
+    {
+      keys: ['conversion', 'convertir', 'lead en foyer', 'changer type', 'passer foyer'],
+      answer: "Convertir un lead en foyer :\n1. Ouvrir la fiche du lead\n2. Section « À PROPOS » → champ Type*\n3. Changer « Lead » → « Foyer »\n4. Cliquer OK → Enregistrer\n\nLe foyer apparaît ensuite dans le module Foyers."
+    },
+    {
+      keys: ['segmentation', 'secteur', 'statut', 'actif', 'inactif', 'responsable', 'filtrer'],
+      answer: "Segmentation des foyers :\n• Par secteur d'activité\n• Par chiffre d'affaires\n• Par statut : actif / lead qualifié / inactif\n• Par responsable commercial\n\nUtilisez les filtres dans le module Foyers pour retrouver rapidement vos clients."
+    },
+    /* Section 04 — Activité */
+    {
+      keys: ['activité', 'tâche', 'créer activité', 'rappel', 'nouvelle activité'],
+      answer: "Créer une activité :\n1. Module Activité → « Nouvelle activité »\n2. Choisir le type : Tâche / Appel / RDV / Relance\n3. Définir : priorité, date d'échéance, responsable\n4. Ajouter contexte (foyer, objectif)\n5. Passer à « Terminée » une fois accomplie"
+    },
+    {
+      keys: ['relance', 'automatique', 'inactivité', 'rappel automatique', 'anniversaire', 'expiration'],
+      answer: "Relances automatiques dans Calaotrade :\n• Après inactivité X jours sans contact\n• Avant anniversaire client\n• Avant expiration d'une prestation\n• Relances personnalisées configurables\n\nElles s'affichent dans le module Activité avec badge de priorité."
+    },
+    {
+      keys: ['agenda', 'calendrier', 'outlook', 'calend', 'connecter outlook', 'synchronis'],
+      answer: "Connecter Outlook au CRM :\n1. Onglet Agenda → menu « ⋮ » (3 points, haut droite)\n2. « Connecter Calaotrade à... » → fenêtre Microsoft\n3. Activer « Calendrier » → Appliquer\n4. Recharger l'onglet Agenda\n\n⚠️ À refaire si mise à jour du CRM ou expiration de session."
+    },
+    {
+      keys: ['rendez-vous', 'rdv', 'appel', 'créer rdv', 'planifier', 'compte-rendu'],
+      answer: "Créer un RDV ou appel :\n1. Module Activité → Nouvelle activité\n2. Type : « RDV » ou « Appel »\n3. Renseigner : date, heure, foyer, objectif\n4. Après l'échange : ajouter le compte-rendu (besoin, prochaine action)\n\nLes RDV apparaissent aussi dans l'onglet Agenda."
+    },
+    /* Section 05 — Facturation */
+    {
+      keys: ['facturation', 'facture', 'facturer', 'prestation', 'bexio', 'à facturer'],
+      answer: "Processus de facturation :\n1. Foyers → ouvrir le foyer → onglet Prestation\n2. Vérifications : email client ✅, montant ✅, produit ✅, adresse ✅\n3. Choisir produit (prix depuis Bexio), ajuster montant si besoin\n4. Suivi d'étapes → sélectionner « À facturer » → Sauvegarder\n\n⚠️ IMPORTANT : vérifiez que le montant n'est pas à 0 AVANT de passer à « Facturé ». Bexio envoie le PDF automatiquement !"
+    },
+    {
+      keys: ['montant', 'remise', 'prix', '0 euro', 'erreur montant', 'vérification montant'],
+      answer: "Concernant le montant de facturation :\n• Sélectionnez le produit → le prix se charge automatiquement depuis Bexio\n• Vous pouvez modifier le montant et appliquer une remise (%)\n\n⚠️ ATTENTION : si le montant est à 0 par erreur, corrigez-le AVANT de passer l'étape à « Facturé ». Une fois sur Facturé, Bexio génère et envoie la facture PDF au client automatiquement."
+    },
+    {
+      keys: ['fiscal', 'fiscale', '3ème pilier', 'lpp', 'planification', 'produit'],
+      answer: "Produits disponibles pour la facturation :\n• 3ème pilier\n• LPP (prévoyance professionnelle)\n• Planification financière\n\nLors de la création de la prestation, sélectionnez le produit correspondant. Le prix s'applique automatiquement depuis la plaquette Bexio."
+    },
+    /* Section 06 — Emailing */
+    {
+      keys: ['email', 'emailing', 'newsletter', 'mailing', 'envoyer email', 'campagne email'],
+      answer: "Workflow emailing Finke :\n1. Exporter CSV depuis Calaotrade (Foyers → flèche ↓ bleue)\n2. Glisser-déposer le CSV dans l'outil d'extraction\n3. Télécharger le fichier contacts Outlook\n4. Importer dans Outlook → créer groupe « Clients Finke Swiss »\n5. Nouveau email → champ Cci → taper « Clients Finke Swiss »\n\n📧 Tous vos clients sont ajoutés en BCC automatiquement."
+    },
+    {
+      keys: ['export', 'csv', 'exporter', 'télécharger liste', 'exporter contacts'],
+      answer: "Exporter les contacts Calaotrade :\n1. Menu → Foyers (ou Leads)\n2. Cliquer sur la flèche ↓ bleue (haut droite)\n3. Message « Export terminé » → fichier Clients_JJ-MM-AAAA.csv dans Téléchargements\n\nCe fichier contient tous vos foyers avec emails, pour import dans l'outil emailing."
+    },
+    {
+      keys: ['import outlook', 'contacts outlook', 'groupe outlook', 'importer contacts', 'clients finke'],
+      answer: "Importer contacts dans Outlook :\n1. Fichier → Ouvrir et exporter → Importer/Exporter\n2. « Importer depuis un autre programme » → « Valeurs séparées par des virgules »\n3. Sélectionner finke_outlook_contacts_….csv → dossier Contacts → Terminer\n4. Contacts Outlook → Nouveau groupe → nommer « Clients Finke Swiss »\n5. Ajouter membres → Depuis Contacts Outlook → Ctrl+A → OK → Ctrl+S\n\n➡️ Ensuite : champ Cci → taper « Clients Finke Swiss » → ~247 destinataires ajoutés."
+    },
+    {
+      keys: ['campagne fiscale', 'campagne', 's1', 's2', 'séquence', 'newsletter fiscale'],
+      answer: "Campagne emailing fiscale :\n• 3 newsletters prêtes à l'envoi\n• S1 : angle perte financière (urgent, personnel)\n• S2 : urgence sur délai légal\n• Cadence : 1 email par semaine\n\nLes templates sont disponibles dans la section 06 du guide, onglet « Campagne fiscale »."
+    },
+    /* Section 07 — Calaobooking */
+    {
+      keys: ['booking', 'calaobooking', 'réservation', 'réserver', 'créneau', 'disponibilité'],
+      answer: "Calaobooking — réservation en ligne :\n• Configurez vos heures d'ouverture et jours non-travaillés\n• Définissez la durée standard des RDV\n• Partagez votre lien de réservation par email ou sur votre site\n• Les clients voient vos disponibilités en temps réel et choisissent un créneau\n• Confirmation automatique par email + rappel 24h avant"
+    },
+    {
+      keys: ['synchronisation', 'google calendar', 'double booking', 'sync calendrier', 'bidirectionnel'],
+      answer: "Synchronisation calendrier Calaobooking :\n• Synchronisation bidirectionnelle Google Calendar\n• Synchronisation bidirectionnelle Outlook\n• Aucun double booking possible\n• Les modifications dans le CRM mettent automatiquement à jour le calendrier\n• L'invitation contient les infos client Calaotrade"
+    },
+    /* Section 08 — Scénarios */
+    {
+      keys: ['nouveau client', 'parcours', 'scénario', 'workflow', 'processus', 'étapes'],
+      answer: "Parcours nouveau client (scénario complet) :\n1. Créer le lead → infos + source d'acquisition\n2. Qualifier → appel initial, comprendre les besoins\n3. Envoyer devis → proposer une solution\n4. Relancer → tâche automatique après 1 semaine\n5. Convertir → acceptation, conversion en compte client\n6. Facturer → créer la première prestation/facture"
+    },
+    {
+      keys: ['gestion dossier', 'plusieurs prestations', 'handover', 'passer tâche', 'collègue'],
+      answer: "Gestion dossier client complet :\n1. Ouvrir fiche client → vue d'ensemble\n2. Voir historique → activité complète\n3. Voir prestations actives → état de chaque dossier\n4. Programmer RDV si suivi nécessaire\n5. Passer tâche à un collègue si handover\n6. Générer facture pour prestation complétée"
+    },
+    {
+      keys: ['workflow facturation', 'processus facture', 'envoi facture', 'paiement', 'archivage', 'rappel paiement'],
+      answer: "Workflow facturation complet :\n1. Prestation en cours → à la date de fin\n2. Générer la facture depuis la prestation\n3. Réviser et confirmer montants + adresse\n4. Envoyer au client (email depuis Calaotrade)\n5. Mise à jour Bexio → synchronisation automatique\n6. Suivi paiement → rappel auto si retard\n7. Archivage → une fois la facture payée"
+    }
+  ];
+
+  /* Suggestions proposées à l'ouverture */
+  var SUGGESTIONS = [
+    'Comment créer un lead ?',
+    'Comment connecter Outlook ?',
+    'Comment facturer un client ?',
+    'Exporter des contacts CSV',
+    'Convertir un lead en foyer',
+    'Synchroniser le calendrier'
+  ];
+
+  var MSG_FALLBACK = "Je n'ai pas trouvé de réponse précise à votre question. 🤔\n\nEssayez des mots-clés comme : lead, foyer, facturation, emailing, agenda, booking, conversion...\n\nOu consultez directement la section correspondante dans le guide.";
+
+  /* ── Initialisation DOM ── */
+  var btn       = document.getElementById('fk-chat-btn');
+  var panel     = document.getElementById('fk-chat-panel');
+  var closeBtn  = document.getElementById('fk-chat-close');
+  var messages  = document.getElementById('fk-chat-messages');
+  var input     = document.getElementById('fk-chat-input');
+  var sendBtn   = document.getElementById('fk-chat-send');
+  var sugBox    = document.getElementById('fk-suggestions');
+  var opened    = false;
+
+  function togglePanel() {
+    opened = !opened;
+    if (opened) {
+      panel.classList.add('fk-open');
+      input.focus();
+      if (!messages.children.length) {
+        addMsg('bot', "Bonjour 👋 Je suis l'assistant Finke Swiss.\nPosez-moi vos questions sur Calaotrade CRM — leads, foyers, facturation, emailing, agenda…");
+        renderSuggestions();
+      }
+    } else {
+      panel.classList.remove('fk-open');
+    }
+  }
+
+  function addMsg(type, text) {
+    var div = document.createElement('div');
+    div.className = 'fk-msg fk-' + type;
+    div.innerHTML = escHtml(text).replace(/\n/g, '<br>');
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+    return div;
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function renderSuggestions() {
+    sugBox.innerHTML = '';
+    SUGGESTIONS.forEach(function(s) {
+      var b = document.createElement('button');
+      b.className = 'fk-sug-btn';
+      b.textContent = s;
+      b.addEventListener('click', function() {
+        sugBox.innerHTML = '';
+        handleQuery(s);
+      });
+      sugBox.appendChild(b);
+    });
+  }
+
+  function normalize(str) {
+    return str.toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/['']/g, ' ')
+      .replace(/[^a-z0-9\s]/g, ' ');
+  }
+
+  function findAnswer(query) {
+    var q = normalize(query);
+    var best = null, bestScore = 0;
+    KB.forEach(function(entry) {
+      var score = 0;
+      entry.keys.forEach(function(k) {
+        var nk = normalize(k);
+        if (q.indexOf(nk) !== -1) score += nk.split(' ').length * 2;
+        else {
+          nk.split(' ').forEach(function(w) {
+            if (w.length > 2 && q.indexOf(w) !== -1) score += 1;
+          });
+        }
+      });
+      if (score > bestScore) { bestScore = score; best = entry; }
+    });
+    return bestScore > 0 ? best.answer : MSG_FALLBACK;
+  }
+
+  function handleQuery(text) {
+    text = text.trim();
+    if (!text) return;
+    addMsg('user', text);
+    input.value = '';
+    /* typing indicator */
+    var typing = addMsg('bot', '…');
+    setTimeout(function() {
+      typing.innerHTML = escHtml(findAnswer(text)).replace(/\n/g, '<br>');
+      messages.scrollTop = messages.scrollHeight;
+    }, 450);
+  }
+
+  /* ── Events ── */
+  btn.addEventListener('click', togglePanel);
+  closeBtn.addEventListener('click', togglePanel);
+
+  sendBtn.addEventListener('click', function() {
+    sugBox.innerHTML = '';
+    handleQuery(input.value);
+  });
+
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      sugBox.innerHTML = '';
+      handleQuery(input.value);
+    }
+  });
+
+  /* Fermer en cliquant à l'extérieur */
+  document.addEventListener('click', function(e) {
+    if (opened && !panel.contains(e.target) && e.target !== btn && !btn.contains(e.target)) {
+      opened = false;
+      panel.classList.remove('fk-open');
+    }
+  });
+
+})();
+</script>
+
 </body>
 </html>
