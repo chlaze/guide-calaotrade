@@ -126,7 +126,7 @@
       <div class="sidebar-section">
         <button type="button" class="sidebar-headline" data-section="05">
           <span class="sidebar-number">05</span>
-          <span class="sidebar-title">Facturation & Prestations</span>
+          <span class="sidebar-title">Facturation</span>
           <span class="toggle-icon">›</span>
         </button>
         <div class="sidebar-subsections" id="section-05-subs">
@@ -174,26 +174,12 @@
       <div class="sidebar-section">
         <button type="button" class="sidebar-headline" data-section="08">
           <span class="sidebar-number">08</span>
-          <span class="sidebar-title">Scénarios Complets</span>
-          <span class="toggle-icon">›</span>
-        </button>
-        <div class="sidebar-subsections" id="section-08-subs">
-          <a href="#" data-subsection="08-01" class="sidebar-link">Parcours nouveau client</a>
-          <a href="#" data-subsection="08-02" class="sidebar-link">Gestion dossier complet</a>
-          <a href="#" data-subsection="08-03" class="sidebar-link">Workflow facturation</a>
-        </div>
-      </div>
-
-      <!-- Section 09 -->
-      <div class="sidebar-section">
-        <button type="button" class="sidebar-headline" data-section="09">
-          <span class="sidebar-number">09</span>
           <span class="sidebar-title">Mises à jour application</span>
           <span class="updates-count-badge" id="updates-count-badge" hidden>0</span>
           <span class="toggle-icon">›</span>
         </button>
-        <div class="sidebar-subsections" id="section-09-subs">
-          <a href="#" data-subsection="09-01" class="sidebar-link" id="updates-nav-link">Nouveautés publiées <span class="release-new-pill release-new-pill-inline" id="release-badge-sidebar" hidden>Nouveau</span></a>
+        <div class="sidebar-subsections" id="section-08-subs">
+          <a href="#" data-subsection="08-01" class="sidebar-link" id="updates-nav-link">Nouveautés publiées <span class="release-new-pill release-new-pill-inline" id="release-badge-sidebar" hidden>Nouveau</span></a>
         </div>
       </div>
 
@@ -206,7 +192,7 @@
       <div class="guide-search-block">
         <label class="guide-search-label" for="guide-search-input">Recherche rapide</label>
         <div class="guide-search-input-wrap">
-          <input id="guide-search-input" type="search" placeholder="Exemple : facturer, Outlook, lead, Bexio..." autocomplete="off">
+          <input id="guide-search-input" type="search" placeholder="Exemple : facturer, Outlook, prospect, Bexio..." autocomplete="off">
           <button type="button" id="guide-search-clear" class="guide-search-clear" aria-label="Effacer la recherche">✕</button>
         </div>
         <div id="guide-search-results" class="guide-search-results" hidden></div>
@@ -268,7 +254,7 @@
             </figure>
             <figure class="quick-visual-card">
               <img src="Image/pipelinedevente.png" alt="Pipeline commercial Calaotrade">
-              <figcaption>Pipeline des leads</figcaption>
+              <figcaption>Pipeline des prospects</figcaption>
             </figure>
             <figure class="quick-visual-card">
               <img src="Image/facturation.png" alt="Vue de la facturation Calaotrade">
@@ -297,8 +283,8 @@
           </div>
           <div class="crm-module-card">
             <div class="crm-module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div>
-            <span class="crm-module-name">Leads</span>
-            <span class="crm-module-desc">Leads &amp; suivi commercial</span>
+            <span class="crm-module-name">Prospects</span>
+            <span class="crm-module-desc">Prospects &amp; suivi commercial</span>
           </div>
           <div class="crm-module-card">
             <div class="crm-module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
@@ -381,7 +367,7 @@
         <div class="crm-interface-grid">
           <div class="crm-icard">
             <div class="crm-icard-tag">Navigation gauche</div>
-            <p>La sidebar liste tous les modules : <strong>Accueil</strong>, Leads, Foyers, Activité, Messages, Agenda, Contacts, Statistiques.</p>
+            <p>La sidebar liste tous les modules : <strong>Accueil</strong>, Prospects, Foyers, Activité, Messages, Agenda, Contacts, Statistiques.</p>
           </div>
           <div class="crm-icard">
             <div class="crm-icard-tag">Zone centrale — KPI</div>
@@ -400,7 +386,7 @@
           <h3>Comprendre les onglets principaux</h3>
           <div class="crm-onglets-grid">
             <div class="crm-onglet-item"><strong>Accueil</strong><span>Vue globale de votre journée : tâches, événements, rappels.</span></div>
-            <div class="crm-onglet-item"><strong>Leads</strong><span>Un lead = un contact commercial en cours de qualification.</span></div>
+            <div class="crm-onglet-item"><strong>Prospects</strong><span>Un prospect = un contact commercial en cours de qualification.</span></div>
             <div class="crm-onglet-item"><strong>Foyers</strong><span>Un foyer = un client converti avec dossier actif dans Calaotrade.</span></div>
             <div class="crm-onglet-item"><strong>Activité</strong><span>Suivi opérationnel : tâches, événements, relances.</span></div>
             <div class="crm-onglet-item"><strong>Messages</strong><span>Envois et suivi des communications.</span></div>
@@ -411,7 +397,7 @@
         </div>
         <figure class="crm-screenshot-wrap" style="margin-top:16px;">
           <img src="Image/onglet contact.png" alt="Onglet Contacts Calaotrade" />
-          <figcaption>Onglet Contacts : vue annuaire des personnes liées à vos leads et foyers</figcaption>
+          <figcaption>Onglet Contacts : vue annuaire des personnes liées à vos prospects et foyers</figcaption>
         </figure>
         <div class="crm-required-alert" style="margin-top:14px;">
           <strong>Recherche client rapide (onglet Contacts) :</strong> vous pouvez rechercher un client par <strong>email</strong> ou <strong>téléphone</strong>, y compris en formats <code>+33</code>, <code>06</code>, <code>+41</code>, <code>79</code>, avec ou sans espaces.
@@ -453,7 +439,7 @@
         <div class="crm-pipe-step">
           <div class="crm-pipe-num">1</div>
           <div class="crm-pipe-content">
-            <strong>Nouveau lead</strong>
+            <strong>Nouveau prospect</strong>
             <span>Contact identifié</span>
           </div>
         </div>
@@ -493,14 +479,14 @@
 
       <!-- Subsections -->
       <article class="subsection active" id="content-02-01">
-        <h2>Créer un lead</h2>
-        <p>Pour créer un lead dans Calaotrade, suivez exactement ces étapes avec les captures ci-dessous :</p>
+        <h2>Créer un prospect</h2>
+        <p>Pour créer un prospect dans Calaotrade, suivez exactement ces étapes avec les captures ci-dessous :</p>
         <div class="crm-required-alert">
           <strong>Attention — champs obligatoires :</strong> les champs marqués avec un <span class="crm-asterisk">*</span> rouge doivent être remplis.
-          Ces champs peuvent varier selon l'<strong>étape du lead</strong>. Si l'enregistrement du lead est impossible, c'est qu'une information obligatoire manque.
+          Ces champs peuvent varier selon l'<strong>étape du prospect</strong>. Si l'enregistrement du prospect est impossible, c'est qu'une information obligatoire manque.
         </div>
         <div class="crm-step-tabs">
-          <a href="#lead-step-1" class="crm-step-tab">Accès Leads</a>
+          <a href="#lead-step-1" class="crm-step-tab">Accès Prospects</a>
           <a href="#lead-step-2" class="crm-step-tab">Type *</a>
           <a href="#lead-step-3" class="crm-step-tab">Étape</a>
           <a href="#lead-step-4" class="crm-step-tab">Compte-rendu</a>
@@ -510,38 +496,38 @@
         </div>
         <div class="crm-lead-walkthrough">
           <figure class="crm-step-shot" id="lead-step-1">
-            <img src="Image/prospect.png" alt="Module Leads dans Calaotrade" />
-            <figcaption><strong>Étape 1 :</strong> Ouvrez le module <strong>Leads</strong> depuis la barre latérale gauche.</figcaption>
+            <img src="Image/prospect.png" alt="Module Prospects dans Calaotrade" />
+            <figcaption><strong>Étape 1 :</strong> Ouvrez le module <strong>Prospects</strong> depuis la barre latérale gauche.</figcaption>
           </figure>
           <figure class="crm-step-shot" id="lead-step-2">
-            <img src="Image/prospect 1.png" alt="Bouton nouveau lead" />
-            <figcaption><strong>Étape 2 — Type <span class="crm-asterisk">*</span> :</strong> sélectionnez <strong>Lead</strong> lors de la création (pas Foyer à cette étape).</figcaption>
+            <img src="Image/prospect 1.png" alt="Bouton nouveau prospect" />
+            <figcaption><strong>Étape 2 — Type <span class="crm-asterisk">*</span> :</strong> sélectionnez <strong>Prospect</strong> lors de la création (pas Foyer à cette étape).</figcaption>
           </figure>
           <figure class="crm-step-shot" id="lead-step-3">
-            <img src="Image/prospect 2.png" alt="Formulaire lead identité" />
-            <figcaption><strong>Étape 3 — Étape commerciale :</strong> choisissez l'étape du lead (ex. <strong>R1 fixé</strong>) selon l'avancement réel.</figcaption>
+            <img src="Image/prospect 2.png" alt="Formulaire prospect identité" />
+            <figcaption><strong>Étape 3 — Étape commerciale :</strong> choisissez l'étape du prospect (ex. <strong>R1 fixé</strong>) selon l'avancement réel.</figcaption>
           </figure>
           <figure class="crm-step-shot" id="lead-step-4">
-            <img src="Image/prospect 3.png" alt="Formulaire lead coordonnées" />
-            <figcaption><strong>Étape 4 — Compte-rendu conseiller :</strong> notez le contexte du lead et les informations utiles de l'échange.</figcaption>
+            <img src="Image/prospect 3.png" alt="Formulaire prospect coordonnées" />
+            <figcaption><strong>Étape 4 — Compte-rendu conseiller :</strong> notez le contexte du prospect et les informations utiles de l'échange.</figcaption>
           </figure>
           <figure class="crm-step-shot" id="lead-step-5">
-            <img src="Image/prospect 4.png" alt="Source et attribution du lead" />
+            <img src="Image/prospect 4.png" alt="Source et attribution du prospect" />
             <figcaption><strong>Étape 5 — Identité :</strong> renseignez civilité, nom, prénom, sexe et champs d'identification.</figcaption>
           </figure>
           <figure class="crm-step-shot" id="lead-step-6">
-            <img src="Image/prospect 5.png" alt="Validation du formulaire lead" />
+            <img src="Image/prospect 5.png" alt="Validation du formulaire prospect" />
             <figcaption><strong>Étape 6 — Coordonnées :</strong> complétez téléphone, email et données de contact nécessaires au suivi.</figcaption>
           </figure>
           <figure class="crm-step-shot" id="lead-step-7">
-            <img src="Image/prospect 6.png" alt="Lead enregistré dans le suivi des étapes" />
+            <img src="Image/prospect 6.png" alt="Prospect enregistré dans le suivi des étapes" />
             <figcaption><strong>Étape 7 — Validation finale :</strong> si l'enregistrement est bloqué, un champ obligatoire <span class="crm-asterisk">*</span> manque encore.</figcaption>
           </figure>
         </div>
         <div class="crm-lead-fields">
           <div class="crm-field-item">
             <span class="crm-field-label">Type <span class="crm-asterisk">*</span></span>
-            <span class="crm-field-note">Lead à la création, Foyer uniquement après conversion</span>
+            <span class="crm-field-note">Prospect à la création, Foyer uniquement après conversion</span>
           </div>
           <div class="crm-field-item">
             <span class="crm-field-label">Étape</span>
@@ -557,7 +543,7 @@
           </div>
           <div class="crm-field-item">
             <span class="crm-field-label">Téléphone &amp; email</span>
-            <span class="crm-field-note">Souvent requis <span class="crm-asterisk">*</span> selon l'étape du lead</span>
+            <span class="crm-field-note">Souvent requis <span class="crm-asterisk">*</span> selon l'étape du prospect</span>
           </div>
           <div class="crm-field-item">
             <span class="crm-field-label">Source</span>
@@ -568,7 +554,7 @@
             <span class="crm-field-note">Responsable du suivi</span>
           </div>
           <div class="crm-field-item">
-            <span class="crm-field-label">Statut du lead</span>
+            <span class="crm-field-label">Statut du prospect</span>
             <span class="crm-field-note">Étape dans le parcours de vente</span>
           </div>
           <div class="crm-field-item">
@@ -580,17 +566,17 @@
 
       <article class="subsection" id="content-02-02">
         <h2>Qualifier et scorer</h2>
-        <p>Ici, le scoring se base sur la qualité des informations saisies dans la fiche lead. Utilisez les captures dans cet ordre :</p>
+        <p>Ici, le scoring se base sur la qualité des informations saisies dans la fiche prospect. Utilisez les captures dans cet ordre :</p>
         <figure class="crm-screenshot-wrap" style="margin-top:16px;">
-          <img src="Image/qualification Prospect.png" alt="Qualification d'un lead dans Calaotrade" />
-          <figcaption>Étape 1 — vue générale de qualification : renseigner l'étape et le contexte du lead</figcaption>
+          <img src="Image/qualification Prospect.png" alt="Qualification d'un prospect dans Calaotrade" />
+          <figcaption>Étape 1 — vue générale de qualification : renseigner l'étape et le contexte du prospect</figcaption>
         </figure>
         <ul style="margin: 20px 0 20px 20px;">
-          <li><strong>Étape du lead</strong> : mettez à jour l'avancement réel après chaque échange</li>
+          <li><strong>Étape du prospect</strong> : mettez à jour l'avancement réel après chaque échange</li>
           <li><strong>Compte-rendu</strong> : notez besoin, urgence et prochaine action</li>
         </ul>
         <figure class="crm-screenshot-wrap" style="margin-top:16px;">
-          <img src="Image/qualification Prospect (2).png" alt="Champ type de demande dans la qualification lead" />
+          <img src="Image/qualification Prospect (2).png" alt="Champ type de demande dans la qualification prospect" />
           <figcaption>Étape 2 — Type de demande : exemple visible « retraite 3ème pilier »</figcaption>
         </figure>
         <ul style="margin: 20px 0 20px 20px;">
@@ -598,22 +584,22 @@
           <li><strong>Bon choix</strong> : sélectionnez la demande la plus précise possible</li>
         </ul>
         <figure class="crm-screenshot-wrap" style="margin-top:16px;">
-          <img src="Image/qualification Prospect (3).png" alt="Champ canal d'acquisition dans la qualification lead" />
+          <img src="Image/qualification Prospect (3).png" alt="Champ canal d'acquisition dans la qualification prospect" />
           <figcaption>Étape 3 — Canal d'acquisition : exemple visible « perso »</figcaption>
         </figure>
         <ul style="margin: 20px 0 20px 20px;">
-          <li><strong>Canal d'acquisition</strong> : source réelle du lead (perso, recommandation, etc.)</li>
+          <li><strong>Canal d'acquisition</strong> : source réelle du prospect (perso, recommandation, etc.)</li>
           <li><strong>Utilité</strong> : permet d'identifier les canaux qui convertissent le mieux</li>
         </ul>
         <div class="crm-required-alert" style="margin-top:14px;">
-          <strong>Scoring conseillé :</strong> lead <strong>chaud</strong> si type de demande + canal + compte-rendu sont complets,
+          <strong>Scoring conseillé :</strong> prospect <strong>chaud</strong> si type de demande + canal + compte-rendu sont complets,
           <strong>tiède</strong> si un champ clé manque, <strong>froid</strong> si plusieurs infos sont absentes.
         </div>
       </article>
 
       <article class="subsection" id="content-02-03">
-        <h2>Suivi des étapes lead</h2>
-        <p>Cette vue affiche la progression de chaque lead de la qualification jusqu'à la conversion :</p>
+        <h2>Suivi des étapes prospect</h2>
+        <p>Cette vue affiche la progression de chaque prospect de la qualification jusqu'à la conversion :</p>
         <div class="pipeline-container">
           <div class="pipeline-stage">
             <div class="pipeline-badge">1</div>
@@ -638,7 +624,7 @@
             <div class="pipeline-badge">3</div>
             <div>
               <strong>Proposition</strong>
-              <p>Offre envoyée au lead</p>
+              <p>Offre envoyée au prospect</p>
             </div>
           </div>
           <div class="pipeline-stage">
@@ -668,13 +654,13 @@
 
       <article class="subsection" id="content-02-04">
         <h2>Préparer la conversion</h2>
-        <p>Avant la conversion, vérifiez que le lead est complet et prêt à passer en foyer :</p>
+        <p>Avant la conversion, vérifiez que le prospect est complet et prêt à passer en foyer :</p>
         <ol class="step-list">
-          <li>Le champ <strong>Type</strong> doit être en <strong>Lead</strong> pendant la phase commerciale</li>
+          <li>Le champ <strong>Type</strong> doit être en <strong>Prospect</strong> pendant la phase commerciale</li>
           <li>L'étape doit refléter l'avancement réel (ex. <strong>R1 fixé</strong>)</li>
           <li>Le compte-rendu conseiller doit être renseigné</li>
           <li>Toutes les informations obligatoires <span class="crm-asterisk">*</span> doivent être complètes</li>
-          <li>La conversion effective se fait dans l'onglet <strong>03-05 Conversion lead → foyer</strong></li>
+          <li>La conversion effective se fait dans l'onglet <strong>03-05 Conversion prospect → foyer</strong></li>
         </ol>
       </article>
     </section>
@@ -683,7 +669,7 @@
     <section class="content-section" id="content-03">
       <header class="section-header">
         <h1>03 — Gérer les Foyers</h1>
-        <p class="section-intro"><strong>Foyer</strong> = lead converti en client actif avec dossier opérationnel dans Calaotrade.</p>
+        <p class="section-intro"><strong>Foyer</strong> = prospect converti en client actif avec dossier opérationnel dans Calaotrade.</p>
       </header>
 
       <article class="subsection active" id="content-03-05">
@@ -727,6 +713,16 @@
         </figure>
 
         <figure class="crm-screenshot-wrap" style="margin-top:16px;">
+          <img src="Image/foyer detail 1.png" alt="Détail d'un foyer - compte-rendu et informations des intervenants" />
+          <figcaption>Détail foyer (vue 1) : compte-rendu du conseiller, identification du conseiller et de la téléphoniste, puis identité du contact principal (avec conjoint et enfants si existants)</figcaption>
+        </figure>
+
+        <figure class="crm-screenshot-wrap" style="margin-top:16px;">
+          <img src="Image/foyer detail 2.png" alt="Détail d'un foyer - vue globale des informations patrimoniales et prestations" />
+          <figcaption>Détail foyer (vue 2) : visualisation des prestations, des fortunes, des éléments immobiliers et des autres données contenues dans le foyer</figcaption>
+        </figure>
+
+        <figure class="crm-screenshot-wrap" style="margin-top:16px;">
           <img src="Image/foyer fortune.png" alt="Onglet fortune dans une fiche foyer" />
           <figcaption>Onglet Fortune: suivi des éléments patrimoniaux</figcaption>
         </figure>
@@ -739,11 +735,6 @@
         <figure class="crm-screenshot-wrap" style="margin-top:16px;">
           <img src="Image/foyer flux financiers.png" alt="Onglet flux financiers dans une fiche foyer" />
           <figcaption>Onglet Flux financiers: entrées/sorties et vision financière</figcaption>
-        </figure>
-
-        <figure class="crm-screenshot-wrap" style="margin-top:16px;">
-          <img src="Image/foyer planif.png" alt="Onglet planification dans une fiche foyer" />
-          <figcaption>Onglet Planification: suivi des actions et échéances</figcaption>
         </figure>
 
         <figure class="crm-screenshot-wrap" style="margin-top:16px;">
@@ -784,7 +775,7 @@
         <ul style="margin: 20px 0 20px 20px;">
           <li>Par secteur d'activité</li>
           <li>Par plan/chiffre d'affaires</li>
-          <li>Par statut (actif, lead qualifié, inactif)</li>
+          <li>Par statut (actif, prospect qualifié, inactif)</li>
           <li>Par responsable commercial</li>
         </ul>
       </article>
@@ -816,102 +807,76 @@
 
       <article class="subsection" id="content-03-07">
         <h2>Vente d'une prestation</h2>
-        <p>La vente d'une prestation est l'étape clé pour documenter et facturer un service proposé à un client (foyer). Ce processus permet de tracer complètement le cycle de vie d'une offre : de la création jusqu'à la facturation finale. Suivez attentivement les étapes ci-dessous pour enregistrer une nouvelle prestation.</p>
+        <p>Cette partie est maintenant structurée par type de prestation pour un apprentissage visuel clair. Vous pourrez ajouter vos captures dans chaque bloc, avec le même format d'explication, afin de faciliter la formation de l'équipe.</p>
 
-        <h3 style="color: #333; margin-top: 24px; margin-bottom: 12px;">Processus de création - 4 étapes principales</h3>
-        <p>Depuis un foyer existant, vous pouvez créer une nouvelle prestation commerciale en suivant ce flux :</p>
-        
-        <div style="background-color: #f9f9f9; padding: 16px; border-left: 4px solid #5cb85c; margin: 16px 0;">
-          <ol class="step-list" style="margin: 0;">
-            <li><strong>Accès à la fiche foyer:</strong> Ouvrez le foyer client auquel vous souhaitez associer une prestation. Vérifiez que toutes les informations de base du foyer sont à jour (coordonnées, informations de contact, etc.)</li>
-            <li><strong>Lancer la création:</strong> Localisez et cliquez sur le bouton ou le lien permettant de créer une nouvelle prestation au sein de ce foyer</li>
-            <li><strong>Sélectionner le type:</strong> Choisissez le type de prestation à vendre parmi les options disponibles (conseil, gestion, placement, etc.)</li>
-            <li><strong>Compléter et enregistrer:</strong> Remplissez tous les détails requis (montant, période d'engagement, informations spécifiques) et validez l'enregistrement</li>
+        <div class="crm-required-alert" style="margin-top:14px;">
+          <strong>Tronc commun (valable pour tous les types) :</strong>
+          <ol class="step-list" style="margin: 8px 0 0 20px;">
+            <li>Ouvrir le <strong>foyer</strong> concerné</li>
+            <li>Lancer la création d'une prestation depuis la fiche</li>
+            <li>Choisir le bon onglet/type de prestation</li>
+            <li>Compléter les champs obligatoires (montant, dates, détails)</li>
+            <li>Vérifier puis enregistrer</li>
           </ol>
         </div>
 
-        <h3 style="color: #333; margin-top: 24px; margin-bottom: 12px;">Vue détaillée de chaque étape</h3>
-
-        <h4 style="color: #555; margin-top: 18px;">Étape 1 — Accès à la fiche foyer et création</h4>
-        <p>Depuis la liste de vos foyers ou en ouvrant directement une fiche foyer, vous devez identifier le bouton d'action permettant de créer une nouvelle prestation. Ce bouton est généralement visible dans la zone supérieure de la fiche foyer, à proximité des autres options de gestion du foyer. Une fois trouvé, cliquez dessus pour initialiser le processus de création d'une nouvelle prestation.</p>
+        <h3 style="color: #333; margin-top: 24px; margin-bottom: 12px;">1) Vendre une planification</h3>
+        <p>Utiliser ce bloc pour expliquer la vente sur l'onglet <strong>Planifications</strong>. Ajoutez les captures de l'ouverture de l'onglet, de la saisie et de la validation finale.</p>
         <figure class="crm-screenshot-wrap" style="margin-top:16px;">
-          <img src="Image/foyer creation autre prestation.png" alt="Création d'une nouvelle prestation depuis une fiche foyer" />
-          <figcaption>Capture 1: Bouton de création d'une nouvelle prestation — Look pour ce bouton dans la zone d'actions du foyer</figcaption>
+          <img src="Image/foyer planif.png" alt="Onglet Planification dans une fiche foyer" />
+          <figcaption>Capture P1 - accès à l'onglet Planifications : suivi des actions et échéances</figcaption>
+        </figure>
+        <div style="background-color:#f9f9f9; border-left:4px solid #5bc0de; padding:14px; margin:12px 0;">
+          <strong>À insérer dans vos captures :</strong>
+          <ul style="margin:8px 0 0 20px;">
+            <li>Capture P1 - accès à l'onglet Planifications</li>
+            <li>Capture P2 - champs à compléter</li>
+            <li>Capture P3 - vérification et enregistrement</li>
+          </ul>
+        </div>
+
+        <h3 style="color: #333; margin-top: 24px; margin-bottom: 12px;">2) Vendre une prestation fiscale</h3>
+        <p>Ce bloc couvre la facturation depuis l'onglet <strong>Fiscal</strong> (ex: déclaration fiscale). Détaillez les points de contrôle avant de passer en étape de facturation.</p>
+        <div style="background-color:#f9f9f9; border-left:4px solid #f0ad4e; padding:14px; margin:12px 0;">
+          <strong>À insérer dans vos captures :</strong>
+          <ul style="margin:8px 0 0 20px;">
+            <li>Capture F1 - sélection de la prestation fiscale</li>
+            <li>Capture F2 - saisie des informations et montant</li>
+            <li>Capture F3 - confirmation de l'étape "À facturer"</li>
+          </ul>
+        </div>
+
+        <h3 style="color: #333; margin-top: 24px; margin-bottom: 12px;">3) Vendre une prestation investissements</h3>
+        <p>Ce bloc documente le flux de l'onglet <strong>Investissements</strong>. Montrez la logique de sélection du service, du montant et du suivi.</p>
+        <div style="background-color:#f9f9f9; border-left:4px solid #5cb85c; padding:14px; margin:12px 0;">
+          <strong>À insérer dans vos captures :</strong>
+          <ul style="margin:8px 0 0 20px;">
+            <li>Capture I1 - ouverture de l'onglet Investissements</li>
+            <li>Capture I2 - détails de la prestation</li>
+            <li>Capture I3 - sauvegarde et contrôle dans le foyer</li>
+          </ul>
+        </div>
+
+        <h3 style="color: #333; margin-top: 24px; margin-bottom: 12px;">4) Vendre une autre prestation</h3>
+        <p>Cette sous-section sert aux cas spécifiques hors onglets métier standard: honoraire spécifique, droit d'option LAMal, recherche LPP, etc.</p>
+        <figure class="crm-screenshot-wrap" style="margin-top:16px;">
+          <img src="Image/foyer autre prestation.png" alt="Sélection du type pour autre prestation" />
+          <figcaption>Capture A2 - sélection du type d'autre prestation à facturer</figcaption>
+        </figure>
+        <figure class="crm-screenshot-wrap" style="margin-top:16px;">
+          <img src="Image/foyer creation autre prestation.png" alt="Écran de création d'une autre prestation" />
+          <figcaption>Capture A1 - écran de création d'une "autre prestation" pour les besoins ponctuels à facturer</figcaption>
         </figure>
 
-        <h4 style="color: #555; margin-top: 18px;">Étape 2 — Sélection du type de prestation</h4>
-        <p>Un dialogue ou une liste d'options s'affiche pour vous permettre de sélectionner le type de prestation à vendre. Cette sélection est capitale car elle déterminera :</p>
-        <ul style="margin: 12px 0 12px 20px;">
-          <li>Les champs à remplir ultérieurement</li>
-          <li>Le traitement comptable et fiscal de la vente</li>
-          <li>La structure de facturation appliquée</li>
-          <li>Les rapports et analyses générés</li>
-        </ul>
-        <p>Choisissez le type qui correspond exactement au service proposé au client.</p>
-        <figure class="crm-screenshot-wrap" style="margin-top:16px;">
-          <img src="Image/foyer autre prestation.png" alt="Sélection du type de prestation dans le foyer" />
-          <figcaption>Capture 2: Sélection du type de prestation — Choisissez le type qui correspond à votre offre commerciale</figcaption>
-        </figure>
-
-        <h4 style="color: #555; margin-top: 18px;">Étape 3 — Complétion des informations détaillées (Vue 1)</h4>
-        <p>Une fois le type choisi, un formulaire de saisie apparaît pour vous permettre de documenter la prestation. Les champs à remplir varient selon le type de prestation sélectionnée, mais incluent généralement :</p>
-        <ul style="margin: 12px 0 12px 20px;">
-          <li><strong>Montant:</strong> Le prix convenu pour la prestation (HT ou TTC selon votre configuration)</li>
-          <li><strong>Période:</strong> La date de début et/ou de fin du contrat/service</li>
-          <li><strong>Description:</strong> Un texte libre détaillant la nature exacte de la prestation</li>
-          <li><strong>Notes internes:</strong> Des informations utiles pour votre équipe (conditions particulières, clauses spéciales, etc.)</li>
-        </ul>
-        <figure class="crm-screenshot-wrap" style="margin-top:16px;">
-          <img src="Image/foyer detail 1.png" alt="Détail des champs de prestation foyer - vue 1" />
-          <figcaption>Capture 3a: Formulaire de détail (1ère partie) — Remplissez les champs visibles avec attention</figcaption>
-        </figure>
-
-        <h4 style="color: #555; margin-top: 18px;">Étape 4 — Vérification et enregistrement (Vue 2)</h4>
-        <p>Avant de finaliser l'enregistrement, une deuxième vue ou un récapitulatif s'affiche pour que vous vérifiiez l'ensemble des informations saisies. C'est le moment critique pour :</p>
-        <ul style="margin: 12px 0 12px 20px;">
-          <li>Vérifier que le <strong>foyer correct</strong> a été sélectionné</li>
-          <li>Confirmer que le <strong>type de prestation</strong> est correct</li>
-          <li>Valider les <strong>montants saisis</strong> (pas d'erreur de zerosaisis)</li>
-          <li>S'assurer que les <strong>périodes sont cohérentes</strong> (dates de début/fin logiques)</li>
-          <li>Vérifier la présence des <strong>documents justificatifs</strong> si nécessaire</li>
-        </ul>
-        <figure class="crm-screenshot-wrap" style="margin-top:16px;">
-          <img src="Image/foyer detail 2.png" alt="Détail des champs de prestation foyer - vue 2" />
-          <figcaption>Capture 3b: Formulaire de détail (2ème partie) — Complétez les champs restants, puis enregistrez</figcaption>
-        </figure>
-
-        <h3 style="color: #333; margin-top: 24px; margin-bottom: 12px;">Points critiques et bonnes pratiques</h3>
-
+        <h3 style="color: #333; margin-top: 24px; margin-bottom: 12px;">5) Contrôle qualité avant validation</h3>
         <div class="crm-required-alert" style="margin-top:14px; margin-bottom:14px; border-left-color: #d9534f;">
-          <strong>⚠️ Contrôle avant sauvegarde :</strong> 
-          <p style="margin: 8px 0 0 0;">Vérifiez impérativement le foyer sélectionné, le type de prestation et les montants saisis. Une erreur à ce stade impacte directement :</p>
+          <strong>Checklist obligatoire :</strong>
           <ul style="margin: 8px 0 0 20px;">
-            <li>Le suivi commercial (mauvais client)</li>
-            <li>La facturation (montants erronés)</li>
-            <li>Les rapports financiers (données incorrectes)</li>
-            <li>La conformité fiscale (déclarations fausses)</li>
-          </ul>
-        </div>
-
-        <div style="background-color: #e8f4f8; padding: 16px; border-left: 4px solid #0275d8; margin-top: 14px;">
-          <strong>💡 Conseils pratiques :</strong>
-          <ul style="margin: 8px 0 0 20px;">
-            <li>Saisissez les montants <strong>sans caractères spéciaux</strong> (pas de €, pas de séparateurs de milliers)</li>
-            <li>Utilisez un <strong>format de date cohérent</strong> (JJ/MM/AAAA généralement)</li>
-            <li>Complétez la description avec <strong>un niveau de détail suffisant</strong> pour un tiers (collègue, auditeur)</li>
-            <li>Si la prestation a des conditions particulières, <strong>documentez-les dans les notes</strong></li>
-            <li>Vérifiez que la prestation apparaît bien dans la fiche foyer après enregistrement</li>
-          </ul>
-        </div>
-
-        <div style="background-color: #f0f8ff; padding: 16px; border-left: 4px solid #5bc0de; margin-top: 14px;">
-          <strong>ℹ️ Après enregistrement :</strong>
-          <p style="margin: 8px 0 8px 0;">Une fois la prestation créée, vous devriez voir :</p>
-          <ul style="margin: 8px 0 0 20px;">
-            <li>La prestation apparaître dans la liste des prestations du foyer</li>
-            <li>Le montant total du foyer se mettre à jour</li>
-            <li>Un historique de création enregistré pour traçabilité</li>
-            <li>La prestation disponible pour facturation et suivi</li>
+            <li>Bon foyer sélectionné</li>
+            <li>Bon type de prestation (Planifications, Fiscal, Investissements ou Autre)</li>
+            <li>Montant cohérent (pas de 0 involontaire)</li>
+            <li>Description claire pour lecture équipe/audit</li>
+            <li>Prestation visible après sauvegarde dans le dossier foyer</li>
           </ul>
         </div>
       </article>
@@ -962,7 +927,7 @@
         <ul style="margin: 20px 0 20px 20px;">
           <li>Visualiser tous les rendez-vous prévus par date</li>
           <li>Repérer rapidement les créneaux disponibles</li>
-          <li>Contrôler les actions à venir liées aux leads et foyers</li>
+          <li>Contrôler les actions à venir liées aux prospects et foyers</li>
           <li>Préparer la journée en priorisant les échéances proches</li>
         </ul>
       </article>
@@ -1010,7 +975,7 @@
         <ol class="step-list">
           <li>Depuis <strong>Activité</strong>, cliquez sur <strong>Nouvelle activité</strong></li>
           <li>Choisissez le type correspondant : <strong>Rendez-vous</strong> ou <strong>Appel</strong></li>
-          <li>Renseignez date, heure, lead/foyer concerné et objectif du contact</li>
+          <li>Renseignez date, heure, prospect/foyer concerné et objectif du contact</li>
           <li>Après l'échange, complétez le compte-rendu pour garder l'historique propre</li>
         </ol>
         <figure class="crm-screenshot-wrap" style="margin-top:16px;">
@@ -1045,10 +1010,10 @@
       </article>
     </section>
 
-    <!-- Section 05: Facturation & Prestations -->
+    <!-- Section 05: Facturation -->
     <section class="content-section" id="content-05">
       <header class="section-header">
-        <h1>05 — Facturation & Prestations</h1>
+        <h1>05 — Facturation</h1>
         <p class="section-intro">Gérez les prestations et générez automatiquement vos factures via l'intégration Bexio.</p>
       </header>
       <article class="subsection active" id="content-05-01">
@@ -1388,7 +1353,7 @@
                 <div class="fks-step-l"><div class="fks-step-n">1</div></div>
                 <div class="fks-step-r">
                   <div class="fks-step-title">Ouvrez la liste Foyers ou Clients dans Calaotrade</div>
-                  <div class="fks-step-desc">Connectez-vous à Calaotrade. Dans le menu à gauche, cliquez sur <strong>Foyers</strong> (ou <strong>Leads</strong> selon votre besoin). La liste de vos clients s'affiche avec toutes les colonnes.</div>
+                  <div class="fks-step-desc">Connectez-vous à Calaotrade. Dans le menu à gauche, cliquez sur <strong>Foyers</strong> (ou <strong>Prospects</strong> selon votre besoin). La liste de vos clients s'affiche avec toutes les colonnes.</div>
                 </div>
               </div>
 
@@ -2053,73 +2018,35 @@ Vous recevez cet email car vous faites partie de nos clients. Se désabonner : [
       </article>
     </section>
 
-    <!-- Section 08: Scénarios Complets -->
+    <!-- Section 08: Mises a jour application -->
     <section class="content-section" id="content-08">
       <header class="section-header">
-        <h1>08 — Scénarios Complets</h1>
-        <p class="section-intro">Exemples concrets et étape-par-étape pour maîtriser vos workflows clés.</p>
-      </header>
-
-      <article class="subsection active" id="content-08-01">
-        <h2>Parcours nouveau client</h2>
-        <p><strong>Scénario :</strong> Un lead vous contacte pour la première fois</p>
-        <ol style="margin: 20px 0 20px 20px;">
-          <li><strong>Créer le lead</strong> → Entrez ses infos et source</li>
-          <li><strong>Qualifier</strong> → Appel initial, comprendre besoins</li>
-          <li><strong>Envoyer devis</strong> → Proposez solution</li>
-          <li><strong>Relancer</strong> → Tâche automatique après 1 semaine</li>
-          <li><strong>Convertir</strong> → Client accepte, conversion en compte client</li>
-          <li><strong>Facturer</strong> → Créer première prestation/facture</li>
-        </ol>
-      </article>
-
-      <article class="subsection" id="content-08-02">
-        <h2>Gestion dossier complet</h2>
-        <p><strong>Scénario :</strong> Gérer un client avec plusieurs prestations</p>
-        <ol style="margin: 20px 0 20px 20px;">
-          <li><strong>Ouvrir ficher client</strong> → Voir vue d'ensemble</li>
-          <li><strong>Visualiser activité</strong> → Historique complet</li>
-          <li><strong>Voir prestations actives</strong> → État de chaque dossier</li>
-          <li><strong>Programmer RDV</strong> → Si suivi nécessaire</li>
-          <li><strong>Passer tâche</strong> → À collègue si handover</li>
-          <li><strong>Générer facture</strong> → Pour prestation complétée</li>
-        </ol>
-      </article>
-
-      <article class="subsection" id="content-08-03">
-        <h2>Workflow facturation</h2>
-        <p><strong>Scénario :</strong> Processus complet d'une facture Calaotrade</p>
-        <ol style="margin: 20px 0 20px 20px;">
-          <li><strong>Prestation en cours</strong> → À date de fin</li>
-          <li><strong>Générer facture</strong> → Depuis la prestation</li>
-          <li><strong>Réviser & confirmez</strong> → Vérifier montants/adresse</li>
-          <li><strong>Envoyer au client</strong> → Email de Calaotrade</li>
-          <li><strong>Mise à jour Bexio</strong> → Sync automatique de facture</li>
-          <li><strong>Suivi paiement</strong> → Rappel auto si retard</li>
-          <li><strong>Archivage</strong> → Une fois payée</li>
-        </ol>
-      </article>
-    </section>
-
-    <!-- Section 09: Mises a jour application -->
-    <section class="content-section" id="content-09">
-      <header class="section-header">
-        <h1>09 — Mises à jour application</h1>
+        <h1>08 — Mises à jour application</h1>
         <p class="section-intro">Journal des nouveautés du guide et de l'application, publiées comme des articles datés.</p>
       </header>
 
-      <article class="subsection active" id="content-09-01">
+      <article class="subsection active" id="content-08-01">
         <div class="release-hero">
           <div class="release-hero-badge">Centre de mises à jour <span class="release-new-pill" id="release-badge-hero" hidden>Nouveau</span></div>
           <h2 class="release-hero-title">Nouveautés publiées</h2>
-          <p class="release-hero-text">Chaque ajout doit apparaître comme un mini article : date, titre clair, changements et impact concret.</p>
           <div class="release-hero-actions">
             <button type="button" class="release-open-modal" id="release-open-modal">Mettre en avant la dernière mise à jour</button>
           </div>
         </div>
 
         <div class="release-feed">
-          <article class="release-card release-card-featured" data-release-date="2026-03-25">
+            <article class="release-card release-card-featured" data-release-date="2026-03-26">
+              <p class="release-meta"><strong>Publication :</strong> 26/03/2026</p>
+              <h3>Utilisation recommandée sur navigateur internet <span class="release-new-pill release-card-badge" hidden>Nouveau</span></h3>
+              <p>Pour un usage plus fluide au quotidien, il est actuellement recommandé d'utiliser Calaotrade directement dans un navigateur internet comme Chrome ou Edge.</p>
+              <ul>
+                <li>Le fonctionnement via navigateur est aujourd'hui le plus stable</li>
+                <li>Les versions installées en application Windows ou Apple via PWA peuvent parfois provoquer davantage de lenteurs</li>
+                <li>En cas de ralentissements, ouvrez simplement Calaotrade dans Chrome ou Edge au lieu de l'application installée</li>
+              </ul>
+            </article>
+
+            <article class="release-card" data-release-date="2026-03-25">
             <p class="release-meta"><strong>Publication :</strong> 25/03/2026</p>
             <h3>Recherche client par email et téléphone (onglet Contacts) <span class="release-new-pill release-card-badge" hidden>Nouveau</span></h3>
             <p>La recherche est disponible par email et téléphone, en France et en Suisse.</p>
@@ -2147,12 +2074,12 @@ Vous recevez cet email car vous faites partie de nos clients. Se désabonner : [
           <div class="release-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="release-modal-title">
             <button type="button" class="release-modal-close" id="release-close-modal" aria-label="Fermer">×</button>
             <p class="release-modal-tag">Dernière publication</p>
-            <h3 id="release-modal-title">25/03/2026 — Recherche client par email et téléphone</h3>
-            <p>Disponible dans l'onglet Contacts avec gestion des formats FR/CH et des variantes avec ou sans espaces.</p>
+            <h3 id="release-modal-title">26/03/2026 — Utilisation recommandée sur navigateur internet</h3>
+            <p>Pour limiter les lenteurs constatées sur certaines installations, il est préférable d'utiliser Calaotrade directement depuis un navigateur internet.</p>
             <ul>
-              <li>Formats acceptés : <code>+33</code>, <code>06</code>, <code>+41</code>, <code>79</code></li>
-              <li>Recherche possible avec ou sans espaces</li>
-              <li>Exemples : <code>+33 6 12 34 56 78</code>, <code>0612345678</code>, <code>+41 79 123 45 67</code>, <code>791234567</code></li>
+              <li>Privilégiez Chrome ou Edge pour un usage plus fluide</li>
+              <li>Les applications installées sous Windows ou Apple en mode PWA peuvent être plus lentes</li>
+              <li>Si vous utilisez déjà l'application installée, passez simplement par le navigateur en cas de besoin</li>
             </ul>
           </div>
         </div>
@@ -2513,16 +2440,16 @@ function navigateTo(sectionId, subsectionId) {
     /* Section 01 — CRM général */
     {
       keys: ['crm', 'calaotrade', 'url', 'accès', 'connexion', 'identifiant', 'adresse', 'site', 'lien', 'navigateur'],
-      answer: "Pour accéder au CRM :\n🔗 URL : https://app.calaotrade.fr/\n• Vos identifiants sont fournis par Finke Swiss\n• Aucune installation requise, tout est en ligne\n\nLes 8 modules disponibles : Accueil, Leads, Foyers, Activité, Messages, Agenda, Contacts, Statistiques."
+      answer: "Pour accéder au CRM :\n🔗 URL : https://app.calaotrade.fr/\n• Vos identifiants sont fournis par Finke Swiss\n• Aucune installation requise, tout est en ligne\n\nLes 8 modules disponibles : Accueil, Prospects, Foyers, Activité, Messages, Agenda, Contacts, Statistiques."
     },
     {
       keys: ['module', 'interface', 'navigation', 'menu', 'tableau de bord', 'kpi', 'accueil'],
-      answer: "L'interface Calaotrade comprend 8 modules :\n1. Accueil – KPIs & vue globale\n2. Leads – pipeline commercial\n3. Foyers – gestion clients\n4. Activité – tâches, appels, RDV\n5. Messages – communications\n6. Agenda – calendrier & RDV\n7. Contacts – répertoire\n8. Statistiques – reporting"
+      answer: "L'interface Calaotrade comprend 8 modules :\n1. Accueil – KPIs & vue globale\n2. Prospects – pipeline commercial\n3. Foyers – gestion clients\n4. Activité – tâches, appels, RDV\n5. Messages – communications\n6. Agenda – calendrier & RDV\n7. Contacts – répertoire\n8. Statistiques – reporting"
     },
     /* Section 02 — Leads */
     {
       keys: ['lead', 'créer un lead', 'nouveau lead', 'prospect', 'ajouter lead'],
-      answer: "Créer un lead :\n1. Module Leads → bouton « Nouveau »\n2. Remplir : Type = Lead, étape commerciale\n3. Identité : civilité / nom / prénom (*obligatoires)\n4. Coordonnées : téléphone, email\n\nPipeline : Nouveau → Qualification → Proposition → Négociation → Client"
+      answer: "Créer un prospect :\n1. Module Prospects → bouton « Nouveau »\n2. Remplir : Type = Prospect, étape commerciale\n3. Identité : civilité / nom / prénom (*obligatoires)\n4. Coordonnées : téléphone, email\n\nPipeline : Nouveau → Qualification → Proposition → Négociation → Client"
     },
     {
       keys: ['pipeline', 'étape commerciale', 'qualification', 'proposition', 'négociation', 'bant'],
@@ -2530,7 +2457,7 @@ function navigateTo(sectionId, subsectionId) {
     },
     {
       keys: ['scoring', 'score', 'chaud', 'tiède', 'froid', 'qualité lead'],
-      answer: "Scoring des leads :\n🔴 Froid – plusieurs champs manquants\n🟡 Tiède – un champ manquant\n🟢 Chaud – fiche complète\n\nComplétez toujours les informations pour augmenter le score."
+      answer: "Scoring des prospects :\n🔴 Froid – plusieurs champs manquants\n🟡 Tiède – un champ manquant\n🟢 Chaud – fiche complète\n\nComplétez toujours les informations pour augmenter le score."
     },
     /* Section 03 — Foyers */
     {
@@ -2539,11 +2466,11 @@ function navigateTo(sectionId, subsectionId) {
     },
     {
       keys: ['conversion', 'convertir', 'lead en foyer', 'changer type', 'passer foyer'],
-      answer: "Convertir un lead en foyer :\n1. Ouvrir la fiche du lead\n2. Section « À PROPOS » → champ Type*\n3. Changer « Lead » → « Foyer »\n4. Cliquer OK → Enregistrer\n\nLe foyer apparaît ensuite dans le module Foyers."
+      answer: "Convertir un prospect en foyer :\n1. Ouvrir la fiche du prospect\n2. Section « À PROPOS » → champ Type*\n3. Changer « Prospect » → « Foyer »\n4. Cliquer OK → Enregistrer\n\nLe foyer apparaît ensuite dans le module Foyers."
     },
     {
       keys: ['segmentation', 'secteur', 'statut', 'actif', 'inactif', 'responsable', 'filtrer'],
-      answer: "Segmentation des foyers :\n• Par secteur d'activité\n• Par chiffre d'affaires\n• Par statut : actif / lead qualifié / inactif\n• Par responsable commercial\n\nUtilisez les filtres dans le module Foyers pour retrouver rapidement vos clients."
+      answer: "Segmentation des foyers :\n• Par secteur d'activité\n• Par chiffre d'affaires\n• Par statut : actif / prospect qualifié / inactif\n• Par responsable commercial\n\nUtilisez les filtres dans le module Foyers pour retrouver rapidement vos clients."
     },
     /* Section 04 — Activité */
     {
@@ -2582,7 +2509,7 @@ function navigateTo(sectionId, subsectionId) {
     },
     {
       keys: ['export', 'csv', 'exporter', 'télécharger liste', 'exporter contacts'],
-      answer: "Exporter les contacts Calaotrade :\n1. Menu → Foyers (ou Leads)\n2. Cliquer sur la flèche ↓ bleue (haut droite)\n3. Message « Export terminé » → fichier Clients_JJ-MM-AAAA.csv dans Téléchargements\n\nCe fichier contient tous vos foyers avec emails, pour import dans l'outil emailing."
+      answer: "Exporter les contacts Calaotrade :\n1. Menu → Foyers (ou Prospects)\n2. Cliquer sur la flèche ↓ bleue (haut droite)\n3. Message « Export terminé » → fichier Clients_JJ-MM-AAAA.csv dans Téléchargements\n\nCe fichier contient tous vos foyers avec emails, pour import dans l'outil emailing."
     },
     {
       keys: ['import outlook', 'contacts outlook', 'groupe outlook', 'importer contacts', 'clients finke'],
@@ -2601,32 +2528,19 @@ function navigateTo(sectionId, subsectionId) {
       keys: ['synchronisation', 'google calendar', 'double booking', 'sync calendrier', 'bidirectionnel'],
       answer: "Synchronisation calendrier Calaobooking :\n• Synchronisation bidirectionnelle Google Calendar\n• Synchronisation bidirectionnelle Outlook\n• Aucun double booking possible\n• Les modifications dans le CRM mettent automatiquement à jour le calendrier\n• L'invitation contient les infos client Calaotrade"
     },
-    /* Section 08 — Scénarios */
-    {
-      keys: ['nouveau client', 'parcours', 'scénario', 'workflow', 'processus', 'étapes'],
-      answer: "Parcours nouveau client (scénario complet) :\n1. Créer le lead → infos + source d'acquisition\n2. Qualifier → appel initial, comprendre les besoins\n3. Envoyer devis → proposer une solution\n4. Relancer → tâche automatique après 1 semaine\n5. Convertir → acceptation, conversion en compte client\n6. Facturer → créer la première prestation/facture"
-    },
-    {
-      keys: ['gestion dossier', 'plusieurs prestations', 'handover', 'passer tâche', 'collègue'],
-      answer: "Gestion dossier client complet :\n1. Ouvrir fiche client → vue d'ensemble\n2. Voir historique → activité complète\n3. Voir prestations actives → état de chaque dossier\n4. Programmer RDV si suivi nécessaire\n5. Passer tâche à un collègue si handover\n6. Générer facture pour prestation complétée"
-    },
-    {
-      keys: ['workflow facturation', 'processus facture', 'envoi facture', 'paiement', 'archivage', 'rappel paiement'],
-      answer: "Workflow facturation complet :\n1. Prestation en cours → à la date de fin\n2. Générer la facture depuis la prestation\n3. Réviser et confirmer montants + adresse\n4. Envoyer au client (email depuis Calaotrade)\n5. Mise à jour Bexio → synchronisation automatique\n6. Suivi paiement → rappel auto si retard\n7. Archivage → une fois la facture payée"
-    }
   ];
 
   /* Suggestions proposées à l'ouverture */
   var SUGGESTIONS = [
-    'Comment créer un lead ?',
+    'Comment créer un prospect ?',
     'Comment connecter Outlook ?',
     'Comment facturer un client ?',
     'Exporter des contacts CSV',
-    'Convertir un lead en foyer',
+    'Convertir un prospect en foyer',
     'Synchroniser le calendrier'
   ];
 
-  var MSG_FALLBACK = "Je n'ai pas trouvé de réponse précise à votre question. 🤔\n\nEssayez des mots-clés comme : lead, foyer, facturation, emailing, agenda, booking, conversion...\n\nOu consultez directement la section correspondante dans le guide.";
+  var MSG_FALLBACK = "Je n'ai pas trouvé de réponse précise à votre question. 🤔\n\nEssayez des mots-clés comme : prospect, foyer, facturation, emailing, agenda, booking, conversion...\n\nOu consultez directement la section correspondante dans le guide.";
 
   /* ── Initialisation DOM ── */
   var btn       = document.getElementById('fk-chat-btn');
@@ -2644,7 +2558,7 @@ function navigateTo(sectionId, subsectionId) {
       panel.classList.add('fk-open');
       input.focus();
       if (!messages.children.length) {
-        addMsg('bot', "Bonjour 👋 Je suis l'assistant Finke Swiss.\nPosez-moi vos questions sur Calaotrade CRM — leads, foyers, facturation, emailing, agenda…");
+        addMsg('bot', "Bonjour 👋 Je suis l'assistant Finke Swiss.\nPosez-moi vos questions sur Calaotrade CRM — prospects, foyers, facturation, emailing, agenda…");
         renderSuggestions();
       }
     } else {

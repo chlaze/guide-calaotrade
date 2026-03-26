@@ -238,7 +238,7 @@ header:not(.section-header) {
   text-overflow: ellipsis;
 }
 
-.sidebar-headline[data-section="09"] .sidebar-title {
+.sidebar-headline[data-section="08"] .sidebar-title {
   flex: 1;
   min-width: 0;
   white-space: nowrap;
@@ -2385,7 +2385,7 @@ footer span {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
 }
 
-/* ===== RELEASES / UPDATES (SECTION 09) ===== */
+/* ===== RELEASES / UPDATES (SECTION 08) ===== */
 .release-hero {
   margin-bottom: 16px;
   padding: 20px;
@@ -2449,7 +2449,7 @@ footer span {
   animation: releasePulse 1.8s infinite;
 }
 
-.sidebar-headline[data-section="09"] > .updates-count-badge {
+.sidebar-headline[data-section="08"] > .updates-count-badge {
   flex-shrink: 0;
   margin-left: 2px;
 }
@@ -2494,16 +2494,26 @@ footer span {
 .release-feed {
   display: grid;
   gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .release-card {
+  position: relative;
   padding: 16px;
   border-radius: 12px;
   border: 1px solid rgba(15, 30, 53, 0.16);
   background: #fff;
+  box-shadow: 0 10px 24px rgba(15, 30, 53, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.release-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px rgba(15, 30, 53, 0.1);
 }
 
 .release-card-featured {
+  grid-column: 1 / -1;
   border-color: rgba(201, 168, 76, 0.5);
   box-shadow: 0 8px 22px rgba(15, 30, 53, 0.08);
 }
@@ -2522,6 +2532,7 @@ footer span {
 .release-card h3 {
   margin: 0 0 8px;
   color: #0f1e35;
+  line-height: 1.35;
 }
 
 .release-card p {
@@ -2530,6 +2541,11 @@ footer span {
 
 .release-card ul {
   margin: 10px 0 0 20px;
+  color: #364a67;
+}
+
+.release-card ul li + li {
+  margin-top: 6px;
 }
 
 .release-modal {
@@ -2601,6 +2617,7 @@ footer span {
   .crm-interface-grid { grid-template-columns: 1fr; }
   .crm-onglets-grid { grid-template-columns: 1fr; }
   .crm-step-tab { font-size: 11px; padding: 6px 10px; }
+  .release-feed { grid-template-columns: 1fr; }
   .release-modal-dialog { padding: 18px; }
 }
 @media (max-width: 600px) {
