@@ -634,10 +634,9 @@ function initializeReleaseSubscription() {
   const btn = document.getElementById('newsletter-subscribe-btn');
   if (!form || !emailInput || !feedback) return;
 
-  const brevoFormUrl = (form.getAttribute('data-brevo-form-url') || '').trim();
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  form.addEventListener('submit', async function(e) {
+  form.addEventListener('submit', function(e) {
     e.preventDefault();
 
     const email = emailInput.value.trim();
@@ -647,25 +646,20 @@ function initializeReleaseSubscription() {
       return;
     }
 
-    if (!brevoFormUrl) {
-      feedback.textContent = 'Abonnement temporairement indisponible.';
-      return;
-    }
-
-    if (btn) { btn.disabled = true; btn.textContent = '…'; }
+    if (btn) { btn.disabled = true; btn.textContent = '\u2026'; }
 
     try {
-      const body = new URLSearchParams({ EMAIL: email, email_address_check: '', locale: 'fr' });
-      await fetch(brevoFormUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: body.toString(),
-        mode: 'no-cors'
-      });
-      feedback.textContent = '✓ Inscription enregistrée ! Vous recevrez les prochaines mises à jour.';
+      if (window.Brevo && typeof window.Brevo.push === 'function') {
+        window.Brevo.push(['identify', { email: email }]);
+      } else if (window.sendinblue && typeof window.sendinblue.identify === 'function') {
+        window.sendinblue.identify(email);
+      } else {
+        throw new Error('Brevo SDK not loaded');
+      }
+      feedback.textContent = '\u2713 Inscription enregistr\u00e9e ! Vous recevrez les prochaines mises \u00e0 jour.';
       form.reset();
-    } catch (_err) {
-      feedback.textContent = 'Erreur de connexion. Réessayez dans un moment.';
+    } catch (_e) {
+      feedback.textContent = 'Erreur. R\u00e9essayez dans un moment.';
     } finally {
       if (btn) { btn.disabled = false; btn.textContent = "S'abonner"; }
     }
