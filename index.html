@@ -2059,22 +2059,20 @@ Vous recevez cet email car vous faites partie de nos clients. Se désabonner : [
           </div>
         </div>
 
-        <aside class="release-subscribe-panel" aria-label="Abonnement aux mises a jour">
-          <h3>Abonnement gratuit aux mises a jour</h3>
-          <p>Cette methode ne demande aucun cout supplementaire : utilisez le flux RSS directement dans Outlook ou un lecteur RSS gratuit pour recevoir les nouvelles publications.</p>
-          <div class="release-subscribe-actions">
-            <a href="updates.xml" class="release-subscribe-link" target="_blank" rel="noopener" id="open-rss-feed">Ouvrir le flux RSS</a>
-            <button type="button" class="release-subscribe-copy" id="copy-rss-link">Copier le lien du flux</button>
-          </div>
-          <p class="release-subscribe-help" id="rss-copy-feedback" aria-live="polite"></p>
-          <details class="release-subscribe-steps">
-            <summary>Configuration rapide (3 etapes)</summary>
-            <ol>
-              <li>Ajoutez les nouveaux articles dans cette section (Mises a jour).</li>
-              <li>Mettez a jour le fichier <code>updates.xml</code> avec le nouvel article.</li>
-              <li>Dans Outlook ou un lecteur RSS, ajoutez l'URL du flux pour suivre automatiquement les nouveautes.</li>
-            </ol>
-          </details>
+        <aside class="release-subscribe-panel" aria-label="Abonnement newsletter">
+          <h3>Recevoir les mises à jour par email</h3>
+          <p>Votre adresse sera enregistrée automatiquement. Un email vous sera envoyé à chaque nouvelle publication.</p>
+          <!-- data-brevo-form-url : collez ici l'URL sibforms.com de votre formulaire Brevo -->
+          <form class="newsletter-subscribe-form" id="newsletter-subscribe-form"
+                data-brevo-form-url="" novalidate>
+            <div class="newsletter-subscribe-row">
+              <label for="newsletter-email-input" class="sr-only">Adresse email</label>
+              <input type="email" id="newsletter-email-input" name="EMAIL"
+                     placeholder="votre@email.com" required autocomplete="email">
+              <button type="submit" class="release-subscribe-link" id="newsletter-subscribe-btn">S'abonner</button>
+            </div>
+          </form>
+          <p class="release-subscribe-help" id="newsletter-subscribe-feedback" aria-live="polite"></p>
         </aside>
 
         <div class="release-feed">

@@ -628,37 +628,47 @@ function initializeReleaseBadges() {
 }
 
 function initializeReleaseSubscription() {
-  const copyBtn = document.getElementById('copy-rss-link');
-  const openLink = document.getElementById('open-rss-feed');
-  const feedback = document.getElementById('rss-copy-feedback');
-  if (!copyBtn || !openLink || !feedback) return;
+  const form = document.getElementById('newsletter-subscribe-form');
+  const emailInput = document.getElementById('newsletter-email-input');
+  const feedback = document.getElementById('newsletter-subscribe-feedback');
+  const btn = document.getElementById('newsletter-subscribe-btn');
+  if (!form || !emailInput || !feedback) return;
 
-  const rssUrl = new URL('updates.xml', window.location.href).href;
+  const brevoFormUrl = (form.getAttribute('data-brevo-form-url') || '').trim();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const setFeedback = (message) => {
-    feedback.textContent = message;
-  };
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
 
-  copyBtn.addEventListener('click', async function() {
-    try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(rssUrl);
-      } else {
-        const helperInput = document.createElement('input');
-        helperInput.value = rssUrl;
-        document.body.appendChild(helperInput);
-        helperInput.select();
-        document.execCommand('copy');
-        document.body.removeChild(helperInput);
-      }
-      setFeedback('Lien du flux copie. Vous pouvez le coller dans Outlook ou un lecteur RSS gratuit.');
-    } catch (error) {
-      setFeedback('Copie impossible automatiquement. Utilisez le bouton Ouvrir le flux RSS.');
+    const email = emailInput.value.trim();
+    if (!emailRegex.test(email)) {
+      feedback.textContent = 'Veuillez saisir une adresse email valide.';
+      emailInput.focus();
+      return;
     }
-  });
 
-  openLink.addEventListener('click', function() {
-    setFeedback('Flux RSS ouvert. Ajoutez cette URL dans Outlook ou votre lecteur RSS.');
+    if (!brevoFormUrl) {
+      feedback.textContent = 'Abonnement temporairement indisponible.';
+      return;
+    }
+
+    if (btn) { btn.disabled = true; btn.textContent = '…'; }
+
+    try {
+      const body = new URLSearchParams({ EMAIL: email, email_address_check: '', locale: 'fr' });
+      await fetch(brevoFormUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString(),
+        mode: 'no-cors'
+      });
+      feedback.textContent = '✓ Inscription enregistrée ! Vous recevrez les prochaines mises à jour.';
+      form.reset();
+    } catch (_err) {
+      feedback.textContent = 'Erreur de connexion. Réessayez dans un moment.';
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = "S'abonner"; }
+    }
   });
 }
 
