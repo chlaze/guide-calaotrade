@@ -627,6 +627,41 @@ function initializeReleaseBadges() {
   }
 }
 
+function initializeReleaseSubscription() {
+  const copyBtn = document.getElementById('copy-rss-link');
+  const openLink = document.getElementById('open-rss-feed');
+  const feedback = document.getElementById('rss-copy-feedback');
+  if (!copyBtn || !openLink || !feedback) return;
+
+  const rssUrl = new URL('updates.xml', window.location.href).href;
+
+  const setFeedback = (message) => {
+    feedback.textContent = message;
+  };
+
+  copyBtn.addEventListener('click', async function() {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(rssUrl);
+      } else {
+        const helperInput = document.createElement('input');
+        helperInput.value = rssUrl;
+        document.body.appendChild(helperInput);
+        helperInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(helperInput);
+      }
+      setFeedback('Lien du flux copie. Vous pouvez le coller dans Outlook ou un lecteur RSS gratuit.');
+    } catch (error) {
+      setFeedback('Copie impossible automatiquement. Utilisez le bouton Ouvrir le flux RSS.');
+    }
+  });
+
+  openLink.addEventListener('click', function() {
+    setFeedback('Flux RSS ouvert. Ajoutez cette URL dans Outlook ou votre lecteur RSS.');
+  });
+}
+
 document.addEventListener('click', function(e) {
   const sidebar = document.querySelector('.sidebar');
   const toggleBtn = document.querySelector('.hamburger-toggle');
@@ -663,6 +698,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initializeSmartImageLoading();
   initializeReleaseModal();
   initializeReleaseBadges();
+  initializeReleaseSubscription();
 
   activateSubsection(GUIDE_START_SUBSECTION, false, false);
   updateResumeButton();

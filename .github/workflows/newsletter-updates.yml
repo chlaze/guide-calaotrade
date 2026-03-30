@@ -1,0 +1,71 @@
+name: Send updates newsletter
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'updates.xml'
+
+jobs:
+  send-newsletter:
+    # Runs only when SMTP/account secrets are configured.
+    if: ${{ secrets.NEWSLETTER_SMTP_USERNAME != '' && secrets.NEWSLETTER_SMTP_PASSWORD != '' && secrets.NEWSLETTER_TO != '' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract latest update from RSS
+        id: latest
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+
+          const xml = fs.readFileSync('updates.xml', 'utf8');
+          const firstItem = xml.match(/<item>([\s\S]*?)<\/item>/);
+
+          const fallback = {
+            title: 'Nouvelle mise a jour disponible',
+            description: 'Une nouvelle publication est disponible dans le guide CRM.',
+            link: 'index.html#content-08-01'
+          };
+
+          function extract(tag, source) {
+            const re = new RegExp(`<${tag}>([\\s\\S]*?)<\\/${tag}>`);
+            const match = source.match(re);
+            return match ? match[1].replace(/\s+/g, ' ').trim() : '';
+          }
+
+          const itemSource = firstItem ? firstItem[1] : '';
+          const title = extract('title', itemSource) || fallback.title;
+          const description = extract('description', itemSource) || fallback.description;
+          const link = extract('link', itemSource) || fallback.link;
+
+          const output = process.env.GITHUB_OUTPUT;
+          fs.appendFileSync(output, `title=${title}\n`);
+          fs.appendFileSync(output, `description=${description}\n`);
+          fs.appendFileSync(output, `link=${link}\n`);
+          NODE
+
+      - name: Send newsletter email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.office365.com
+          server_port: 587
+          secure: false
+          username: ${{ secrets.NEWSLETTER_SMTP_USERNAME }}
+          password: ${{ secrets.NEWSLETTER_SMTP_PASSWORD }}
+          subject: "[Guide CRM] ${{ steps.latest.outputs.title }}"
+          to: ${{ secrets.NEWSLETTER_TO }}
+          from: "Finke CRM <${{ secrets.NEWSLETTER_SMTP_USERNAME }}>"
+          html_body: |
+            <h2>Nouvelle mise a jour CRM</h2>
+            <p><strong>${{ steps.latest.outputs.title }}</strong></p>
+            <p>${{ steps.latest.outputs.description }}</p>
+            <p>
+              <a href="https://chlaze.github.io/guide-calaotrade/">Ouvrir le guide</a><br>
+              <a href="https://chlaze.github.io/guide-calaotrade/${{ steps.latest.outputs.link }}">Voir la mise a jour</a>
+            </p>
+            <hr>
+            <p style="font-size:12px;color:#666;">Email automatique envoye lors d'une publication dans l'onglet Mises a jour.</p>

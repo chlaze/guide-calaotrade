@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Finke CRM - Mises a jour application</title>
+    <link>index.html</link>
+    <description>Flux RSS des nouveautes publiees dans l'onglet Mises a jour</description>
+    <language>fr-fr</language>
+    <lastBuildDate>Mon, 30 Mar 2026 09:00:00 +0100</lastBuildDate>
+
+    <item>
+      <title>Utilisation recommandee sur navigateur internet</title>
+      <link>index.html#content-08-01</link>
+      <guid isPermaLink="false">release-2026-03-26-browser</guid>
+      <pubDate>Thu, 26 Mar 2026 09:00:00 +0100</pubDate>
+      <description>Pour un usage plus stable, il est recommande d'utiliser Calaotrade dans Chrome ou Edge.</description>
+    </item>
+
+    <item>
+      <title>Recherche client par email et telephone (onglet Contacts)</title>
+      <link>index.html#content-08-01</link>
+      <guid isPermaLink="false">release-2026-03-25-contacts-search</guid>
+      <pubDate>Wed, 25 Mar 2026 09:00:00 +0100</pubDate>
+      <description>La recherche client fonctionne avec plusieurs formats email et telephone, France et Suisse.</description>
+    </item>
+
+    <item>
+      <title>Mise a jour contact foyer : reenregistrement obligatoire</title>
+      <link>index.html#content-08-01</link>
+      <guid isPermaLink="false">release-2026-03-25-household-save</guid>
+      <pubDate>Wed, 25 Mar 2026 09:00:00 +0100</pubDate>
+      <description>Apres modification du nom ou prenom d'un contact, reenregistrer le foyer pour synchroniser le nom.</description>
+    </item>
+
+    <item>
+      <title>Refus de rendez-vous : application mobile requise</title>
+      <link>index.html#content-08-01</link>
+      <guid isPermaLink="false">release-2026-03-25-push-mobile</guid>
+      <pubDate>Wed, 25 Mar 2026 09:00:00 +0100</pubDate>
+      <description>Les refus de rendez-vous sont notifies en push mobile uniquement.</description>
+    </item>
+  </channel>
+</rss>

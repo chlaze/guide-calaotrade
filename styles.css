@@ -2475,6 +2475,79 @@ footer span {
   margin-top: 14px;
 }
 
+.release-subscribe-panel {
+  margin: 0 0 16px;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(15, 30, 53, 0.14);
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(15, 30, 53, 0.04);
+}
+
+.release-subscribe-panel h3 {
+  margin: 0 0 8px;
+  color: #0f1e35;
+}
+
+.release-subscribe-panel p {
+  margin: 0;
+  color: #364a67;
+}
+
+.release-subscribe-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.release-subscribe-link,
+.release-subscribe-copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 8px 12px;
+  border-radius: 9px;
+  border: 1px solid rgba(15, 30, 53, 0.24);
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.release-subscribe-link {
+  background: #0f1e35;
+  color: #f2e2b1;
+}
+
+.release-subscribe-copy {
+  background: #fff;
+  color: #0f1e35;
+}
+
+.release-subscribe-help {
+  margin-top: 8px;
+  min-height: 22px;
+  font-size: 13px;
+  color: #174074;
+}
+
+.release-subscribe-steps {
+  margin-top: 10px;
+}
+
+.release-subscribe-steps summary {
+  cursor: pointer;
+  color: #0f1e35;
+  font-weight: 700;
+}
+
+.release-subscribe-steps ol {
+  margin: 10px 0 0 20px;
+  color: #364a67;
+}
+
 .release-open-modal {
   border: 1px solid rgba(15, 30, 53, 0.24);
   background: #0f1e35;
@@ -2619,6 +2692,9 @@ footer span {
   .crm-step-tab { font-size: 11px; padding: 6px 10px; }
   .release-feed { grid-template-columns: 1fr; }
   .release-modal-dialog { padding: 18px; }
+  .release-subscribe-actions { flex-direction: column; }
+  .release-subscribe-link,
+  .release-subscribe-copy { width: 100%; }
 }
 @media (max-width: 600px) {
   .crm-modules-grid { grid-template-columns: repeat(2, 1fr); }

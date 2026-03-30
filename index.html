@@ -6,6 +6,7 @@
 <title>Guide utilisateur CRM Calaotrade | Finke Swiss</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<link rel="alternate" type="application/rss+xml" title="Finke CRM - Mises a jour" href="updates.xml">
 </head>
 <body>
 
@@ -2057,6 +2058,24 @@ Vous recevez cet email car vous faites partie de nos clients. Se désabonner : [
             <button type="button" class="release-open-modal" id="release-open-modal">Mettre en avant la dernière mise à jour</button>
           </div>
         </div>
+
+        <aside class="release-subscribe-panel" aria-label="Abonnement aux mises a jour">
+          <h3>Abonnement gratuit aux mises a jour</h3>
+          <p>Cette methode ne demande aucun cout supplementaire : utilisez le flux RSS directement dans Outlook ou un lecteur RSS gratuit pour recevoir les nouvelles publications.</p>
+          <div class="release-subscribe-actions">
+            <a href="updates.xml" class="release-subscribe-link" target="_blank" rel="noopener" id="open-rss-feed">Ouvrir le flux RSS</a>
+            <button type="button" class="release-subscribe-copy" id="copy-rss-link">Copier le lien du flux</button>
+          </div>
+          <p class="release-subscribe-help" id="rss-copy-feedback" aria-live="polite"></p>
+          <details class="release-subscribe-steps">
+            <summary>Configuration rapide (3 etapes)</summary>
+            <ol>
+              <li>Ajoutez les nouveaux articles dans cette section (Mises a jour).</li>
+              <li>Mettez a jour le fichier <code>updates.xml</code> avec le nouvel article.</li>
+              <li>Dans Outlook ou un lecteur RSS, ajoutez l'URL du flux pour suivre automatiquement les nouveautes.</li>
+            </ol>
+          </details>
+        </aside>
 
         <div class="release-feed">
             <article class="release-card release-card-featured" data-release-date="2026-03-26">
