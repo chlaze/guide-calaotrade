@@ -1,14 +1,29 @@
-name: Send updates newsletter
+name: Newsletter admin pipeline
 
 on:
   push:
     branches: [main]
     paths:
       - 'updates.xml'
+      - 'newsletter-admin.json'
+  workflow_dispatch:
+    inputs:
+      force_send:
+        description: "Send even if autoSendOnUpdates is false"
+        required: false
+        default: false
+        type: boolean
+      custom_subject:
+        description: "Optional subject override"
+        required: false
+        type: string
+      custom_html:
+        description: "Optional HTML override"
+        required: false
+        type: string
 
 jobs:
   send-newsletter:
-    # Requires BREVO_API_KEY secret + BREVO_LIST_ID and BREVO_SENDER_EMAIL variables
     if: ${{ secrets.BREVO_API_KEY != '' }}
     runs-on: ubuntu-latest
 
@@ -16,54 +31,154 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Extract latest update from RSS
-        id: latest
+      - name: Build campaign payload from admin config
+        id: payload
+        env:
+          FORCE_SEND: ${{ github.event.inputs.force_send || 'false' }}
+          CUSTOM_SUBJECT: ${{ github.event.inputs.custom_subject || '' }}
+          CUSTOM_HTML: ${{ github.event.inputs.custom_html || '' }}
         run: |
           node <<'NODE'
           const fs = require('fs');
+
+          function escapeHtml(value) {
+            return String(value || '')
+              .replace(/&/g, '&amp;')
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;')
+              .replace(/"/g, '&quot;')
+              .replace(/'/g, '&#39;');
+          }
+
+          function getFirstTag(source, tag) {
+            const match = source.match(new RegExp('<' + tag + '>([\\s\\S]*?)<\\/' + tag + '>'));
+            return match ? match[1].replace(/\s+/g, ' ').trim() : '';
+          }
+
           const xml = fs.readFileSync('updates.xml', 'utf8');
           const firstItem = xml.match(/<item>([\s\S]*?)<\/item>/);
-          function extract(tag, src) {
-            const m = src.match(new RegExp('<' + tag + '>([\\s\\S]*?)<\/' + tag + '>'));
-            return m ? m[1].replace(/\s+/g, ' ').trim() : '';
+          const itemSource = firstItem ? firstItem[1] : '';
+
+          const titleRaw = getFirstTag(itemSource, 'title') || 'Nouvelle mise a jour CRM';
+          const descriptionRaw = getFirstTag(itemSource, 'description') || 'Une nouvelle publication est disponible.';
+          const linkRaw = getFirstTag(itemSource, 'link') || '#content-08-01';
+
+          const title = escapeHtml(titleRaw);
+          const description = escapeHtml(descriptionRaw);
+          const updateLink = linkRaw.startsWith('http')
+            ? linkRaw
+            : 'https://chlaze.github.io/guide-calaotrade/' + String(linkRaw).replace(/^\//, '');
+          const guideLink = 'https://chlaze.github.io/guide-calaotrade/';
+
+          let config = {};
+          if (fs.existsSync('newsletter-admin.json')) {
+            config = JSON.parse(fs.readFileSync('newsletter-admin.json', 'utf8'));
           }
-          const src = firstItem ? firstItem[1] : '';
-          const title = extract('title', src) || 'Nouvelle mise a jour CRM';
-          const description = extract('description', src) || 'Une nouvelle publication est disponible.';
+
+          const enabled = config.enabled !== false;
+          const autoSendOnUpdates = config.autoSendOnUpdates !== false;
+          const senderName = config.senderName || 'Finke CRM';
+          const senderEmail = config.senderEmail || '';
+          const listId = String(config.listId || '');
+
+          const defaultSubject = '[Guide CRM] {{title}}';
+          const defaultHtml = "<h2 style='color:#0f1e35'>{{title}}</h2><p>{{description}}</p><p><a href='{{updateLink}}' style='color:#c9a84c'>Voir la mise a jour</a></p><p><a href='{{guideLink}}'>Ouvrir le guide complet</a></p><hr><p style='font-size:12px;color:#666'>Vous recevez cet email car vous etes abonne aux mises a jour.</p>";
+
+          const subjectTemplate = process.env.CUSTOM_SUBJECT || config.subjectTemplate || defaultSubject;
+          const htmlTemplate = process.env.CUSTOM_HTML || config.htmlTemplate || defaultHtml;
+
+          const replaceVars = (input) => String(input)
+            .replace(/{{title}}/g, title)
+            .replace(/{{description}}/g, description)
+            .replace(/{{updateLink}}/g, updateLink)
+            .replace(/{{guideLink}}/g, guideLink);
+
+          const subject = replaceVars(subjectTemplate);
+          const htmlContent = replaceVars(htmlTemplate);
+
+          const skipOnPush = process.env.GITHUB_EVENT_NAME === 'push' && !autoSendOnUpdates;
+          const forced = String(process.env.FORCE_SEND || '').toLowerCase() === 'true';
+          const shouldSend = enabled && (!skipOnPush || forced);
+
           const out = process.env.GITHUB_OUTPUT;
-          fs.appendFileSync(out, 'title=' + title + '\n');
-          fs.appendFileSync(out, 'description=' + description + '\n');
+          fs.appendFileSync(out, 'should_send=' + (shouldSend ? 'true' : 'false') + '\n');
+          fs.appendFileSync(out, 'subject=' + subject + '\n');
+          fs.appendFileSync(out, 'html_content<<EOF\n' + htmlContent + '\nEOF\n');
+          fs.appendFileSync(out, 'sender_name=' + senderName + '\n');
+          fs.appendFileSync(out, 'sender_email=' + senderEmail + '\n');
+          fs.appendFileSync(out, 'list_id=' + listId + '\n');
           NODE
 
-      - name: Create Brevo email campaign
+      - name: Stop when newsletter is disabled
+        if: steps.payload.outputs.should_send != 'true'
+        run: |
+          echo "Newsletter disabled or auto send turned off. No email sent."
+
+      - name: Validate required settings
+        if: steps.payload.outputs.should_send == 'true'
+        env:
+          CFG_SENDER_EMAIL: ${{ steps.payload.outputs.sender_email }}
+          CFG_LIST_ID: ${{ steps.payload.outputs.list_id }}
+          VAR_SENDER_EMAIL: ${{ vars.BREVO_SENDER_EMAIL }}
+          VAR_LIST_ID: ${{ vars.BREVO_LIST_ID }}
+        run: |
+          SENDER_EMAIL="${CFG_SENDER_EMAIL:-$VAR_SENDER_EMAIL}"
+          LIST_ID="${CFG_LIST_ID:-$VAR_LIST_ID}"
+          if [ -z "$SENDER_EMAIL" ]; then
+            echo "Missing sender email. Set newsletter-admin.json senderEmail or vars.BREVO_SENDER_EMAIL"
+            exit 1
+          fi
+          if [ -z "$LIST_ID" ]; then
+            echo "Missing list id. Set newsletter-admin.json listId or vars.BREVO_LIST_ID"
+            exit 1
+          fi
+
+      - name: Create Brevo campaign
+        if: steps.payload.outputs.should_send == 'true'
         id: campaign
         env:
           BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
-          BREVO_LIST_ID: ${{ vars.BREVO_LIST_ID }}
-          BREVO_SENDER_EMAIL: ${{ vars.BREVO_SENDER_EMAIL }}
-          TITLE: ${{ steps.latest.outputs.title }}
-          DESC: ${{ steps.latest.outputs.description }}
+          SUBJECT: ${{ steps.payload.outputs.subject }}
+          HTML_CONTENT: ${{ steps.payload.outputs.html_content }}
+          CFG_SENDER_NAME: ${{ steps.payload.outputs.sender_name }}
+          CFG_SENDER_EMAIL: ${{ steps.payload.outputs.sender_email }}
+          CFG_LIST_ID: ${{ steps.payload.outputs.list_id }}
+          VAR_SENDER_EMAIL: ${{ vars.BREVO_SENDER_EMAIL }}
+          VAR_LIST_ID: ${{ vars.BREVO_LIST_ID }}
         run: |
-          RESPONSE=$(curl -s -X POST "https://api.brevo.com/v3/emailCampaigns" \
+          SENDER_NAME="${CFG_SENDER_NAME:-Finke CRM}"
+          SENDER_EMAIL="${CFG_SENDER_EMAIL:-$VAR_SENDER_EMAIL}"
+          LIST_ID="${CFG_LIST_ID:-$VAR_LIST_ID}"
+          export SENDER_NAME SENDER_EMAIL LIST_ID
+
+          node <<'NODE'
+          const fs = require('fs');
+          const payload = {
+            name: process.env.SUBJECT,
+            subject: process.env.SUBJECT,
+            sender: { name: process.env.SENDER_NAME || 'Finke CRM', email: process.env.SENDER_EMAIL },
+            type: 'classic',
+            htmlContent: process.env.HTML_CONTENT,
+            recipients: { listIds: [Number(process.env.LIST_ID)] }
+          };
+          fs.writeFileSync('brevo-campaign.json', JSON.stringify(payload));
+          NODE
+
+          RESPONSE=$(curl -sf -X POST "https://api.brevo.com/v3/emailCampaigns" \
             -H "api-key: $BREVO_API_KEY" \
             -H "Content-Type: application/json" \
-            -d "{
-              \"name\": \"[Guide CRM] $TITLE\",
-              \"subject\": \"[Guide CRM] $TITLE\",
-              \"sender\": {\"name\": \"Finke CRM\", \"email\": \"$BREVO_SENDER_EMAIL\"},
-              \"type\": \"classic\",
-              \"htmlContent\": \"<h2 style='color:#0f1e35'>$TITLE</h2><p>$DESC</p><p><a href='https://chlaze.github.io/guide-calaotrade/' style='color:#c9a84c'>Voir la mise a jour sur le guide</a></p><hr><p style='font-size:12px;color:#666'>Finke CRM - Vous recevez cet email car vous etes abonne aux mises a jour.</p>\",
-              \"recipients\": {\"listIds\": [$BREVO_LIST_ID]}
-            }")
-          CAMPAIGN_ID=$(echo $RESPONSE | node -e "let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>console.log(JSON.parse(d).id))")
-          echo "campaign_id=$CAMPAIGN_ID" >> $GITHUB_OUTPUT
+            --data @brevo-campaign.json)
 
-      - name: Send Brevo campaign immediately
+          CAMPAIGN_ID=$(echo "$RESPONSE" | node -e "let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>console.log(JSON.parse(d).id))")
+          echo "campaign_id=$CAMPAIGN_ID" >> "$GITHUB_OUTPUT"
+
+      - name: Send campaign now
+        if: steps.payload.outputs.should_send == 'true'
         env:
           BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
           CAMPAIGN_ID: ${{ steps.campaign.outputs.campaign_id }}
         run: |
-          curl -s -X POST "https://api.brevo.com/v3/emailCampaigns/$CAMPAIGN_ID/sendNow" \
+          curl -sf -X POST "https://api.brevo.com/v3/emailCampaigns/$CAMPAIGN_ID/sendNow" \
             -H "api-key: $BREVO_API_KEY" \
             -H "Content-Type: application/json"
-          echo "Campaign $CAMPAIGN_ID sent to Brevo list"
+          echo "Campaign $CAMPAIGN_ID sent"
