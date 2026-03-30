@@ -651,6 +651,7 @@ function initializeReleaseSubscription() {
     try {
       if (window.Brevo && typeof window.Brevo.push === 'function') {
         window.Brevo.push(['identify', { email: email }]);
+        window.Brevo.push(['track', 'newsletter_subscribed', { email: email }]);
       } else if (window.sendinblue && typeof window.sendinblue.identify === 'function') {
         window.sendinblue.identify(email);
       } else {
