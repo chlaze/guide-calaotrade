@@ -1,25 +1,6 @@
 const GUIDE_START_SUBSECTION = '01-01';
 const GUIDE_STORAGE_KEY = 'fks-last-subsection';
 let guideSearchIndex = [];
-let newsletterAdminConfigPromise;
-
-function loadNewsletterAdminConfig() {
-  if (newsletterAdminConfigPromise) return newsletterAdminConfigPromise;
-
-  newsletterAdminConfigPromise = fetch('newsletter-admin.json', { cache: 'no-store' })
-    .then(function(response) {
-      if (!response.ok) throw new Error('admin config unavailable');
-      return response.json();
-    })
-    .catch(function() {
-      return {
-        brevoSubscriptionFormUrl: '',
-        enabled: true
-      };
-    });
-
-  return newsletterAdminConfigPromise;
-}
 
 function closeMobileSidebar() {
   if (window.innerWidth >= 900) return;
@@ -654,7 +635,6 @@ function initializeReleaseSubscription() {
   if (!form || !emailInput || !feedback) return;
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const adminConfigPromise = loadNewsletterAdminConfig();
 
   form.addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -669,17 +649,8 @@ function initializeReleaseSubscription() {
     if (btn) { btn.disabled = true; btn.textContent = '\u2026'; }
 
     try {
-      const adminConfig = await adminConfigPromise;
-      if (adminConfig && adminConfig.enabled === false) {
-        feedback.textContent = 'Les inscriptions newsletter sont temporairement desactivees.';
-        return;
-      }
-
       const urlFromForm = (form.getAttribute('data-brevo-form-url') || '').trim();
-      const urlFromAdmin = adminConfig && adminConfig.brevoSubscriptionFormUrl
-        ? String(adminConfig.brevoSubscriptionFormUrl).trim()
-        : '';
-      const brevoFormUrl = urlFromForm || urlFromAdmin;
+      const brevoFormUrl = urlFromForm;
       const hasBrevoForm = brevoFormUrl && brevoFormUrl.indexOf('FORM_ID_ICI') === -1;
 
       if (hasBrevoForm) {
@@ -725,6 +696,164 @@ document.addEventListener('click', function(e) {
   }
 });
 
+// ═══════════════════════════════════════════════════════════════
+// ADMIN PANEL
+// Déclencheur : cliquer 5× sur le footer en moins de 2 secondes
+// Mot de passe par défaut : Finke2026  (SHA-256 stocké ci-dessous)
+// ═══════════════════════════════════════════════════════════════
+const ADMIN_PWD_HASH = '3a3558b54a62bf4adb9d8978071e9428f6fbda2d03add52510f2b87f3f879c1c';
+
+let adminUnlocked = false;
+let _adminClickCount = 0;
+let _adminClickTimer = null;
+
+async function adminSha256(text) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+function adminEsc(str) {
+  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function adminIsoDate() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+function adminShowStatus(msg, type) {
+  const el = document.getElementById('admin-status');
+  if (!el) return;
+  el.textContent = msg;
+  el.className = 'admin-status admin-status-' + type;
+  el.hidden = false;
+}
+
+function adminGetPoints() {
+  return Array.from(document.querySelectorAll('.admin-point-input')).map(i => i.value.trim()).filter(Boolean);
+}
+
+function adminAddPointRow() {
+  const list = document.getElementById('admin-points-list');
+  if (!list) return;
+  const row = document.createElement('div');
+  row.className = 'admin-point-row';
+  row.innerHTML = '<input type="text" class="admin-point-input" placeholder="Point clé…" /><button type="button" class="admin-point-remove" title="Supprimer">×</button>';
+  row.querySelector('.admin-point-remove').addEventListener('click', () => { row.remove(); adminRefreshPreview(); });
+  row.querySelector('.admin-point-input').addEventListener('input', adminRefreshPreview);
+  list.appendChild(row);
+  row.querySelector('input').focus();
+}
+
+function adminRefreshPreview() {
+  const title = (document.getElementById('admin-title')||{}).value || '(titre)';
+  const desc  = (document.getElementById('admin-desc')||{}).value || '(description)';
+  const date  = (document.getElementById('admin-date')||{}).value || '—';
+  const pts   = adminGetPoints();
+  const listHtml = pts.length ? '<ul>' + pts.map(p => `<li>${adminEsc(p)}</li>`).join('') + '</ul>' : '';
+  const preview = document.getElementById('admin-preview');
+  if (preview) preview.innerHTML = `<article class="release-card release-card-featured"><p class="release-meta"><strong>Publication :</strong> ${adminEsc(date)}</p><h3>${adminEsc(title)}</h3><p>${adminEsc(desc)}</p>${listHtml}</article>`;
+}
+
+async function adminHandlePublish() {
+  const title = ((document.getElementById('admin-title')||{}).value||'').trim();
+  const desc  = ((document.getElementById('admin-desc')||{}).value||'').trim();
+  const date  = ((document.getElementById('admin-date')||{}).value||'').trim();
+  const pts   = adminGetPoints();
+  if (!title) { adminShowStatus('Renseignez le titre.', 'error'); return; }
+  if (!desc)  { adminShowStatus('Renseignez la description.', 'error'); return; }
+
+  // Build a JSON payload for the local publish script
+  const payload = JSON.stringify({ title, description: desc, date, points: pts }, null, 2);
+
+  try {
+    await navigator.clipboard.writeText(payload);
+    adminShowStatus('✓ Données copiées ! Collez dans _pending-update.json puis lancez la tâche VS Code « 📢 Publier mise à jour + newsletter ».', 'success');
+  } catch (e) {
+    // Fallback: show a copyable textarea
+    adminShowStatus('Copiez le JSON ci-dessous, collez-le dans _pending-update.json, puis lancez la tâche VS Code.', 'pending');
+    const pre = document.createElement('pre');
+    pre.style.cssText = 'background:#1e1e1e;color:#d4d4d4;padding:8px;border-radius:4px;font-size:12px;max-height:150px;overflow:auto;margin-top:8px;user-select:all;';
+    pre.textContent = payload;
+    document.getElementById('admin-status').after(pre);
+  }
+}
+
+async function adminHandleLogin() {
+  const pwd = ((document.getElementById('admin-pwd-input')||{}).value||'');
+  const err = document.getElementById('admin-login-error');
+  if (!pwd) { if (err) err.textContent = 'Saisissez votre mot de passe.'; return; }
+  const hash = await adminSha256(pwd);
+  if (hash !== ADMIN_PWD_HASH) { if (err) err.textContent = 'Mot de passe incorrect.'; return; }
+  adminUnlocked = true;
+  if (err) err.textContent = '';
+  document.getElementById('admin-login-screen').hidden = true;
+  document.getElementById('admin-dashboard').hidden = false;
+  const d = new Date();
+  document.getElementById('admin-date').value = `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
+  document.getElementById('admin-points-list').innerHTML = '';
+  adminAddPointRow();
+  adminRefreshPreview();
+}
+
+function adminLogout() {
+  adminUnlocked = false;
+  const p = document.getElementById('admin-panel');
+  if (!p) return;
+  p.querySelector('#admin-login-screen').hidden = false;
+  p.querySelector('#admin-dashboard').hidden = true;
+  const pwd = p.querySelector('#admin-pwd-input');
+  if (pwd) pwd.value = '';
+  const er = p.querySelector('#admin-login-error');
+  if (er) er.textContent = '';
+}
+
+function initializeAdminPanel() {
+  const footer = document.querySelector('footer');
+  if (footer) {
+    footer.addEventListener('click', function() {
+      _adminClickCount++;
+      clearTimeout(_adminClickTimer);
+      _adminClickTimer = setTimeout(() => { _adminClickCount = 0; }, 2000);
+      if (_adminClickCount >= 5) {
+        _adminClickCount = 0;
+        const panel = document.getElementById('admin-panel');
+        if (panel) panel.hidden = false;
+      }
+    });
+  }
+
+  const closePanel = () => {
+    const p = document.getElementById('admin-panel');
+    if (p) p.hidden = true;
+  };
+
+  const closeBtn  = document.getElementById('admin-close-btn');
+  const overlay   = document.getElementById('admin-overlay');
+  const loginBtn  = document.getElementById('admin-login-btn');
+  const logoutBtn = document.getElementById('admin-logout-btn');
+  const pwdInput  = document.getElementById('admin-pwd-input');
+  const addPtBtn  = document.getElementById('admin-add-point-btn');
+  const pubBtn    = document.getElementById('admin-publish-btn');
+
+  if (closeBtn)  closeBtn.addEventListener('click', closePanel);
+  if (overlay)   overlay.addEventListener('click', closePanel);
+  if (loginBtn)  loginBtn.addEventListener('click', adminHandleLogin);
+  if (logoutBtn) logoutBtn.addEventListener('click', adminLogout);
+  if (pubBtn)    pubBtn.addEventListener('click', adminHandlePublish);
+  if (addPtBtn)  addPtBtn.addEventListener('click', adminAddPointRow);
+  if (pwdInput)  pwdInput.addEventListener('keydown', e => { if (e.key === 'Enter') adminHandleLogin(); });
+
+  ['admin-title','admin-desc','admin-date'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', adminRefreshPreview);
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && document.getElementById('admin-panel') && !document.getElementById('admin-panel').hidden) closePanel();
+  });
+}
+
 window.handleGuideNavigationState = handleGuideNavigationState;
 
 document.addEventListener('finke:navigation-change', function(event) {
@@ -747,6 +876,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initializeReleaseModal();
   initializeReleaseBadges();
   initializeReleaseSubscription();
+  initializeAdminPanel();
 
   activateSubsection(GUIDE_START_SUBSECTION, false, false);
   updateResumeButton();

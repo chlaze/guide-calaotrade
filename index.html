@@ -2074,7 +2074,7 @@ Vous recevez cet email car vous faites partie de nos clients. Se désabonner : [
         <aside class="release-subscribe-panel" aria-label="Abonnement newsletter">
           <h3>Recevoir les mises à jour par email</h3>
           <p>Votre adresse sera enregistrée automatiquement. Un email vous sera envoyé à chaque nouvelle publication.</p>
-          <form class="newsletter-subscribe-form" id="newsletter-subscribe-form" data-brevo-form-url="" novalidate>
+          <form class="newsletter-subscribe-form" id="newsletter-subscribe-form" data-brevo-form-url="https://b24e3195.sibforms.com/serve/MUIFAExHgkUYKdxcT0PisBfawotm12oW_fEITcXxALSveS8gzchJgtO6oTZokcaxzIe7SB4o0G38w5olgZOBPVdrBa2WKssLf8E3PJq1ypQpJnnEOKCJrRQxKdFECKK797OHtfmNO2UB0A1AFef4rEkKvnDy71hNF5AkLWu0UvVlUjuf5HnYswBYln46MTsIR9ieLkv37R9dA_pShg==" novalidate>
             <div class="newsletter-subscribe-row">
               <label for="newsletter-email-input" class="sr-only">Adresse email</label>
               <input type="email" id="newsletter-email-input" name="EMAIL"
@@ -2144,6 +2144,59 @@ Vous recevez cet email car vous faites partie de nos clients. Se désabonner : [
 <footer>
   <p>© 2026 <span>Finke Swiss</span> — Documentation interne · CRM Calaotrade</p>
 </footer>
+
+<!-- ═══ ADMIN PANEL — invisible du public ═══ -->
+<div id="admin-panel" hidden aria-modal="true" aria-label="Administration">
+  <div class="admin-overlay" id="admin-overlay"></div>
+  <div class="admin-dialog" role="dialog">
+    <button type="button" class="admin-close-btn" id="admin-close-btn" aria-label="Fermer">×</button>
+
+    <!-- Écran de connexion -->
+    <div id="admin-login-screen">
+      <h2 class="admin-dialog-title">⚙️ Administration</h2>
+      <div class="admin-login-form">
+        <label class="admin-label">Mot de passe
+          <input type="password" id="admin-pwd-input" autocomplete="off" />
+        </label>
+        <p id="admin-login-error" class="admin-error" aria-live="polite"></p>
+        <button type="button" id="admin-login-btn" class="admin-btn admin-btn-primary">Connexion</button>
+      </div>
+    </div>
+
+    <!-- Dashboard admin -->
+    <div id="admin-dashboard" hidden>
+      <div class="admin-dashboard-header">
+        <h2 class="admin-dialog-title">⚙️ Nouvelle mise à jour</h2>
+        <button type="button" id="admin-logout-btn" class="admin-btn admin-btn-ghost">Déconnexion</button>
+      </div>
+      <div class="admin-form">
+        <label class="admin-label">Titre
+          <input type="text" id="admin-title" placeholder="Ex : Nouvelle fonctionnalité agenda" />
+        </label>
+        <label class="admin-label">Description
+          <textarea id="admin-desc" rows="3" placeholder="Une ou deux phrases de résumé…"></textarea>
+        </label>
+        <label class="admin-label">Date
+          <input type="text" id="admin-date" placeholder="JJ/MM/AAAA" />
+        </label>
+        <div class="admin-label">Points clés <span class="admin-optional">(optionnel)</span>
+          <div id="admin-points-list"></div>
+          <button type="button" id="admin-add-point-btn" class="admin-btn admin-btn-ghost admin-btn-sm">+ Ajouter un point</button>
+        </div>
+      </div>
+      <div class="admin-preview-wrap">
+        <p class="admin-preview-label">Aperçu carte</p>
+        <div id="admin-preview"></div>
+      </div>
+      <div class="admin-publish-row">
+        <p id="admin-status" class="admin-status" hidden aria-live="polite"></p>
+        <button type="button" id="admin-publish-btn" class="admin-btn admin-btn-primary admin-btn-publish">📋 Copier la commande de publication</button>
+        <p class="admin-hint">Ou lancez la tâche VS Code : <strong>📢 Publier mise à jour + newsletter</strong></p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="script.js"></script>
 <script>
 /* ════════════════════════════════════════

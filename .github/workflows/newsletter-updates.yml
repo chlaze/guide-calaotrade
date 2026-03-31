@@ -4,12 +4,12 @@ on:
   push:
     branches: [main]
     paths:
+      - 'index.html'
       - 'updates.xml'
-      - 'newsletter-admin.json'
   workflow_dispatch:
     inputs:
       force_send:
-        description: "Send even if autoSendOnUpdates is false"
+        description: "Send even if auto send on push is disabled"
         required: false
         default: false
         type: boolean
@@ -37,6 +37,13 @@ jobs:
           FORCE_SEND: ${{ github.event.inputs.force_send || 'false' }}
           CUSTOM_SUBJECT: ${{ github.event.inputs.custom_subject || '' }}
           CUSTOM_HTML: ${{ github.event.inputs.custom_html || '' }}
+          NEWSLETTER_ENABLED: ${{ vars.NEWSLETTER_ENABLED || 'true' }}
+          NEWSLETTER_AUTO_SEND_ON_PUSH: ${{ vars.NEWSLETTER_AUTO_SEND_ON_PUSH || 'true' }}
+          NEWSLETTER_SENDER_NAME: 'FINKE SWISS'
+          NEWSLETTER_SENDER_EMAIL: 'chloe.mendes@finkeswiss.ch'
+          NEWSLETTER_LIST_ID: '2'
+          NEWSLETTER_SUBJECT_TEMPLATE: ${{ vars.NEWSLETTER_SUBJECT_TEMPLATE || '' }}
+          NEWSLETTER_HTML_TEMPLATE: ${{ vars.NEWSLETTER_HTML_TEMPLATE || '' }}
         run: |
           node <<'NODE'
           const fs = require('fs');
@@ -55,43 +62,101 @@ jobs:
             return match ? match[1].replace(/\s+/g, ' ').trim() : '';
           }
 
+          function stripHtml(value) {
+            return String(value || '')
+              .replace(/<[^>]+>/g, ' ')
+              .replace(/\s+/g, ' ')
+              .trim();
+          }
+
+          function parseBool(value, defaultValue) {
+            if (value === undefined || value === null || String(value).trim() === '') return defaultValue;
+            const normalized = String(value).trim().toLowerCase();
+            if (normalized === '1' || normalized === 'true' || normalized === 'yes' || normalized === 'on') return true;
+            if (normalized === '0' || normalized === 'false' || normalized === 'no' || normalized === 'off') return false;
+            return defaultValue;
+          }
+
+          function extractLatestFromIndex(source) {
+            const sectionMatch = source.match(/<section[^>]*id="content-08"[\\s\\S]*?<\/section>/i);
+            const sectionSource = sectionMatch ? sectionMatch[0] : source;
+            const cardMatch = sectionSource.match(/<article[^>]*class="[^"]*release-card[^"]*"[^>]*>([\\s\\S]*?)<\/article>/i);
+            if (!cardMatch) return null;
+
+            const cardSource = cardMatch[1];
+            const titleMatch = cardSource.match(/<h3[^>]*>([\\s\\S]*?)<\/h3>/i);
+            const paragraphMatch = cardSource.match(/<p[^>]*>([\\s\\S]*?)<\/p>/i);
+            const listBlockMatch = cardSource.match(/<ul[^>]*>([\\s\\S]*?)<\/ul>/i);
+
+            const rawTitle = stripHtml(titleMatch ? titleMatch[1] : '');
+            const rawDescription = stripHtml(paragraphMatch ? paragraphMatch[1] : '');
+
+            let highlightsHtml = '';
+            if (listBlockMatch) {
+              const itemRegex = /<li[^>]*>([\\s\\S]*?)<\/li>/gi;
+              const items = [];
+              let itemMatch;
+              while ((itemMatch = itemRegex.exec(listBlockMatch[1])) !== null) {
+                const text = stripHtml(itemMatch[1]);
+                if (text) items.push('<li>' + escapeHtml(text) + '</li>');
+              }
+              if (items.length > 0) {
+                highlightsHtml = '<ul>' + items.join('') + '</ul>';
+              }
+            }
+
+            if (!rawTitle) return null;
+
+            return {
+              titleRaw: rawTitle,
+              descriptionRaw: rawDescription || 'Une nouvelle publication est disponible.',
+              linkRaw: '#content-08-01',
+              highlightsHtml: highlightsHtml
+            };
+          }
+
           const xml = fs.readFileSync('updates.xml', 'utf8');
           const firstItem = xml.match(/<item>([\s\S]*?)<\/item>/);
           const itemSource = firstItem ? firstItem[1] : '';
 
-          const titleRaw = getFirstTag(itemSource, 'title') || 'Nouvelle mise a jour CRM';
-          const descriptionRaw = getFirstTag(itemSource, 'description') || 'Une nouvelle publication est disponible.';
-          const linkRaw = getFirstTag(itemSource, 'link') || '#content-08-01';
+          const xmlTitleRaw = getFirstTag(itemSource, 'title') || 'Nouvelle mise a jour CRM';
+          const xmlDescriptionRaw = getFirstTag(itemSource, 'description') || 'Une nouvelle publication est disponible.';
+          const xmlLinkRaw = getFirstTag(itemSource, 'link') || '#content-08-01';
+
+          const indexSource = fs.existsSync('index.html') ? fs.readFileSync('index.html', 'utf8') : '';
+          const latestFromIndex = indexSource ? extractLatestFromIndex(indexSource) : null;
+
+          const titleRaw = latestFromIndex ? latestFromIndex.titleRaw : xmlTitleRaw;
+          const descriptionRaw = latestFromIndex ? latestFromIndex.descriptionRaw : xmlDescriptionRaw;
+          const linkRaw = latestFromIndex ? latestFromIndex.linkRaw : xmlLinkRaw;
+          const highlightsHtml = latestFromIndex ? latestFromIndex.highlightsHtml : '';
 
           const title = escapeHtml(titleRaw);
           const description = escapeHtml(descriptionRaw);
+          const highlights = highlightsHtml || '<p style="margin:0">Consultez l\'onglet 8 pour le detail complet.</p>';
           const updateLink = linkRaw.startsWith('http')
             ? linkRaw
             : 'https://chlaze.github.io/guide-calaotrade/' + String(linkRaw).replace(/^\//, '');
           const guideLink = 'https://chlaze.github.io/guide-calaotrade/';
 
-          let config = {};
-          if (fs.existsSync('newsletter-admin.json')) {
-            config = JSON.parse(fs.readFileSync('newsletter-admin.json', 'utf8'));
-          }
-
-          const enabled = config.enabled !== false;
-          const autoSendOnUpdates = config.autoSendOnUpdates !== false;
-          const senderName = config.senderName || 'Finke CRM';
-          const senderEmail = config.senderEmail || '';
-          const listId = String(config.listId || '');
+          const enabled = parseBool(process.env.NEWSLETTER_ENABLED, true);
+          const autoSendOnUpdates = parseBool(process.env.NEWSLETTER_AUTO_SEND_ON_PUSH, true);
+          const senderName = process.env.NEWSLETTER_SENDER_NAME || 'Finke CRM';
+          const senderEmail = process.env.NEWSLETTER_SENDER_EMAIL || '';
+          const listId = String(process.env.NEWSLETTER_LIST_ID || '');
 
           const defaultSubject = '[Guide CRM] {{title}}';
-          const defaultHtml = "<h2 style='color:#0f1e35'>{{title}}</h2><p>{{description}}</p><p><a href='{{updateLink}}' style='color:#c9a84c'>Voir la mise a jour</a></p><p><a href='{{guideLink}}'>Ouvrir le guide complet</a></p><hr><p style='font-size:12px;color:#666'>Vous recevez cet email car vous etes abonne aux mises a jour.</p>";
+          const defaultHtml = "<h2 style='color:#0f1e35'>{{title}}</h2><p>{{description}}</p>{{highlightsHtml}}<p><a href='{{updateLink}}' style='color:#c9a84c'>Voir la mise a jour</a></p><p><a href='{{guideLink}}'>Ouvrir le guide complet</a></p><hr><p style='font-size:12px;color:#666'>Vous recevez cet email car vous etes abonne aux mises a jour.</p>";
 
-          const subjectTemplate = process.env.CUSTOM_SUBJECT || config.subjectTemplate || defaultSubject;
-          const htmlTemplate = process.env.CUSTOM_HTML || config.htmlTemplate || defaultHtml;
+          const subjectTemplate = process.env.CUSTOM_SUBJECT || process.env.NEWSLETTER_SUBJECT_TEMPLATE || defaultSubject;
+          const htmlTemplate = process.env.CUSTOM_HTML || process.env.NEWSLETTER_HTML_TEMPLATE || defaultHtml;
 
           const replaceVars = (input) => String(input)
             .replace(/{{title}}/g, title)
             .replace(/{{description}}/g, description)
             .replace(/{{updateLink}}/g, updateLink)
-            .replace(/{{guideLink}}/g, guideLink);
+            .replace(/{{guideLink}}/g, guideLink)
+            .replace(/{{highlightsHtml}}/g, highlights);
 
           const subject = replaceVars(subjectTemplate);
           const htmlContent = replaceVars(htmlTemplate);
@@ -119,17 +184,15 @@ jobs:
         env:
           CFG_SENDER_EMAIL: ${{ steps.payload.outputs.sender_email }}
           CFG_LIST_ID: ${{ steps.payload.outputs.list_id }}
-          VAR_SENDER_EMAIL: ${{ vars.BREVO_SENDER_EMAIL }}
-          VAR_LIST_ID: ${{ vars.BREVO_LIST_ID }}
         run: |
-          SENDER_EMAIL="${CFG_SENDER_EMAIL:-$VAR_SENDER_EMAIL}"
-          LIST_ID="${CFG_LIST_ID:-$VAR_LIST_ID}"
+          SENDER_EMAIL="${CFG_SENDER_EMAIL:-chloe.mendes@finkeswiss.ch}"
+          LIST_ID="${CFG_LIST_ID:-2}"
           if [ -z "$SENDER_EMAIL" ]; then
-            echo "Missing sender email. Set newsletter-admin.json senderEmail or vars.BREVO_SENDER_EMAIL"
+            echo "Missing sender email. Set vars.NEWSLETTER_SENDER_EMAIL or vars.BREVO_SENDER_EMAIL"
             exit 1
           fi
           if [ -z "$LIST_ID" ]; then
-            echo "Missing list id. Set newsletter-admin.json listId or vars.BREVO_LIST_ID"
+            echo "Missing list id. Set vars.NEWSLETTER_LIST_ID or vars.BREVO_LIST_ID"
             exit 1
           fi
 
@@ -143,12 +206,10 @@ jobs:
           CFG_SENDER_NAME: ${{ steps.payload.outputs.sender_name }}
           CFG_SENDER_EMAIL: ${{ steps.payload.outputs.sender_email }}
           CFG_LIST_ID: ${{ steps.payload.outputs.list_id }}
-          VAR_SENDER_EMAIL: ${{ vars.BREVO_SENDER_EMAIL }}
-          VAR_LIST_ID: ${{ vars.BREVO_LIST_ID }}
         run: |
-          SENDER_NAME="${CFG_SENDER_NAME:-Finke CRM}"
-          SENDER_EMAIL="${CFG_SENDER_EMAIL:-$VAR_SENDER_EMAIL}"
-          LIST_ID="${CFG_LIST_ID:-$VAR_LIST_ID}"
+          SENDER_NAME="${CFG_SENDER_NAME:-FINKE SWISS}"
+          SENDER_EMAIL="${CFG_SENDER_EMAIL:-chloe.mendes@finkeswiss.ch}"
+          LIST_ID="${CFG_LIST_ID:-2}"
           export SENDER_NAME SENDER_EMAIL LIST_ID
 
           node <<'NODE'
