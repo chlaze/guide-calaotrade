@@ -60,6 +60,20 @@
 			],
 			"isBackground": false,
 			"group": "build"
+		},
+		{
+			"label": "📢 Publier mise à jour + newsletter",
+			"type": "shell",
+			"command": "node",
+			"args": ["_publish-update.js"],
+			"isBackground": false,
+			"group": "build",
+			"presentation": {
+				"reveal": "always",
+				"focus": true,
+				"panel": "new"
+			},
+			"problemMatcher": []
 		}
 	]
 }

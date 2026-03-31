@@ -1,16 +1,16 @@
-# Newsletter gratuite (sans Brevo)
+# Newsletter avec admin prive
 
-Cette configuration envoie automatiquement un email a chaque nouvelle mise a jour publiee, via GitHub Actions + SMTP Outlook/Microsoft 365.
+Cette configuration envoie automatiquement un email quand vous mettez a jour l'onglet 8.
+Le pilotage admin est prive: il se fait dans GitHub (variables/secrets), pas dans un fichier public du site.
 
 ## Principe
 
-- Vous publiez comme d'habitude sur `main`.
-- Si `updates.xml` (ou `index.html`) change, GitHub lance un workflow.
-- Le workflow envoie un email automatique a la liste d'abonnes.
+- Le public voit uniquement le formulaire d'abonnement.
+- Vous gardez les parametres admin dans GitHub `Settings`.
+- A chaque `push` sur `main` avec changement de `index.html` ou `updates.xml`, le workflow envoie la newsletter.
+- Le contenu email est construit depuis la premiere carte `release-card` de l'onglet 8 (fallback RSS si besoin).
 
-Aucun abonnement externe (Brevo/Feedly) n'est necessaire.
-
-## 1) Ajouter les secrets GitHub
+## 1) Configurer les secrets GitHub
 
 Dans le repository GitHub:
 
@@ -18,31 +18,52 @@ Dans le repository GitHub:
 
 Ajoutez:
 
-- `NEWSLETTER_SMTP_USERNAME` : adresse Outlook/M365 qui envoie les emails (ex: `newsletter@votre-domaine.com`)
-- `NEWSLETTER_SMTP_PASSWORD` : mot de passe du compte SMTP (ou mot de passe d'application si requis)
-- `NEWSLETTER_TO` : liste des destinataires, separes par virgules
+- `BREVO_API_KEY` : cle API Brevo (obligatoire)
 
-Exemple `NEWSLETTER_TO`:
+## 2) Configurer les variables admin privees
 
-`prenom1@domaine.com,prenom2@domaine.com,prenom3@domaine.com`
+Dans GitHub:
 
-## 2) Publier une mise a jour
+`Settings` -> `Secrets and variables` -> `Actions` -> `Variables` -> `New repository variable`
 
-1. Ajouter/modifier la carte de mise a jour dans `index.html`
-2. Ajouter l'item correspondant en tete de `updates.xml`
+Variables recommandees:
+
+- `NEWSLETTER_ENABLED` : `true` ou `false`
+- `NEWSLETTER_AUTO_SEND_ON_PUSH` : `true` ou `false`
+- `NEWSLETTER_SENDER_NAME` : ex `Finke CRM`
+- `NEWSLETTER_SENDER_EMAIL` : email expediteur valide
+- `NEWSLETTER_LIST_ID` : ID numerique de la liste Brevo
+
+Variables optionnelles:
+
+- `NEWSLETTER_SUBJECT_TEMPLATE` : ex `[Guide CRM] {{title}}`
+- `NEWSLETTER_HTML_TEMPLATE` : template HTML (supporte `{{title}}`, `{{description}}`, `{{updateLink}}`, `{{guideLink}}`, `{{highlightsHtml}}`)
+
+Compatibilite ancienne config:
+
+- `BREVO_SENDER_EMAIL` et `BREVO_LIST_ID` restent acceptes en fallback.
+
+## 3) Formulaire public d'abonnement
+
+Le formulaire dans `index.html` utilise l'attribut:
+
+- `data-brevo-form-url` sur `#newsletter-subscribe-form`
+
+Mettez ici votre URL de formulaire Brevo publiee.
+
+Si vide, le script tente un fallback via le SDK Brevo present sur la page.
+
+## 4) Publier une mise a jour
+
+1. Modifier la premiere carte de nouveaute dans l'onglet 8 de `index.html`
+2. Mettre a jour l'item en tete de `updates.xml`
 3. Commit + push sur `main`
 
-Le workflow `.github/workflows/newsletter-updates.yml` s'executera et enverra l'email.
+Le workflow `.github/workflows/newsletter-updates.yml` enverra la campagne automatiquement.
 
-## 3) Test rapide
+## 5) Envoi manuel (admin)
 
-- Faites une petite modification dans `updates.xml`
-- Push sur `main`
-- Verifiez `Actions` dans GitHub
-- Confirmez la reception de l'email
+Depuis `Actions` -> workflow `Newsletter admin pipeline` -> `Run workflow`:
 
-## Remarques
-
-- Cette solution est gratuite cote outils externes.
-- Le cout eventuel depend uniquement de votre licence Microsoft 365 existante.
-- Si SMTP est bloque, il faut autoriser SMTP AUTH sur la boite d'envoi.
+- `force_send=true` pour envoyer meme si auto-send est desactive
+- `custom_subject` et `custom_html` pour override ponctuel
