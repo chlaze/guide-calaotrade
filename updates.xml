@@ -5,7 +5,31 @@
     <link>index.html</link>
     <description>Flux RSS des nouveautes publiees dans l'onglet Mises a jour</description>
     <language>fr-fr</language>
-    <lastBuildDate>Mon, 30 Mar 2026 09:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 16 Apr 2026 09:00:00 +0100</lastBuildDate>
+
+        <item>
+      <title>PUBLIER UNE MISE À JOUR (onglet 8)</title>
+      <link>index.html#content-08-01</link>
+      <guid isPermaLink="false">release-2026-04-16-c95s6</guid>
+      <pubDate>Thu, 16 Apr 2026 11:40:22 GMT</pubDate>
+      <description>DIFFéRENTES AMELIORATIONS</description>
+    </item>
+
+    <item>
+      <title>Refonte des formulaires : clic pour editer + ameliorations Calaotrade</title>
+      <link>index.html#content-08-01</link>
+      <guid isPermaLink="false">release-2026-04-16-click-to-edit</guid>
+      <pubDate>Thu, 16 Apr 2026 09:00:00 +0100</pubDate>
+      <description>Refonte des formulaires (clic pour passer en edition), amelioration des latences, suppression auto des RDV sur changement de statut, notifications email RDV, optimisation mobile, apercu Outlook enrichi, ajustements Finke (production, canal acquisition, nationalites, etc.).</description>
+    </item>
+
+    <item>
+      <title>Assistance bug Calaotrade</title>
+      <link>index.html#content-08-01</link>
+      <guid isPermaLink="false">release-2026-04-07-bug-assistance</guid>
+      <pubDate>Mon, 07 Apr 2026 09:00:00 +0100</pubDate>
+      <description>En cas de bug ou de problème, contactez Calaotrade au +33 4 70 59 59 73. Un conseiller vous assistera directement sur votre poste de travail.</description>
+    </item>
 
     <item>
       <title>Utilisation recommandee sur navigateur internet</title>
